@@ -1,0 +1,398 @@
+/* timeline-cards.css - Enhanced design with merged card styles */
+.timeline-content {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: block;
+    overflow: visible !important;
+    background: transparent !important;
+    opacity: 1;
+    clip-path: none;
+    transition: none;
+}
+
+.timeline-header {
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    height: 100%;
+}
+
+.folded-years-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    padding: 20px;
+    position: absolute;
+    top: 50%; /* Changed from 50% to 50% */
+    left: 50%;
+    transform: translate(-50%, -50%); /* This centers it perfectly */
+    width: calc(5 * 120px); /* 5 cards * (100px width + 20px gap) */
+    border-radius: 12px;
+    background: transparent;
+    box-shadow: none;
+    z-index: 5;
+    pointer-events: auto;
+}
+
+.timeline-years {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* position: relative; */
+    margin: 0;
+    z-index: 10; /* Above the folded years */
+}
+
+/* Enhanced year card design */
+.year-card {
+    width: 220px;
+    height: 320px;
+    background: #3405a3;
+    border-radius: 15px;
+    box-shadow: 1px 5px 60px 0px #100a886b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: absolute;
+    z-index: 20;
+    overflow: hidden;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* SVG background for cards */
+.card-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+    z-index: 1;
+}
+
+/* Wave animations for active cards */
+.wave {
+    position: absolute;
+    width: 540px;
+    height: 700px;
+    opacity: 0.3;
+    left: 0;
+    top: 0;
+    margin-left: -50%;
+    margin-top: -70%;
+    background: linear-gradient(744deg, #af40ff, #5b42f3 60%, #00ddeb);
+    border-radius: 40%;
+    animation: wave 3000ms infinite linear;
+    z-index: 2;
+}
+
+.wave:nth-child(2) {
+    animation-duration: 4000ms;
+}
+
+.wave:nth-child(3) {
+    animation-duration: 5000ms;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Card border top */
+.card-border-top {
+    width: 60%;
+    height: 3%;
+    background: #6b64f3;
+    margin: auto;
+    border-radius: 0px 0px 15px 15px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.year-card.folded {
+    width: 100px;
+    height: 140px;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+    z-index: 5;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    transform: none;
+    left: unset;
+    top: unset;
+    justify-self: center;
+}
+
+.year-card.folded:hover, 
+.year-card.folded.active-folded {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    z-index: 6;
+}
+
+.year-box {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    color: #e0e0ff;
+}
+
+.year-card.folded .year-box {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.year-card.folded .buttons {
+    display: none;
+}
+
+.year-card button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background: rgba(100, 70, 255, 0.3);
+    color: #e0e0ff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.year-card button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(100, 70, 255, 0.5);
+}
+
+.year-card button:active {
+    transform: translateY(0);
+}
+
+.year-card .close-card {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #e0e0ff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    z-index: 11;
+}
+
+.year-card .close-card:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.months-container {
+    display: none;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(30, 30, 60, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    backdrop-filter: blur(10px);
+}
+
+.month-card {
+    width: 140px;
+    height: 140px;
+    perspective: 1000px;
+}
+
+.month-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.month-card:hover .month-inner {
+    transform: rotateY(180deg);
+}
+
+.month-front, .month-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.month-front {
+    background: rgba(30, 30, 60, 0.8);
+    border: 1px solid rgba(100, 70, 255, 0.3);
+    color: #e0e0ff;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.month-back {
+    background: rgba(30, 30, 60, 1);
+    color: #e0e0ff;
+    transform: rotateY(180deg);
+    font-size: 0.95rem;
+    overflow-y: auto;
+    text-align: left;
+    border: 1px solid rgba(100, 70, 255, 0.3);
+}
+
+.arrow {
+    position: absolute;
+    z-index: 0;
+}
+
+.arrow-horizontal {
+    height: 3px;
+    background: rgba(100, 70, 255, 0.3);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.arrow-horizontal::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: -6px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 10px solid rgba(100, 70, 255, 0.5);
+}
+
+.arrow-vertical {
+    width: 3px;
+    background: rgba(100, 70, 255, 0.3);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.arrow-vertical::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: -6px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid rgba(100, 70, 255, 0.5);
+}
+
+.back-button {
+    margin-top: 30px;
+    text-align: center;
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 16;
+}
+
+#backToYear {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background: rgba(100, 70, 255, 0.3);
+    color: #e0e0ff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#backToYear:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: rgba(100, 70, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .year-card {
+        width: 180px;
+        height: 280px;
+    }
+    
+    .year-box {
+        font-size: 2rem;
+    }
+    
+    .year-card button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .folded-years-container {
+        grid-template-columns: repeat(3, 1fr);
+        width: calc(3 * 120px);
+    }
+    
+    .year-card.folded {
+        width: 80px;
+        height: 110px;
+    }
+    
+    .month-card {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .folded-years-container {
+        grid-template-columns: repeat(2, 1fr);
+        width: calc(2 * 120px);
+    }
+}

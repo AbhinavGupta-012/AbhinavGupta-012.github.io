@@ -1,0 +1,98 @@
+/* nav.css */
+/* ==============================
+   Navigation Bar Styles
+   - Main navigation container
+   - Nav links & buttons
+   - Button hover effect
+   ============================== */
+@import './root.css';
+
+/* ------------------------
+   Main navigation container
+   ------------------------ */
+#mainNav {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 16;
+	pointer-events: none;
+	padding: var(--nav-padding);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: var(--nav-font-family);
+	font-weight: var(--nav-font-weight);
+	transition: opacity 1s ease, transform 1s ease;
+	opacity: 0;
+}
+
+#mainNav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	gap: var(--nav-gap);
+}
+
+#mainNav.show {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+/* ------------------------
+   Nav links & buttons
+   ------------------------ */
+.button {
+	margin: 0;
+	height: auto;
+	background: transparent;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+	--border-right: var(--button-border-right);
+	--text-stroke-color: var(--button-text-stroke);
+	--animation-color: var(--button-animation-color);
+	--fs-size: var(--button-font-size);
+	letter-spacing: 3px;
+	text-decoration: none;
+	font-size: var(--fs-size);
+	font-family: "Arial";
+	position: relative;
+	color: transparent;
+	-webkit-text-stroke: 1px var(--text-stroke-color);
+}
+
+.hover-text {
+	position: absolute;
+	box-sizing: border-box;
+	content: attr(data-text);
+	color: var(--animation-color);
+	width: 0%;
+	inset: 0;
+	border-right: var(--border-right) solid var(--animation-color);
+	overflow: hidden;
+	transition: 0.5s;
+	-webkit-text-stroke: 1px var(--animation-color);
+}
+
+.tagline,
+.button .hover-text {
+	background: var(--color-accent);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* ------------------------
+   Button hover effect
+   ------------------------ */
+.button:hover .hover-text,
+.button.active .hover-text {
+	width: 100%;
+	filter: drop-shadow(0 0 23px var(--animation-color));
+}
+
+.button.active:hover .hover-text {
+	width: 0%;
+	filter: none;
+}

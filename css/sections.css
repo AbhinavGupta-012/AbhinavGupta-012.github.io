@@ -1,0 +1,159 @@
+/* sections.css */
+/* ==============================
+   Portfolio Section Styles
+   - Expanded content container
+   - Section titles & content
+   - Education & skills
+   - Certificates
+   - Scrollbar styles
+   ============================== */
+@import './root.css';
+
+/* ------------------------
+   Expanded content container
+   ------------------------ */
+.extra-content-container {
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.8s ease, opacity 0.8s ease;
+	opacity: 0;
+	margin-top: 20px;
+}
+
+.extra-content-container.show {
+	max-height: 2000px;
+	opacity: 1;
+}
+
+.content-section {
+	margin: 30px 0;
+	min-height: 120px;
+}
+
+.section-content {
+	padding: 10px 0;
+}
+
+/* ------------------------
+   Section titles & content
+   ------------------------ */
+.section-title {
+	color: var(--color-section-title, var(--color-accent));
+	font-size: var(--section-title-size);
+	font-weight: 600;
+	margin-bottom: 20px;
+	border-bottom: var(--section-title-border);
+	padding-bottom: var(--section-title-padding-bottom);
+}
+
+.extra-content-container hr {
+	border: 0;
+	height: 2px;
+	background: linear-gradient(90deg, transparent, var(--color-hr), transparent);
+	margin: 25px 0;
+}
+
+/* ------------------------
+   Education & skills
+   ------------------------ */
+.education-section .section-content h4 {
+	color: var(--color-education-title);
+	font-size: var(--education-title-size);
+	margin: 0 0 8px 0;
+	font-weight: 600;
+}
+
+.education-section .institution {
+	color: var(--color-education-inst);
+	font-size: var(--education-inst-size);
+	margin: 0 0 5px 0;
+	font-weight: 500;
+}
+
+.education-section .duration {
+	color: var(--color-education-duration);
+	font-size: var(--education-duration-size);
+	margin: 0 0 15px 0;
+	font-style: italic;
+}
+
+.education-section .description {
+	color: var(--color-desc);
+	font-size: var(--skill-desc-size);
+	line-height: 1.6;
+	margin: 0;
+}
+
+.skill-category {
+	margin-bottom: 20px;
+}
+
+.skill-category h4 {
+	color: var(--color-skill-title);
+	font-size: var(--skill-title-size);
+	margin: 0 0 8px 0;
+	font-weight: 600;
+}
+
+.skill-category p {
+	color: var(--color-skill-desc);
+	font-size: var(--skill-desc-size);
+	margin: 0;
+	line-height: 1.5;
+}
+
+/* ------------------------
+   Certificates
+   ------------------------ */
+.certificate-item {
+	margin-bottom: 20px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certificate-item:last-child {
+	border-bottom: none;
+}
+
+.certificate-item h4 {
+	color: var(--color-certificate-title);
+	font-size: var(--certificate-title-size);
+	margin: 0 0 5px 0;
+	font-weight: 600;
+}
+
+.certificate-item .issuer {
+	color: var(--color-certificate-issuer);
+	font-size: var(--certificate-issuer-size);
+	margin: 0 0 3px 0;
+	font-weight: 500;
+}
+
+.certificate-item .date {
+	color: var(--color-certificate-date);
+	font-size: var(--certificate-date-size);
+	margin: 0;
+	font-style: italic;
+}
+
+/* ------------------------
+   Scrollbar styles
+   ------------------------ */
+.about-card::-webkit-scrollbar {
+	width: 10px;
+}
+
+.about-card::-webkit-scrollbar-track {
+	background: rgba(25, 25, 25, 0.8);
+	border-radius: 10px;
+}
+
+.about-card::-webkit-scrollbar-thumb {
+	background: var(--color-accent);
+	border-radius: 10px;
+	box-shadow: 0 0 10px var(--color-accent-glow);
+}
+
+.about-card::-webkit-scrollbar-thumb:hover {
+	background: var(--color-accent-shadow);
+}

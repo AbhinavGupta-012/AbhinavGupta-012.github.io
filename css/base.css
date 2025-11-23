@@ -1,0 +1,128 @@
+/* base.css */
+/* ==============================
+   Global styles and base layout
+   - Body & canvas
+   - Blackhole container
+   - Center hover interaction
+   - Content layering
+   ============================== */
+
+@import './root.css';
+
+/* ------------------------
+   Base document
+   ------------------------ */
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background-color: var(--color-bg);
+	overflow: hidden; /* prevent scroll during blackhole animation */
+}
+
+/* ------------------------
+   Blackhole container
+   ------------------------ */
+#blackhole {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+}
+
+/* ------------------------
+   Center hover circle
+   ------------------------ */
+.centerHover {
+	width: var(--center-hover-size);
+	height: var(--center-hover-size);
+	line-height: var(--center-hover-size);
+
+	background-color: transparent;
+	border-radius: var(--center-hover-radius);
+
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: calc(var(--center-hover-size) / -2);
+	margin-top: calc(var(--center-hover-size) / -2);
+
+	z-index: 2;
+	cursor: pointer;
+	text-align: center;
+
+	/* Smooth fade/scale */
+	transition: all 500ms;
+}
+
+.centerHover.open {
+	opacity: 0;
+	pointer-events: none; /* disable when expanded */
+}
+
+/* ------------------------
+   Center hover text span
+   ------------------------ */
+.centerHover span {
+	color: var(--color-span);
+	font-family: serif;
+	font-size: var(--span-font-size);
+	position: relative;
+
+	transition: all 500ms;
+}
+
+/* Hover effects */
+.centerHover:hover span {
+	color: var(--color-hover);
+}
+
+.centerHover span:before,
+.centerHover span:after {
+	content: "";
+	display: inline-block;
+	width: var(--span-before-after-width);
+	height: var(--span-before-after-height);
+	margin-bottom: var(--span-before-after-margin-bottom);
+	background-color: var(--color-span);
+
+	transition: all 500ms;
+}
+
+/* Left/right spacing */
+.centerHover span:before {
+	margin-right: var(--span-before-after-margin-x);
+}
+.centerHover span:after {
+	margin-left: var(--span-before-after-margin-x);
+}
+
+/* Hover effects for ::before / ::after */
+.centerHover:hover span:before,
+.centerHover:hover span:after {
+	background-color: var(--color-hover);
+}
+
+/* ------------------------
+   Blackhole canvas
+   ------------------------ */
+canvas {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+
+	z-index: 0;
+	pointer-events: none; /* allow clicks through canvas */
+}
+
+/* ------------------------
+   Foreground content
+   ------------------------ */
+.content {
+	position: relative;
+	z-index: 1; /* above canvas */
+	color: var(--color-content);
+}

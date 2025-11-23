@@ -1,0 +1,114 @@
+/* root.css: CSS Variables for easy access */
+/* ==============================
+   Design System Variables
+   - Colors
+   - Sizes & Fonts
+   - Layout & Spacing
+   - Cards & Effects
+   - Component-specific Variables
+   ============================== */
+
+:root {
+	/* ------------------------
+	   Colors
+	   ------------------------ */
+	--color-bg: rgba(25, 25, 25, 1);
+	--color-purple: rgba(197, 112, 255, 1);
+	--color-hover: #DDD;
+	--color-span: #666;
+	--color-content: wheat;
+	--color-white: #fff;
+	--color-accent: linear-gradient(45deg, #ff4ca3, #00f7ff);
+	--color-accent-shadow: rgba(176, 102, 255, 0.6);
+  	--color-accent-glow: rgba(176, 102, 255, 0.3);
+	--color-card-bg: rgba(255, 255, 255, 0.05);
+	--color-card-border: rgba(255, 255, 255, 0.2);
+	--color-title: #fff;
+	--color-tagline: var(--color-accent);
+	--color-desc: rgba(255, 255, 255, 0.9);
+	--color-hr: rgba(176, 102, 255, 0.5);
+	--color-education-title: #fff;
+	--color-education-inst: var(--color-accent);
+	--color-education-duration: rgba(255, 255, 255, 0.7);
+	--color-certificate-title: #fff;
+	--color-certificate-issuer: var(--color-accent);
+	--color-certificate-date: rgba(255, 255, 255, 0.7);
+	--color-skill-title: #fff;
+	--color-skill-desc: rgba(255, 255, 255, 0.9);
+	--color-sidebar-title: var(--color-accent);
+	--color-sidebar-border: rgba(255, 76, 163, 0.3);
+	--color-arrow-bg: rgb(20, 20, 20);
+	--color-arrow-shadow: rgba(180, 160, 255, 0.253);
+	--color-arrow-icon: #fff;
+
+	/* ------------------------
+	   Sizes & Fonts
+	   ------------------------ */
+	--center-hover-size: 255px;
+	--center-hover-radius: 50%;
+	--span-font-size: 18px;
+	--span-before-after-width: 16px;
+	--span-before-after-height: 1px;
+	--span-before-after-margin-x: 12px;
+	--span-before-after-margin-bottom: 4px;
+
+	--nav-font-family: 'Poppins', sans-serif;
+	--nav-font-weight: 600;
+
+	--button-border-right: 6px;
+	--button-text-stroke: rgba(255, 255, 255, 0.6);
+	--button-animation-color: var(--color-purple);
+	--button-font-size: 2em;
+
+	--about-img-size: 180px;
+	--about-title-size: 2rem;
+	--about-tagline-size: 1.2rem;
+	--about-desc-size: 1rem;
+	--arrow-size: 2rem;
+	--down-button-size: 35px;
+	--down-button-expanded-width: 140px;
+	--down-button-font-size: 14px;
+	--sidebar-title-size: 18px;
+	--section-title-size: 20px;
+	--education-title-size: 18px;
+	--education-inst-size: 16px;
+	--education-duration-size: 14px;
+	--certificate-title-size: 16px;
+	--certificate-issuer-size: 14px;
+	--certificate-date-size: 13px;
+	--skill-title-size: 16px;
+	--skill-desc-size: 14px;
+
+	/* ------------------------
+	   Layout & Spacing
+	   ------------------------ */
+	--nav-padding: 10px 30px;
+	--nav-gap: 25px;
+	--card-gap: 30px;
+	--card-padding: 30px;
+	--card-max-width: 900px;
+	--about-top-offset: 120px;
+ 	--about-bottom-offset: 28px;
+	--about-collapsed-height: 320px;
+	--arrow-toggle-bottom: 5px;
+	--arrow-toggle-padding-bottom: 5px;
+	--sidebar-title-padding: 10px 0;
+	--section-title-padding-bottom: 8px;
+
+	/* ------------------------
+	   Cards & Effects
+	   ------------------------ */
+	--card-radius: 20px;
+	--card-blur: 12px;
+	--card-shadow: 0 0 25px var(--color-accent-glow);
+
+	--about-img-radius: 50%;
+	--about-img-border: 3px solid var(--color-accent);
+	--about-img-shadow: 0 0 20px var(--color-accent-shadow);
+	--about-desc-opacity: 0.9;
+	--down-button-radius: 50%;
+	--down-button-expanded-radius: 50px;
+
+	--sidebar-title-border: 2px solid var(--color-sidebar-border);
+	--section-title-border: 2px solid var(--color-hr);
+}
