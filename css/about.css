@@ -1,352 +1,453 @@
-/* about.css */
-/* ==============================
-   About Section Styles
-   - About card container
-   - Profile & description
-   - Toggle button
-   - Sidebar titles
-   - Left-side expansion content (improved spacing)
-   ============================== */
+/* ===========================================================
+   ABOUT SECTION — FULL STYLE SHEET
+   Completely regenerated, premium design, improved comments,
+   and aligned with your root.css theme variables.
+   =========================================================== */
 
 @import './root.css';
 
-/* ------------------------
-   About card container
-   ------------------------ */
+/* ---------------------------------------------
+   MAIN ABOUT CONTAINER (Position + transitions)
+   --------------------------------------------- */
 .about {
-	position: fixed;
-	top: var(--about-top-offset);
-	left: 50%;
-	transform: translateX(-50%);
-	display: none;
-	bottom: var(--about-bottom-offset);
-	width: 90%;
-	max-width: var(--card-max-width);
-	max-height: var(--about-collapsed-height);
-	overflow-y: auto;
-	padding: 20px;
-	z-index: 10;
-	background: var(--color-card-bg);
-	transition: max-height 0.6s ease, transform 0.6s ease;
-	border-radius: var(--card-radius);
-	box-shadow: var(--card-shadow);
-	backdrop-filter: blur(var(--card-blur));
-	overflow: hidden;
+    position: fixed;
+    top: var(--about-top-offset);
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    bottom: var(--about-bottom-offset);
+    width: 90%;
+    max-width: var(--card-max-width);
+    max-height: var(--about-collapsed-height);
+    padding: 20px;
+    z-index: 10;
+
+    background: var(--color-card-bg);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(var(--card-blur));
+
+    overflow: hidden;
+    transition: max-height 0.6s ease, transform 0.6s ease;
 }
 
 .about.show {
-	display: flex;
+    display: flex;
 }
 
+/* Expanded state */
 .about.expanded {
-	max-height: calc(100vh - var(--about-top-offset) - var(--about-bottom-offset));
+    max-height: calc(100vh - var(--about-top-offset) - var(--about-bottom-offset));
 }
 
+/* Centered collapsed state */
 .about.show:not(.expanded) {
-	top: 50%;
-	bottom: auto;
-	transform: translate(-50%, -50%);
-	max-height: var(--about-collapsed-height);
+    top: 50%;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    max-height: var(--about-collapsed-height);
 }
 
+/* -----------------------------------------
+   ABOUT CARD (Actual content wrapper)
+   ----------------------------------------- */
 .about-card {
-	flex: 1 1 auto;
-	min-height: 0;
-	overflow-y: auto;
-	display: flex;
-	gap: var(--card-gap);
-	background: var(--color-card-bg);
-	border: 2px solid var(--color-card-border);
-	border-radius: var(--card-radius);
-	padding: var(--card-padding);
-	max-width: var(--card-max-width);
-	width: 100%;
-	box-shadow: var(--card-shadow);
-	backdrop-filter: blur(var(--card-blur));
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+
+    display: flex;
+    gap: var(--card-gap);
+
+    background: var(--color-card-bg);
+    border: 2px solid var(--color-card-border);
+    padding: var(--card-padding);
+    border-radius: var(--card-radius);
+
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(var(--card-blur));
 }
 
-/* ------------------------
-   Profile & description
-   ------------------------ */
+/* ============================================================
+   LEFT COLUMN — Profile Image + Quote + Skills + Socials + Stats
+   ============================================================ */
+
 .about-left {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	min-width: 220px;
-	padding-top: 10px;
-	padding-bottom: 15px;
-	gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 220px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    gap: 14px;
 }
 
+/* Profile Image */
 .about-left img {
-	width: var(--about-img-size);
-	height: var(--about-img-size);
-	object-fit: cover;
-	border-radius: var(--about-img-radius);
-	border: var(--about-img-border);
-	box-shadow: var(--about-img-shadow);
+    width: var(--about-img-size);
+    height: var(--about-img-size);
+    object-fit: cover;
+
+    border-radius: var(--about-img-radius);
+    border: var(--about-img-border);
+    box-shadow: var(--about-img-shadow);
 }
 
-/* Container that displays content BELOW the image */
+/* ---------------------------------------------
+   LEFT BODY (Visible ONLY on expand)
+   --------------------------------------------- */
 .about-left-body {
-	width: 100%;
-	max-width: 240px;
-	text-align: center;
-	display: none;
-	margin-top: 22px;        /* perfect breathing space below image */
-	padding-bottom: 20px;    /* creates bottom comfort */
+    width: 100%;
+    max-width: 240px;
+    text-align: center;
+
+    display: none;
+    margin-top: 10px;
+    padding-bottom: 16px;
 }
 
 .about.expanded .about-left-body {
-	display: block;
-	animation: aboutLeftFade 260ms ease both;
+    display: block;
+    animation: aboutLeftFade 260ms ease both;
 }
 
 @keyframes aboutLeftFade {
-	from { transform: translateY(-6px); opacity: 0; }
-	to   { transform: translateY(0); opacity: 1; }
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Quote */
+/* ---------------------------------------------
+   QUOTE — Gradient & Visible
+   --------------------------------------------- */
 .about-quote {
-	font-size: 0.92rem;
-	margin: 4px 0 10px;
-	color: var(--color-accent);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	background: linear-gradient(45deg, rgba(255,76,163,1), rgba(0,247,255,1));
-	font-style: italic;
-	opacity: 0.95;
+    font-size: 1rem;
+    margin: 8px 0 14px;
+    font-style: italic;
+    font-weight: 600;
+
+    /* Crisp, readable gradient text */
+    background: linear-gradient(45deg, #ff4ca3, #00f7ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    opacity: 0.95;
 }
 
-/* ------------------------
-   Social links
-   ------------------------ */
-.social-links {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 12px;
-	margin: 14px 0 4px;
+/* A subtle divider for visual clarity */
+.left-divider {
+    width: 60%;
+    height: 1px;
+    margin: 10px auto 16px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+    );
 }
 
-.social {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: var(--social-icon-size, 34px);
-	height: var(--social-icon-size, 34px);
-	border-radius: 8px;
-	background: rgba(255, 255, 255, 0.03);
-	border: 1px solid rgba(255, 255, 255, 0.04);
-	box-shadow: 0 0 6px rgba(0,0,0,0.35);
-	transition: transform 160ms ease, box-shadow 160ms ease;
+/* ---------------------------------------------
+   TOP SKILLS (Under Quote)
+   --------------------------------------------- */
+.left-top-skills {
+    width: 100%;
+    margin-bottom: 18px;
 }
 
-.social svg {
-	width: 18px;
-	height: 18px;
-	fill: var(--color-title);
-	display: block;
+.lts-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
 }
 
-.social:hover,
-.social:focus {
-	transform: translateY(-4px);
-	box-shadow: 0 6px 20px var(--color-accent-glow);
-	outline: none;
+/* Premium skill pill styling */
+.lts-badge {
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    font-size: 0.8rem;
+    color: var(--color-title);
+    white-space: nowrap;
+
+    transition: background 0.25s ease, transform 0.25s ease;
 }
 
-/* ------------------------
-   Quick stats
-   ------------------------ */
+.lts-badge:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateY(-2px);
+}
+
+/* ---------------------------------------------
+   PREMIUM SOCIAL LINKS (Vertical)
+   --------------------------------------------- */
+.social-links-vertical {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 10px 0 22px;
+}
+
+/* One card per social link */
+.social-v {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px 12px;
+
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+/* Hover animations */
+.social-v:hover {
+    transform: translateX(6px);
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 0 16px rgba(0,255,255,0.13);
+}
+
+/* Placeholder icon bubble (You will replace GH/LI/LC with SVGs) */
+.sv-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,0.09);
+    color: var(--color-title);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.sv-text {
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--color-title);
+    text-align: left;
+}
+
+/* ---------------------------------------------
+   QUICK STATS — small info cards
+   --------------------------------------------- */
 .quick-stats {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 12px;
-	margin: 18px 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 10px;
 }
 
 .stat {
-	min-width: 72px;
-	padding: 8px 10px;
-	border-radius: 10px;
-	background: rgba(255,255,255,0.02);
-	border: 1px solid rgba(255,255,255,0.03);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    min-width: 74px;
+    padding: 10px 10px;
+
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    transition: transform 0.2s ease;
+}
+
+.stat:hover {
+    transform: translateY(-3px);
 }
 
 .stat-value {
-	font-weight: 700;
-	font-size: 1rem;
-	color: var(--color-title);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-title);
 }
 
 .stat-label {
-	font-size: 0.72rem;
-	color: rgba(255,255,255,0.8);
-	margin-top: 4px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
 }
 
-/* ------------------------
-   Skill badges
-   ------------------------ */
-.skill-badges {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	gap: 10px;
-	margin-top: 18px;
-	padding-bottom: 4px;
-}
+/* ======================================================
+   RIGHT SIDE (Details — Education / Skills / Certificates)
+   ====================================================== */
 
-.badge {
-	padding: 6px 10px;
-	font-size: 0.78rem;
-	border-radius: 999px;
-	background: rgba(255,255,255,0.03);
-	border: 1px solid rgba(255,255,255,0.04);
-	color: var(--color-title);
-	white-space: nowrap;
-}
-
-/* ------------------------
-   Right side content
-   ------------------------ */
 .about-right {
-	flex: 1;
-	color: var(--color-title);
+    flex: 1;
+    color: var(--color-title);
 }
 
+/* Titles */
 .about-right h2 {
-	font-size: var(--about-title-size);
-	margin: 0;
-	color: var(--color-title);
+    font-size: var(--about-title-size);
+    margin: 0;
+    color: var(--color-title);
 }
 
 .about-right .tagline {
-	font-size: var(--about-tagline-size);
-	color: var(--color-tagline);
-	margin: 5px 0 15px;
+    font-size: var(--about-tagline-size);
+    color: var(--color-tagline);
+    margin: 6px 0 16px;
 }
 
+/* Basic info list */
 .about-info {
-	list-style: none;
-	padding: 0;
-	margin: 0 0 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
 }
 
 .about-info li {
-	margin-bottom: 8px;
-	font-size: var(--about-desc-size);
-	color: var(--color-desc);
+    margin-bottom: 8px;
+    font-size: var(--about-desc-size);
+    color: var(--color-desc);
 }
 
+/* About description */
 .about-desc {
-	font-size: var(--about-desc-size);
-	line-height: 1.6;
-	opacity: var(--about-desc-opacity);
-	color: var(--color-desc);
+    font-size: var(--about-desc-size);
+    line-height: 1.6;
+    opacity: var(--about-desc-opacity);
+    color: var(--color-desc);
 }
 
-/* ------------------------
-   Toggle button
-   ------------------------ */
+/* --------------------------
+   Expandable right-side sections
+   -------------------------- */
+.section-title {
+    margin: 0 0 10px;
+    color: var(--color-sidebar-title);
+    font-size: var(--sidebar-title-size);
+    font-weight: 600;
+    text-align: left;
+}
+
+.section-content {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--color-desc);
+}
+
+.skill-category h4,
+.certificate-item h4 {
+    font-size: 1rem;
+    color: var(--color-title);
+    margin-bottom: 4px;
+}
+
+.skill-category p,
+.certificate-item p {
+    margin: 0 0 8px;
+    color: var(--color-desc);
+}
+
+/* ---------------------------------------------
+   TOGGLE ARROW (bottom expand/collapse button)
+   --------------------------------------------- */
 .about-toggle {
-	position: absolute;
-	bottom: var(--arrow-toggle-bottom);
-	padding-bottom: var(--arrow-toggle-padding-bottom);
-	left: 50%;
-	transform: translateX(-50%);
-	cursor: pointer;
-	font-size: var(--arrow-size);
-	color: var(--color-accent);
-	transition: transform 0.4s ease;
+    position: absolute;
+    bottom: var(--arrow-toggle-bottom);
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
 }
 
 .down-button {
-	width: var(--down-button-size);
-	height: var(--down-button-size);
-	border-radius: var(--down-button-radius);
-	background-color: var(--color-arrow-bg);
-	border: none;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0px 0px 0 4px var(--color-arrow-shadow);
-	cursor: pointer;
-	transition: width 0.3s ease, background-color 0.3s ease;
-	overflow: hidden;
-	position: relative;
+    width: var(--down-button-size);
+    height: var(--down-button-size);
+    border-radius: var(--down-button-radius);
+
+    background-color: var(--color-arrow-bg);
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 0 0 4px var(--color-arrow-shadow);
+    cursor: pointer;
+
+    transition: transform 0.25s ease;
+}
+
+.down-button:hover {
+    transform: scale(1.07);
 }
 
 .down-button .svgIcon {
-	width: 15px;
+    width: 16px;
 	transform: rotate(180deg);
-	transition: transform 0.3s ease;
+    transition: transform 0.25s ease;
 }
 
+/* Rotate arrow on expand */
 .about.expanded .down-button .svgIcon {
-	transform: rotate(0deg);
+    transform: rotate(0deg);
 }
 
 .down-button .svgIcon path {
-	fill: var(--color-arrow-icon);
+    fill: var(--color-arrow-icon);
 }
 
-/* ------------------------
-   Sidebar titles
-   ------------------------ */
-.sidebar-titles {
-	margin-top: 30px;
-	display: flex;
-	flex-direction: column;
-	gap: 25px;
-}
-
-.sidebar-titles h3 {
-	margin: 0;
-	color: var(--color-sidebar-title);
-	font-size: var(--sidebar-title-size);
-	font-weight: 600;
-	text-align: center;
-	padding: var(--sidebar-title-padding);
-	border-bottom: var(--sidebar-title-border);
-}
-
-/* ------------------------
-   Responsive adjustments
-   ------------------------ */
+/* ---------------------------------------------
+   RESPONSIVE DESIGN
+   --------------------------------------------- */
 @media (max-width: 820px) {
-	.about-left {
-		min-width: 140px;
-	}
 
-	.about-left-body {
-		max-width: 180px;
-	}
+    .about-left {
+        min-width: 150px;
+    }
 
-	.social {
-		width: 30px;
-		height: 30px;
-	}
+    .about-left-body {
+        max-width: 200px;
+    }
 
-	.social svg {
-		width: 14px;
-		height: 14px;
-	}
+    .social-v {
+        padding: 8px 10px;
+    }
 
-	.stat {
-		min-width: 60px;
-		padding: 6px 8px;
-	}
+    .sv-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 0.7rem;
+    }
 
-	.badge {
-		font-size: 0.7rem;
-		padding: 5px 8px;
-	}
+    .lts-badge {
+        font-size: 0.72rem;
+        padding: 5px 9px;
+    }
+
+    .stat {
+        min-width: 60px;
+        padding: 7px 8px;
+    }
+}
+
+/* Disable scroll when collapsed */
+.about.show:not(.expanded) .about-card {
+    overflow-y: hidden !important;
+}
+
+/* Enable scroll only when expanded */
+.about.expanded .about-card {
+    overflow-y: auto !important;
+}
+
+/* Force all SVG icons (img) inside .sv-icon to scale properly */
+.sv-icon img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
 }

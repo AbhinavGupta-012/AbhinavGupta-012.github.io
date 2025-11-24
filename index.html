@@ -3,55 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0">
 
-    <title>Personal Portfolio</title>
+    <title> Personal Portfolio </title>
 
     <!-- ==============================
-         Reset and Base Styles
-         ============================== -->
+                Reset and Base Styles
+                ============================== -->
     <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="css/base.css">
 
     <!-- ==============================
-         Navbar Styles
-         ============================== -->
+                Navbar Styles
+                ============================== -->
     <link rel="stylesheet" href="css/nav.css">
 
     <!-- ==============================
-         About Section Styles
-         ============================== -->
+                About Section Styles
+                ============================== -->
     <link rel="stylesheet" href="css/about.css">
 
     <!-- ==============================
-         Education / Skills / Certificates Styles
-         ============================== -->
+                Education / Skills / Certificates Styles
+                ============================== -->
     <link rel="stylesheet" href="css/sections.css">
 
     <!-- ==============================
-         Timeline Styles
-         ============================== -->
+                Timeline Styles
+                ============================== -->
     <link rel="stylesheet" href="css/timeline.css">
 
     <!-- ==============================
-         Timeline Cards Styles
-         ============================== -->
+                Timeline Cards Styles
+                ============================== -->
     <link rel="stylesheet" href="css/timeline-cards.css">
-
+    <link rel="stylesheet" href="css/certificates.css">
     <link rel="stylesheet" href="css/placeholder.css">
 </head>
 
 <body>
     <!-- ==============================
-         Main Blackhole Container
-         Handles navigation & central effects
-         ============================== -->
+                Main Blackhole Container
+                Handles navigation & central effects
+                ============================== -->
     <div id="blackhole">
         <div class="centerHover"></div>
 
         <!-- ==============================
-             Navigation Bar
-             ============================== -->
+                    Navigation Bar
+                    ============================== -->
         <nav id="mainNav" class="hidden">
             <button class="button" id="collapseBtn" data-text="Awesome">
                 <span class="actual-text"> &nbsp;Home&nbsp; </span>
@@ -75,240 +76,353 @@
             </button>
         </nav>
 
-        <!-- ==============================
-             About Section
-             ============================== -->
+        <!-- ============================= -->
+        <!--        ABOUT SECTION         -->
+        <!-- (Left = profile + quick info)
+            (Right = detailed sections)  -->
+        <!-- ============================= -->
+
         <section class="about hidden">
             <div class="about-card">
 
-                <!-- About Left (image + expandable extras) -->
+                <!-- ====================== -->
+                <!-- LEFT COLUMN (Profile) -->
+                <!-- ====================== -->
                 <div class="about-left">
-                    <img src="images/Abhinav Gupta.jpg" alt="Your Photo">
 
-                    <!-- This block is hidden until .about.expanded — auto-scalable containers inside -->
+                    <!-- Profile Image -->
+                    <img src="assets/images/Abhinav Gupta.jpg" alt="Your Photo">
+
+                    <!-- This block becomes visible ONLY when .about.expanded -->
                     <div class="about-left-body" aria-hidden="true">
 
-                        <!-- Quote -->
-                        <p class="about-quote">“Turning curiosity into code.”</p>
+                        <!-- Quote (gradient, premium) -->
+                        <p class="about-quote"> “Turning curiosity into code.” </p>
 
-                        <!-- Social links (add/remove anchors, they'll auto-wrap) -->
-                        <div class="social-links" role="navigation" aria-label="Social links">
+                        <!-- Subtle divider for clean separation -->
+                        <div class="left-divider"></div>
+
+                        <!-- ========================= -->
+                        <!--  TOP SKILLS  -->
+                        <!-- ========================= -->
+                        <div class="left-top-skills">
+                            <div class="lts-list">
+                                <span class="lts-badge"> Java </span>
+                                <span class="lts-badge"> Android </span>
+                                <span class="lts-badge"> Linux </span>
+                                <span class="lts-badge"> AWS </span>
+                                <span class="lts-badge"> Git </span>
+                            </div>
+                        </div>
+
+                        <!-- ================================= -->
+                        <!-- PREMIUM SOCIAL LINKS (Vertical UI) -->
+                        <!-- ================================= -->
+                        <!-- Note: Replace GH / LI / LC with SVG icons -->
+                        <div class="social-links-vertical">
+
                             <!-- GitHub -->
-                            <a class="social" href="https://github.com/your-username" target="_blank"
-                                rel="noopener noreferrer" title="GitHub">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M12 .297a12 12 0 00-3.797 23.4c.6.112.82-.26.82-.578 0-.286-.01-1.04-.016-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.38-1.333-1.748-1.333-1.748-1.09-.744.082-.729.082-.729 1.204.086 1.838 1.238 1.838 1.238 1.07 1.83 2.809 1.302 3.493.996.108-.775.418-1.302.762-1.603-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.468-2.381 1.235-3.222-.123-.304-.536-1.527.117-3.176 0 0 1.008-.322 3.3 1.23a11.5 11.5 0 016 0c2.29-1.552 3.297-1.23 3.297-1.23.655 1.649.243 2.872.12 3.176.77.841 1.233 1.912 1.233 3.222 0 4.61-2.804 5.624-5.476 5.92.43.372.815 1.102.815 2.222 0 1.606-.015 2.903-.015 3.297 0 .32.216.694.825.576A12 12 0 0012 .297">
-                                    </path>
-                                </svg>
+                            <a class="social-v" href="https://github.com/AbhinavGupta-012" target="_blank"
+                                rel="noopener noreferrer">
+                                <div class="sv-icon">
+                                    <lord-icon src="assets/logos/github.json" trigger="hover"
+                                        style="width:28px;height:28px">
+                                    </lord-icon>
+                                </div>
+                                <span class="sv-text"> AbhinavGupta-012 </span>
                             </a>
 
                             <!-- LinkedIn -->
-                            <a class="social" href="https://www.linkedin.com/in/your-username" target="_blank"
-                                rel="noopener noreferrer" title="LinkedIn">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.24 8h4.5V24h-4.5V8zM8.98 8h4.317v2.178h.06c.603-1.14 2.077-2.337 4.276-2.337 4.573 0 5.411 3.01 5.411 6.923V24h-4.5v-7.727c0-1.842-.033-4.214-2.565-4.214-2.566 0-2.958 2.004-2.958 4.077V24h-4.5V8z">
-                                    </path>
-                                </svg>
+                            <a class="social-v" href="https://www.linkedin.com/in/abhinav-gupta012/" target="_blank"
+                                rel="noopener noreferrer">
+                                <div class="sv-icon">
+                                    <lord-icon src="assets/logos/linkedin.json" trigger="hover"
+                                        style="width:28px;height:28px">
+                                    </lord-icon>
+                                </div>
+                                <span class="sv-text"> AbhinavGupta012 </span>
                             </a>
 
                             <!-- LeetCode -->
-                            <a class="social" href="https://leetcode.com/your-username" target="_blank"
-                                rel="noopener noreferrer" title="LeetCode">
-                                <svg viewBox="0 0 24 24" aria-hidden="true">
-                                    <path
-                                        d="M19.8 6.1c-1.4-1.4-3.8-1.4-5.2 0L8.4 12.3c-.3.3-.4.7-.4 1.1v5.8c0 .9.7 1.6 1.6 1.6h5.9c.4 0 .8-.1 1.1-.4l6.1-6.1c1.4-1.4 1.4-3.8 0-5.2l-3.6-3.6zM6.1 2.4C4.7 3.8 4.7 6.2 6.1 7.6L8.7 10.2c.3.3.7.4 1.1.4.4 0 .8-.1 1.1-.4l2.1-2.1c.3-.3.4-.7.4-1.1 0-.4-.1-.8-.4-1.1L9.9 2.4C8.5 1 6.1 1 4.7 2.4z">
-                                    </path>
-                                </svg>
+                            <a class="social-v" href="https://leetcode.com/u/AbhinavGupta012/" target="_blank"
+                                rel="noopener noreferrer">
+                                <div class="sv-icon">
+                                    <img src="assets/logos/leetcode.svg" alt="LeetCode Logo">
+                                </div>
+
+                                <span class="sv-text"> AbhinavGupta012 </span>
                             </a>
-
-                            <!-- (Optional) Instagram placeholder - comment/uncomment when you decide -->
-                            <!--
-          <a class="social" href="https://instagram.com/your-username" target="_blank" rel="noopener noreferrer" title="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="..."></path></svg>
-          </a>
-          -->
                         </div>
 
-                        <!-- Quick stats (vertical on mobile, row on wider screens). Add items freely -->
+                        <!-- ================== -->
+                        <!-- QUICK STATS (Left) -->
+                        <!-- ================== -->
                         <div class="quick-stats" role="list" aria-label="Quick stats">
-                            <div class="stat" role="listitem">
-                                <div class="stat-value">4+</div>
-                                <div class="stat-label">Years</div>
+                            <div class="stat">
+                                <div class="stat-value"> 2+ </div>
+                                <div class="stat-label"> Years </div>
                             </div>
-                            <div class="stat" role="listitem">
-                                <div class="stat-value">30+</div>
-                                <div class="stat-label">Projects</div>
+
+                            <div class="stat">
+                                <div class="stat-value"> 30+ </div>
+                                <div class="stat-label"> Projects </div>
                             </div>
-                            <div class="stat" role="listitem">
-                                <div class="stat-value">3</div>
-                                <div class="stat-label">Certs</div>
+
+                            <div class="stat">
+                                <div class="stat-value"> 3 </div>
+                                <div class="stat-label"> Certs </div>
                             </div>
-                            <div class="stat" role="listitem">
-                                <div class="stat-value">🛰️</div>
-                                <div class="stat-label">Interests</div>
+
+                            <div class="stat">
+                                <div class="stat-value"> 🛰️ </div>
+                                <div class="stat-label"> Interests </div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <!-- Skill badges (you said you'll add badge content yourself).
-             Keep the <span class="badge">...</span> items; replace text as needed.
-             They auto-wrap. -->
-                        <div class="skill-badges" aria-hidden="false">
-                            <span class="badge">Java</span>
-                            <span class="badge">Kotlin</span>
-                            <span class="badge">React</span>
-                            <span class="badge">Firebase</span>
-                            <span class="badge">Docker</span>
-                            <!-- Add more badges here and they'll wrap automatically -->
-                        </div>
-
-                    </div><!-- /.about-left-body -->
-                </div><!-- /.about-left -->
-
-                <!-- About Details (right) -->
+                <!-- ====================== -->
+                <!-- RIGHT COLUMN (Details) -->
+                <!-- ====================== -->
                 <div class="about-right">
-                    <h2>Abhinav Gupta</h2>
-                    <p class="tagline">Software Engineer | Aspiring Computer Scientist | Creator | Learner</p>
+
+                    <!-- Name + tagline -->
+                    <h2> Abhinav Gupta </h2>
+                    <p class="tagline"> Software Engineer | Aspiring Computer Scientist | Creator | Learner </p>
+                    <!-- Basic info list -->
                     <ul class="about-info">
-                        <li><strong>Age:</strong> 19</li>
-                        <li><strong>Hobbies:</strong> Coding, Movies, Gaming, Stargazing</li>
-                        <li><strong>From:</strong> Mohali, Punjab, India</li>
-                        <li><strong>Email:</strong> abhinavgupta1702@gmail.com</li>
+                        <li><strong> Age:</strong> 19 </li>
+                        <li><strong> Hobbies:</strong> Coding, Movies, Gaming, Stargazing </li>
+                        <li><strong> From:</strong> Mohali, Punjab, India </li>
+                        <li><strong> Email:</strong> abhinavgupta1702@gmail.com </li>
                     </ul>
+
+                    <!-- About paragraph -->
                     <p class="about-desc">
                         Hi! I'm Abhinav, a passionate learner who loves exploring everything
                         from computer science and networking to space and philosophy.
                         I aim to build projects that blend creativity with logic. 🚀
                     </p>
 
-                    <!-- Expandable Sections: Education / Skills / Certificates -->
+                    <!-- ======================================== -->
+                    <!-- EXPANDABLE SECTIONS (Education / Skills / Certificates) -->
+                    <!-- ======================================== -->
                     <div class="extra-content-container">
-                        <hr>
+
                         <!-- Education -->
+                        <hr>
                         <div class="content-section education-section">
-                            <h3 class="section-title">Education</h3>
+                            <h3 class="section-title"> Education </h3>
                             <div class="section-content">
-                                <h4>B.Tech in Computer Science</h4>
-                                <p class="institution">XYZ University</p>
-                                <p class="duration">2020 - 2024</p>
-                                <p class="description">Relevant coursework: Data Structures, Algorithms, Database
-                                    Systems, Software Engineering, Computer Networks</p>
+                                <h4> B.E. in Computer Science & Engineering </h4>
+                                <p class="institution"> Chitkara University </p>
+                                <p class="duration"> 2023 - Present | CGPA 9.51</p>
+                                <p class="description">
+                                    Relevant coursework:
+                                </p>
+                                <p class="description">
+                                    1st Sem - Problem Solving Using Python Programming, Front End Engineering - I.
+                                </p>
+                                <p class="description">
+                                    2nd Sem - Fundamentals of C Programming, Operating System, Source Code Management.
+                                </p>
+                                <p class="description">
+                                    3rd Sem - Object Oriented Programming, Database Management System, Computer
+                                    Networks, Front End Engineering - II.
+                                </p>
+                                <p class="description">
+                                    4th Sem - Linux Administration, Object Oriented Software Engineering, Data
+                                    Structures, Programming in Java, Backend Engineering - I.
+                                </p>
                             </div>
                         </div>
 
-                        <hr>
                         <!-- Skills -->
-                        <div class="content-section skills-section">
-                            <h3 class="section-title">Skills</h3>
-                            <div class="section-content">
-                                <div class="skill-category">
-                                    <h4>Programming Languages</h4>
-                                    <p>Java, Kotlin, JavaScript, Python, C++</p>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>Frameworks & Technologies</h4>
-                                    <p>React, Node.js, Firebase, Spring Boot, Android</p>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>Tools & Platforms</h4>
-                                    <p>Git, Docker, AWS, MongoDB, MySQL</p>
-                                </div>
-                            </div>
-                        </div>
-
                         <hr>
-                        <!-- Certificates -->
-                        <div class="content-section certificates-section">
-                            <h3 class="section-title">Certificates</h3>
+                        <div class="content-section skills-section">
+                            <h3 class="section-title"> Skills </h3>
                             <div class="section-content">
-                                <div class="certificate-item">
-                                    <h4>Google IT Support Professional</h4>
-                                    <p class="issuer">Google Career Certificates</p>
-                                    <p class="date">2023</p>
+
+                                <div class="skill-category">
+                                    <h4> Programming Languages </h4>
+                                    <p> Java, Kotlin, JavaScript, Python, C, C++ </p>
                                 </div>
-                                <div class="certificate-item">
-                                    <h4>AWS Cloud Practitioner</h4>
-                                    <p class="issuer">Amazon Web Services</p>
-                                    <p class="date">2023</p>
+
+                                <div class="skill-category">
+                                    <h4> Frameworks & Technologies </h4>
+                                    <p> React, Node.js, Express, Firebase, Spring Boot, Android, Bootstrap, Tkinter </p>
                                 </div>
-                                <div class="certificate-item">
-                                    <h4>Frontend Development</h4>
-                                    <p class="issuer">FreeCodeCamp</p>
-                                    <p class="date">2022</p>
+
+                                <div class="skill-category">
+                                    <h4> Tools & Platforms </h4>
+                                    <p> Git, Docker, AWS, MongoDB, MySQL, Android, Linux </p>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <p> Fun Fact 1 - This Portfolio was made only using HTML, CSS and JavaScript </p>
+                                <p> Fun Fact 2 - Many AI's were harmed during the making of this portfolio. </p>
+                            </div>
+                        </div>
+
+                        <!-- Certificates -->
+                        <hr>
+                        <!-- ========================= -->
+                        <!-- CERTIFICATES SECTION (Fixed Positioning & Enhanced Effects) -->
+                        <!-- ========================= -->
+                        <hr>
+                        <div class="content-section certificates-section">
+                            <h3 class="section-title"> Certificates </h3>
+                            <div class="section-content">
+
+                                <!-- IBM Certificate with Fixed Positioning -->
+                                <div class="certificate-item cert-with-preview">
+                                    <div class="cert-meta">
+                                        <h4> IBM Full Stack Software Developer </h4>
+                                        <p class="issuer"> IBM </p>
+                                        <p class="date"> April 13, 2025 </p>
+                                    </div>
+
+                                    <!-- Fixed Preview Container -->
+                                    <div class="cert-preview-wrap">
+                                        <!-- Icon moved significantly left -->
+                                        <div class="cert-icon" data-preview-src="assets/certs/IBM Full Stack Software Developer.jpg"
+                                            aria-label="Preview IBM Certificate">
+                                            <div class="cert-icon-visual">
+                                                <div class="sv-icon">
+                                                    <img src="assets/logos/certificate.svg" alt="Certificate Icon">
+                                                </div>
+                                            </div>
+                                            <span class="cert-ripple"></span>
+                                            <span class="cert-ripple cert-ripple--2"></span>
+                                            <span class="cert-ripple cert-ripple--3"></span>
+                                        </div>
+
+                                        <!-- Preview Frame with Increased Spacing -->
+                                        <div class="cert-preview-frame" aria-hidden="true">
+                                            <div class="cert-preview-inner">
+                                                <img class="cert-preview-img" src="assets/certs/IBM Full Stack Software Developer.jpg"
+                                                    alt="IBM Full Stack Software Developer Certificate Preview">
+                                                <!-- Gradient Border matching scrollbar -->
+                                                <div class="cert-gradient-border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="certificate-item cert-with-preview">
+                                    <div class="cert-meta">
+                                        <h4> Java: Data Structures and Algorithms </h4>
+                                        <p class="issuer"> Codio </p>
+                                        <p class="date"> April 23, 2025 </p>
+                                    </div>
+
+                                    <!-- Fixed Preview Container -->
+                                    <div class="cert-preview-wrap">
+                                        <!-- Icon moved significantly left -->
+                                        <div class="cert-icon" data-preview-src="assets/certs/Java Data Structures and Algorithms.jpg"
+                                            aria-label="Preview IBM Certificate">
+                                            <div class="cert-icon-visual">
+                                                <div class="sv-icon">
+                                                    <img src="assets/logos/certificate.svg" alt="Certificate Icon">
+                                                </div>
+                                            </div>
+                                            <span class="cert-ripple"></span>
+                                            <span class="cert-ripple cert-ripple--2"></span>
+                                            <span class="cert-ripple cert-ripple--3"></span>
+                                        </div>
+
+                                        <!-- Preview Frame with Increased Spacing -->
+                                        <div class="cert-preview-frame" aria-hidden="true">
+                                            <div class="cert-preview-inner">
+                                                <img class="cert-preview-img" src="assets/certs/Java Data Structures and Algorithms.jpg"
+                                                    alt="Java Data Structures and Algorithms Certificate Preview">
+                                                <!-- Gradient Border matching scrollbar -->
+                                                <div class="cert-gradient-border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /.about-right -->
-            </div><!-- /.about-card -->
 
-            <!-- About Section Toggle Button -->
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- Expand / Collapse Toggle -->
+            <!-- ========================= -->
             <div class="about-toggle">
-                <button class="down-button" aria-expanded="false" aria-controls="about-extra">
-                    <svg class="svgIcon" viewBox="0 0 384 512" aria-hidden="true">
-                        <path
-                            d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
+                <button class="down-button">
+                    <svg class="svgIcon" viewBox="0 0 384 512">
+                        <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 
+                                    160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 
+                                    0L160 141.2V448c0 17.7 14.3 32 32 
+                                    32s32-14.3 32-32V141.2L329.4 
+                                    246.6c12.5 12.5 32.8 12.5 45.3 
+                                    0s12.5-32.8 0-45.3l-160-160z">
                         </path>
                     </svg>
                 </button>
             </div>
+
         </section>
 
 
+
         <!-- ==============================
-             Timeline Section
-    ============================== -->
+                    Timeline Section
+            ============================== -->
         <section class="timeline-section hidden">
-            <!--<canvas id="timelineCanvas"></canvas>
-            <div class="blackhole-center"></div>
+            <!--<canvas id = "timelineCanvas"></canvas>
+                    <div class = "blackhole-center"></div>
 
-            <div class="timeline-content">
-                <div class="timeline-header">
-                    <div class="folded-years-container" id="foldedYears"></div>
-                </div>
+                    <div class = "timeline-content">
+                        <div class = "timeline-header">
+                            <div class = "folded-years-container" id = "foldedYears"></div>
+                        </div>
 
-                <div class="timeline-years" id="timelineYears">
-                     Year cards will be dynamically generated here 
-                </div>
+                        <div class = "timeline-years" id = "timelineYears">
+                            Year cards will be dynamically generated here 
+                        </div>
 
-                <div class="months-container" id="monthsContainer">
-                    Month cards will be inserted here 
-                </div>
+                        <div class = "months-container" id = "monthsContainer">
+                            Month cards will be inserted here 
+                        </div>
 
-                <div class="back-button" id="backButton">
-                    <button id="backToYear">Back to Timeline</button>
+                        <div class = "back-button" id = "backButton">
+                            <button id = "backToYear"> Back to Timeline </button>
+                        </div>
+                    </div>
+
+                    <button class = "close-button">×</button>
+                    <div class = "instruction">Click anywhere to send energy to the center</div>
+                    <div class = "energy-counter">Energy: 0%</div>
+                -->
+            <div class="timeline-placeholder" role="region" aria-label="Timeline placeholder - under construction">
+                <div class="bhp-stage">
+                    <canvas id="bhpCanvas" aria-hidden="true"></canvas>
+
+                    <div class="bhp-content">
+                        <div class="bhp-title"> Timeline - Under Progress </div>
+                        <div class="bhp-subtitle"> A fully animated timeline experience is being built here </div>
+                        <div class="bhp-actions">
+                            <button class="bhp-btn bhp-btn-primary" id="bhpProjectsBtn" title="View Projects">
+                                <span> View Projects </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bhp-glow"></div>
                 </div>
             </div>
-
-            <button class="close-button">×</button>
-            <div class="instruction">Click anywhere to send energy to the center</div>
-            <div class="energy-counter">Energy: 0%</div>
-        -->
-            <div class="timeline-placeholder" role="region" aria-label="Timeline placeholder - under construction">
-  <div class="bhp-stage">
-    <canvas id="bhpCanvas" aria-hidden="true"></canvas>
-    
-    <div class="bhp-content">
-      <div class="bhp-title">Timeline - Under Progress</div>
-      <div class="bhp-subtitle">A fully animated timeline experience is being built here</div>
-      
-      <div class="bhp-actions">
-        <button class="bhp-btn bhp-btn-primary" id="bhpProjectsBtn" title="View Projects">
-          <span>View Projects</span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="bhp-glow"></div>
-  </div>
-</div>
         </section>
     </div>
 
     <!-- ==============================
-         Scripts
-         ============================== -->
+                Scripts
+                ============================== -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script src="js/blackhole.js"></script>
     <script src="js/navigation.js"></script>
@@ -316,6 +430,7 @@
     <script src="js/timeline.js"></script>
     <script src="js/timeline-cards.js"></script>
     <script src="js/placeholder.js"></script>
+    <script src="js/certificates.js"></script>
 </body>
 
 </html>

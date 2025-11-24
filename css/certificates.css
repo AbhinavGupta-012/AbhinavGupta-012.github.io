@@ -1,0 +1,449 @@
+/* ===========================================================
+   FIXED CERTIFICATE PREVIEW SYSTEM
+   Targeted fixes for positioning, borders, and animations
+   =========================================================== */
+
+@import './root.css';
+
+/* ---------------------------------------------
+   Fixed Certificate Item Container
+   --------------------------------------------- */
+.certificate-item.cert-with-preview {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 80px;
+}
+
+.certificate-item.cert-with-preview:last-child {
+    border-bottom: none;
+}
+
+/* Certificate Metadata */
+.cert-meta {
+    flex: 1;
+    padding-right: 40px; /* Increased padding for better icon spacing */
+}
+
+.cert-meta h4 {
+    font-size: var(--certificate-title-size);
+    color: var(--color-certificate-title);
+    margin: 0 0 6px 0;
+    font-weight: 600;
+}
+
+.cert-meta .issuer {
+    font-size: var(--certificate-issuer-size);
+    color: var(--color-certificate-issuer);
+    margin: 0 0 4px 0;
+    font-weight: 500;
+}
+
+.cert-meta .date {
+    font-size: var(--certificate-date-size);
+    color: var(--color-certificate-date);
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* ---------------------------------------------
+   Fixed Preview Container
+   --------------------------------------------- */
+.cert-preview-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: -20px; /* Significantly pull icon left */
+}
+
+/* ---------------------------------------------
+   Fixed Certificate Icon (Moved 28px Left)
+   --------------------------------------------- */
+.cert-icon {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.2, .9, .3, 1);
+    z-index: 15;
+    margin-right: 12px; /* Additional right shift */
+    transform: translateX(-16px); /* Final left positioning */
+}
+
+.cert-icon:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-sidebar-border);
+    transform: translateX(-16px) scale(1.05); /* Maintain left position on hover */
+    box-shadow: 0 0 20px var(--color-accent-glow);
+}
+
+.cert-icon.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-purple);
+    box-shadow: 0 0 25px var(--color-accent-shadow);
+    transform: translateX(-16px); /* Maintain left position when active */
+}
+
+.cert-icon-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* Ripple effects remain the same */
+.cert-ripple {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.cert-icon:hover .cert-ripple {
+    animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) infinite;
+}
+
+.cert-icon:hover .cert-ripple--2 {
+    animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) 0.5s infinite;
+}
+
+.cert-icon:hover .cert-ripple--3 {
+    animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) 1s infinite;
+}
+
+@keyframes certRipple {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 1;
+        border-color: var(--color-purple);
+    }
+    33% {
+        border-color: #00f7ff;
+    }
+    66% {
+        border-color: #ff4ca3;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0;
+        border-color: transparent;
+    }
+}
+
+/* ---------------------------------------------
+   Fixed Preview Frame with Increased Spacing
+   --------------------------------------------- */
+.cert-preview-frame {
+    position: absolute;
+    right: 85px; /* Increased from 70px to add 15px gap */
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 10;
+    transition: all 0.4s cubic-bezier(.2, .9, .3, 1);
+    pointer-events: none;
+}
+
+.cert-preview-frame.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+    pointer-events: auto;
+    animation: energyFormation 0.5s cubic-bezier(.2, .9, .3, 1) forwards;
+}
+
+/* Cosmic Energy Formation Animation */
+@keyframes energyFormation {
+    0% {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.9);
+        filter: drop-shadow(0 0 5px transparent);
+    }
+    
+    /* Stage 1: Energy Tendrils (0-200ms) */
+    20% {
+        opacity: 0.3;
+        transform: translateY(-50%) scale(0.92);
+        filter: drop-shadow(0 0 15px var(--color-purple));
+    }
+    
+    /* Stage 2: Frame Formation (200-350ms) */
+    50% {
+        opacity: 0.8;
+        transform: translateY(-50%) scale(0.98);
+        filter: drop-shadow(0 0 25px var(--color-accent-shadow));
+    }
+    
+    /* Stage 3: Preview Reveal (350-500ms) */
+    70% {
+        opacity: 0.9;
+        transform: translateY(-50%) scale(1.02);
+        filter: drop-shadow(0 0 30px var(--color-accent-shadow));
+    }
+    
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        filter: drop-shadow(0 0 18px var(--color-accent-glow));
+    }
+}
+
+/* Cosmic Tendril Effects using Pseudo-elements */
+.cert-preview-frame::before,
+.cert-preview-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 18px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.cert-preview-frame.active::before {
+    animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.1s forwards;
+}
+
+.cert-preview-frame.active::after {
+    animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.2s forwards;
+}
+
+@keyframes cosmicTendrils {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 transparent;
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+        box-shadow: 
+            0 0 20px 2px var(--color-purple),
+            0 0 40px 4px rgba(64, 224, 255, 0.3),
+            inset 0 0 20px rgba(255, 77, 160, 0.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.1);
+        box-shadow: 
+            0 0 30px 1px transparent,
+            inset 0 0 15px transparent;
+    }
+}
+
+.cert-preview-inner {
+    position: relative;
+    width: 280px;
+    height: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(8px);
+}
+
+/* Enhanced Certificate Preview with Glow Effects */
+.cert-preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    opacity: 0;
+    transform: scale(0.94);
+    transition: all 0.32s cubic-bezier(.2, .9, .3, 1) 0.2s;
+    background: linear-gradient(45deg, #1a1a2e, #16213e);
+    
+    /* Inner glow effect */
+    box-shadow: 
+        inset 0 0 30px rgba(176, 102, 255, 0.1),
+        inset 0 0 60px rgba(64, 224, 255, 0.05);
+}
+
+.cert-preview-frame.active .cert-preview-img {
+    opacity: 1;
+    transform: scale(1);
+    
+    /* Enhanced glow when active */
+    box-shadow: 
+        inset 0 0 40px rgba(176, 102, 255, 0.15),
+        inset 0 0 80px rgba(64, 224, 255, 0.08),
+        0 0 30px rgba(255, 77, 160, 0.2);
+}
+
+/* Fixed Gradient Border matching scrollbar */
+.cert-gradient-border {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid transparent;
+    border-radius: 18px;
+    
+    /* Exact gradient from scrollbar */
+    background: linear-gradient(180deg, #B066FF, #40E0FF, #FF4DA0);
+    background-size: 200% 200%;
+    
+    animation: gradientFlow 3s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.cert-preview-frame.active .cert-gradient-border {
+    opacity: 1;
+    animation: gradientFlow 3s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
+}
+
+@keyframes borderReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+        background-size: 100% 100%;
+    }
+    60% {
+        opacity: 0.8;
+        transform: scale(1.02);
+        background-size: 150% 150%;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        background-size: 200% 200%;
+    }
+}
+
+@keyframes gradientFlow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* ---------------------------------------------
+   Mobile & Responsive Fixes
+   --------------------------------------------- */
+@media (max-width: 768px) {
+    .cert-preview-inner {
+        width: 240px;
+        height: 170px;
+    }
+    
+    .cert-preview-frame {
+        right: 70px; /* Adjusted for mobile */
+    }
+    
+    .certificate-item.cert-with-preview {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .cert-preview-wrap {
+        align-self: flex-end;
+        margin-right: -15px;
+    }
+    
+    .cert-preview-frame {
+        right: 60px;
+        top: 100%;
+        transform: translateY(10px) scale(0.9);
+    }
+    
+    .cert-preview-frame.active {
+        transform: translateY(20px) scale(1);
+    }
+    
+    .cert-icon {
+        transform: translateX(-12px); /* Less shift on mobile */
+    }
+    
+    .cert-icon:hover {
+        transform: translateX(-12px) scale(1.05);
+    }
+}
+
+@media (max-width: 480px) {
+    .cert-preview-inner {
+        width: 200px;
+        height: 140px;
+    }
+    
+    .cert-icon {
+        width: 40px;
+        height: 40px;
+        transform: translateX(-10px);
+    }
+    
+    .cert-icon:hover {
+        transform: translateX(-10px) scale(1.05);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .cert-preview-frame {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        right: auto;
+        transform: translate(-50%, -50%) scale(0.9);
+        z-index: 1000;
+    }
+    
+    .cert-preview-frame.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .cert-preview-inner {
+        width: 320px;
+        height: 230px;
+    }
+}
+
+/* Accessibility & Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .cert-icon,
+    .cert-preview-frame,
+    .cert-ripple,
+    .cert-gradient-border {
+        transition: opacity 0.3s ease;
+        animation: none;
+    }
+    
+    .cert-icon:hover {
+        transform: translateX(-16px); /* Maintain position without scale */
+    }
+    
+    .cert-preview-frame::before,
+    .cert-preview-frame::after {
+        display: none;
+    }
+}
+
+/* Ensure no scrollbar overlap */
+.about.expanded .cert-preview-frame {
+    z-index: 25;
+}
