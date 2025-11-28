@@ -40,6 +40,22 @@ function hideAllSections() {
 }
 
 // ---------------------------------------------
+// Helper: Add blur to all canvases
+// ---------------------------------------------
+function addCanvasBlur() {
+    document.querySelectorAll("canvas")
+        .forEach(c => c.classList.add("canvas-blur"));
+}
+
+// ---------------------------------------------
+// Helper: Remove blur from all canvases
+// ---------------------------------------------
+function removeCanvasBlur() {
+    document.querySelectorAll("canvas")
+        .forEach(c => c.classList.remove("canvas-blur"));
+}
+
+// ---------------------------------------------
 // Main Navigation Setup (after DOM is loaded)
 // ---------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
@@ -52,29 +68,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Step 2: Handle navigation based on button label
             switch (label) {
+
                 case "Home":
-                    // Just clear active state and show nothing
                     clearActive();
                     const nav = document.getElementById('mainNav');
+                    removeCanvasBlur();
                     nav.classList.remove('show');
                     break;
 
                 case "About":
                     // Show About section (collapsed by default)
                     document.querySelector(".about")?.classList.add("show");
+                    addCanvasBlur();   // <-- BLUR ONLY HERE
                     setActive("About");
                     break;
 
                 case "Timeline":
-                    // Show Timeline overlay
                     document.querySelector(".timeline-section")?.classList.add("show");
+                    removeCanvasBlur();
 
-                    // Start timeline animation
                     if (window.timelineAnimation) {
-                        // Already initialized → just show it
                         setTimeout(() => window.timelineAnimation.show(), 50);
                     } else if (typeof initTimelineAnimation === "function") {
-                        // First-time initialization
                         window.timelineAnimation = initTimelineAnimation();
                         window.timelineAnimation.show();
                     }
@@ -83,29 +98,36 @@ document.addEventListener("DOMContentLoaded", () => {
                     break;
 
                 case "Projects":
-                    // Show Projects section (needs to exist in HTML)
                     document.querySelector(".projects")?.classList.add("show");
+                    removeCanvasBlur();
                     setActive("Projects");
                     break;
 
                 case "Resume":
-                    // Show Resume section (needs to exist in HTML)
                     document.querySelector(".resume")?.classList.add("show");
+                    removeCanvasBlur();
                     setActive("Resume");
                     break;
 
                 default:
-                    // Unknown label → reset to safe state
                     clearActive();
             }
         });
     });
 });
 
+// ---------------------------------------------
+// Event: Blackhole expanded (initial reveal)
+// ---------------------------------------------
 document.addEventListener('blackholeExpanded', () => {
     const nav = document.getElementById('mainNav');
     const aboutSection = document.querySelector(".about");
+
     nav.classList.add('show');
-    if (aboutSection) aboutSection.classList.add('show');
+    if (aboutSection) {
+        aboutSection.classList.add('show');
+        addCanvasBlur();   // <-- About is the first screen shown → blur
+    }
+
     setActive("About");
 });

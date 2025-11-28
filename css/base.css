@@ -128,3 +128,9 @@ canvas {
 	z-index: 1; /* above canvas */
 	color: var(--color-content);
 }
+
+/* Blur effect ONLY when About is active */
+.canvas-blur {
+    filter: blur(1.25px);   /* <- adjust blur strength here */
+    transition: filter 0.4s ease;
+}
