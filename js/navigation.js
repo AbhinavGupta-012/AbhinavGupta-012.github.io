@@ -103,6 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     setActive("Projects");
                     break;
 
+                case "Achievements":
+                    document.querySelector(".achievements")?.classList.add("show");
+                    removeCanvasBlur();
+                    setActive("Achievements");
+                    break;
+
                 case "Resume":
                     document.querySelector(".resume")?.classList.add("show");
                     removeCanvasBlur();
