@@ -6,6 +6,19 @@
 // - Managing active button states
 // - Delegating animations to their own files (about.js, timeline.js)
 // ==============================
+// Cleanly collapse About (reset scroll + hide extras)
+function resetAboutSection() {
+    const about = document.querySelector(".about");
+    if (!about) return;
+
+    const card = about.querySelector(".about-card");
+    if (card) card.scrollTop = 0;
+
+    const extra = document.querySelector(".extra-content-container");
+    if (extra) extra.classList.remove("show");
+
+    about.classList.remove("expanded");
+}
 
 // ---------------------------------------------
 // Utility: Remove 'active' from all nav buttons
@@ -29,15 +42,22 @@ function setActive(label) {
 // Utility: Hide all sections (reset state)
 // ---------------------------------------------
 function hideAllSections() {
-    // Hide all sections that might be visible
+
+    // ⭐ FIRST — cleanly reset About if it was open
+    resetAboutSection();
+
+    // THEN hide all sections normally
     document.querySelectorAll("section")
         .forEach(sec => sec.classList.remove("show", "expanded"));
 
-    // Stop timeline animation if it's active
+    const certPage = document.getElementById("certificates");
+    if (certPage) certPage.classList.remove("show");
+
     if (window.timelineAnimation) {
         window.timelineAnimation.hide();
     }
 }
+
 
 // ---------------------------------------------
 // Helper: Add blur to all canvases
@@ -59,6 +79,7 @@ function removeCanvasBlur() {
 // Main Navigation Setup (after DOM is loaded)
 // ---------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. Standard Navbar Navigation
     document.querySelectorAll("#mainNav .button").forEach(btn => {
         btn.addEventListener("click", () => {
             const label = btn.querySelector(".actual-text").textContent.trim();
@@ -120,6 +141,46 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    // 2. CERTIFICATES PAGE LOGIC
+    const openCertLink = document.getElementById("openCertificatesPage");
+    const backToAboutBtn = document.getElementById("backToAbout");
+    const aboutSection = document.querySelector(".about");
+    const certPage = document.getElementById("certificates");
+
+    // A. Open Certificates Page
+    if (openCertLink) {
+        openCertLink.addEventListener("click", () => {
+            // Hide About WITHOUT removing 'expanded' class to preserve state
+            aboutSection.classList.remove("show");
+            
+            // Show Certificates Page
+            certPage.classList.add("show");
+            
+            // Remove blur for the clean cosmic view
+            removeCanvasBlur();
+            
+            // Keep 'About' active in navbar
+            setActive("About");
+        });
+    }
+
+    // B. Back Button (Return to About)
+    if (backToAboutBtn) {
+        backToAboutBtn.addEventListener("click", () => {
+            // Hide Certificates Page
+            certPage.classList.remove("show");
+            
+            // Show About again (it retains its expanded state if it had it)
+            aboutSection.classList.add("show");
+            
+            // Re-apply blur since we are back in About
+            addCanvasBlur();
+            
+            // Ensure About is still active
+            setActive("About");
+        });
+    }
 });
 
 // ---------------------------------------------

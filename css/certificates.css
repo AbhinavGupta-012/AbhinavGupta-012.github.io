@@ -1,13 +1,10 @@
 /* ===========================================================
-   FIXED CERTIFICATE PREVIEW SYSTEM
-   Targeted fixes for positioning, borders, and animations
+   FIXED CERTIFICATE PREVIEW SYSTEM (PRESERVED)
+   (Existing preview styles - keeping these safe)
    =========================================================== */
 
 @import './root.css';
 
-/* ---------------------------------------------
-   Fixed Certificate Item Container
-   --------------------------------------------- */
 .certificate-item.cert-with-preview {
     position: relative;
     display: flex;
@@ -17,51 +14,37 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     min-height: 80px;
 }
-
 .certificate-item.cert-with-preview:last-child {
     border-bottom: none;
 }
-
-/* Certificate Metadata */
 .cert-meta {
     flex: 1;
-    padding-right: 40px; /* Increased padding for better icon spacing */
+    padding-right: 40px;
 }
-
 .cert-meta h4 {
     font-size: var(--certificate-title-size);
     color: var(--color-certificate-title);
     margin: 0 0 6px 0;
     font-weight: 600;
 }
-
 .cert-meta .issuer {
     font-size: var(--certificate-issuer-size);
     color: var(--color-certificate-issuer);
     margin: 0 0 4px 0;
     font-weight: 500;
 }
-
 .cert-meta .date {
     font-size: var(--certificate-date-size);
     color: var(--color-certificate-date);
     margin: 0;
     opacity: 0.8;
 }
-
-/* ---------------------------------------------
-   Fixed Preview Container
-   --------------------------------------------- */
 .cert-preview-wrap {
     position: relative;
     display: flex;
     align-items: center;
-    margin-right: -20px; /* Significantly pull icon left */
+    margin-right: -20px;
 }
-
-/* ---------------------------------------------
-   Fixed Certificate Icon (Moved 28px Left)
-   --------------------------------------------- */
 .cert-icon {
     position: relative;
     width: 44px;
@@ -75,32 +58,27 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(.2, .9, .3, 1);
     z-index: 15;
-    margin-right: 12px; /* Additional right shift */
-    transform: translateX(-16px); /* Final left positioning */
+    margin-right: 12px;
+    transform: translateX(-16px);
 }
-
 .cert-icon:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--color-sidebar-border);
-    transform: translateX(-16px) scale(1.05); /* Maintain left position on hover */
+    transform: translateX(-16px) scale(1.05);
     box-shadow: 0 0 20px var(--color-accent-glow);
 }
-
 .cert-icon.active {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--color-purple);
     box-shadow: 0 0 25px var(--color-accent-shadow);
-    transform: translateX(-16px); /* Maintain left position when active */
+    transform: translateX(-16px);
 }
-
 .cert-icon-visual {
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
 }
-
-/* Ripple effects remain the same */
 .cert-ripple {
     position: absolute;
     top: 50%;
@@ -113,44 +91,24 @@
     opacity: 0;
     pointer-events: none;
 }
-
 .cert-icon:hover .cert-ripple {
     animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) infinite;
 }
-
 .cert-icon:hover .cert-ripple--2 {
     animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) 0.5s infinite;
 }
-
 .cert-icon:hover .cert-ripple--3 {
     animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) 1s infinite;
 }
-
 @keyframes certRipple {
-    0% {
-        transform: translate(-50%, -50%) scale(0.8);
-        opacity: 1;
-        border-color: var(--color-purple);
-    }
-    33% {
-        border-color: #00f7ff;
-    }
-    66% {
-        border-color: #ff4ca3;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1.4);
-        opacity: 0;
-        border-color: transparent;
-    }
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; border-color: var(--color-purple); }
+    33% { border-color: #00f7ff; }
+    66% { border-color: #ff4ca3; }
+    100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; border-color: transparent; }
 }
-
-/* ---------------------------------------------
-   Fixed Preview Frame with Increased Spacing
-   --------------------------------------------- */
 .cert-preview-frame {
     position: absolute;
-    right: 85px; /* Increased from 70px to add 15px gap */
+    right: 85px;
     top: 50%;
     transform: translateY(-50%) scale(0.9);
     opacity: 0;
@@ -159,7 +117,6 @@
     transition: all 0.4s cubic-bezier(.2, .9, .3, 1);
     pointer-events: none;
 }
-
 .cert-preview-frame.active {
     opacity: 1;
     visibility: visible;
@@ -167,283 +124,290 @@
     pointer-events: auto;
     animation: energyFormation 0.5s cubic-bezier(.2, .9, .3, 1) forwards;
 }
-
-/* Cosmic Energy Formation Animation */
 @keyframes energyFormation {
-    0% {
-        opacity: 0;
-        transform: translateY(-50%) scale(0.9);
-        filter: drop-shadow(0 0 5px transparent);
-    }
-    
-    /* Stage 1: Energy Tendrils (0-200ms) */
-    20% {
-        opacity: 0.3;
-        transform: translateY(-50%) scale(0.92);
-        filter: drop-shadow(0 0 15px var(--color-purple));
-    }
-    
-    /* Stage 2: Frame Formation (200-350ms) */
-    50% {
-        opacity: 0.8;
-        transform: translateY(-50%) scale(0.98);
-        filter: drop-shadow(0 0 25px var(--color-accent-shadow));
-    }
-    
-    /* Stage 3: Preview Reveal (350-500ms) */
-    70% {
-        opacity: 0.9;
-        transform: translateY(-50%) scale(1.02);
-        filter: drop-shadow(0 0 30px var(--color-accent-shadow));
-    }
-    
-    100% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1);
-        filter: drop-shadow(0 0 18px var(--color-accent-glow));
-    }
+    0% { opacity: 0; transform: translateY(-50%) scale(0.9); filter: drop-shadow(0 0 5px transparent); }
+    20% { opacity: 0.3; transform: translateY(-50%) scale(0.92); filter: drop-shadow(0 0 15px var(--color-purple)); }
+    50% { opacity: 0.8; transform: translateY(-50%) scale(0.98); filter: drop-shadow(0 0 25px var(--color-accent-shadow)); }
+    70% { opacity: 0.9; transform: translateY(-50%) scale(1.02); filter: drop-shadow(0 0 30px var(--color-accent-shadow)); }
+    100% { opacity: 1; transform: translateY(-50%) scale(1); filter: drop-shadow(0 0 18px var(--color-accent-glow)); }
 }
-
-/* Cosmic Tendril Effects using Pseudo-elements */
-.cert-preview-frame::before,
-.cert-preview-frame::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 18px;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
+.cert-preview-frame::before, .cert-preview-frame::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 18px; opacity: 0; pointer-events: none; z-index: -1;
 }
-
-.cert-preview-frame.active::before {
-    animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.1s forwards;
-}
-
-.cert-preview-frame.active::after {
-    animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.2s forwards;
-}
-
+.cert-preview-frame.active::before { animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.1s forwards; }
+.cert-preview-frame.active::after { animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.2s forwards; }
 @keyframes cosmicTendrils {
-    0% {
-        opacity: 0;
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 transparent;
-    }
-    50% {
-        opacity: 0.6;
-        transform: scale(1.05);
-        box-shadow: 
-            0 0 20px 2px var(--color-purple),
-            0 0 40px 4px rgba(64, 224, 255, 0.3),
-            inset 0 0 20px rgba(255, 77, 160, 0.2);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(1.1);
-        box-shadow: 
-            0 0 30px 1px transparent,
-            inset 0 0 15px transparent;
-    }
+    0% { opacity: 0; transform: scale(0.95); box-shadow: 0 0 0 0 transparent; }
+    50% { opacity: 0.6; transform: scale(1.05); box-shadow: 0 0 20px 2px var(--color-purple), 0 0 40px 4px rgba(64, 224, 255, 0.3), inset 0 0 20px rgba(255, 77, 160, 0.2); }
+    100% { opacity: 0; transform: scale(1.1); box-shadow: 0 0 30px 1px transparent, inset 0 0 15px transparent; }
 }
-
 .cert-preview-inner {
-    position: relative;
-    width: 280px;
-    height: 200px;
-    border-radius: 16px;
-    overflow: hidden;
-    background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(8px);
+    position: relative; width: 280px; height: 200px; border-radius: 16px; overflow: hidden; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(8px);
 }
-
-/* Enhanced Certificate Preview with Glow Effects */
 .cert-preview-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 14px;
-    opacity: 0;
-    transform: scale(0.94);
-    transition: all 0.32s cubic-bezier(.2, .9, .3, 1) 0.2s;
-    background: linear-gradient(45deg, #1a1a2e, #16213e);
-    
-    /* Inner glow effect */
-    box-shadow: 
-        inset 0 0 30px rgba(176, 102, 255, 0.1),
-        inset 0 0 60px rgba(64, 224, 255, 0.05);
+    width: 100%; height: 100%; object-fit: cover; border-radius: 14px; opacity: 0; transform: scale(0.94); transition: all 0.32s cubic-bezier(.2, .9, .3, 1) 0.2s; background: linear-gradient(45deg, #1a1a2e, #16213e); box-shadow: inset 0 0 30px rgba(176, 102, 255, 0.1), inset 0 0 60px rgba(64, 224, 255, 0.05);
 }
-
 .cert-preview-frame.active .cert-preview-img {
-    opacity: 1;
-    transform: scale(1);
-    
-    /* Enhanced glow when active */
-    box-shadow: 
-        inset 0 0 40px rgba(176, 102, 255, 0.15),
-        inset 0 0 80px rgba(64, 224, 255, 0.08),
-        0 0 30px rgba(255, 77, 160, 0.2);
+    opacity: 1; transform: scale(1); box-shadow: inset 0 0 40px rgba(176, 102, 255, 0.15), inset 0 0 80px rgba(64, 224, 255, 0.08), 0 0 30px rgba(255, 77, 160, 0.2);
 }
-
-/* Fixed Gradient Border matching scrollbar */
 .cert-gradient-border {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border: 2px solid transparent;
-    border-radius: 18px;
-    
-    /* Exact gradient from scrollbar */
-    background: linear-gradient(180deg, #B066FF, #40E0FF, #FF4DA0);
-    background-size: 200% 200%;
-    
-    animation: gradientFlow 3s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: subtract;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    pointer-events: none;
-    opacity: 0;
+    position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; border: 2px solid transparent; border-radius: 18px; background: linear-gradient(180deg, #B066FF, #40E0FF, #FF4DA0); background-size: 200% 200%; animation: gradientFlow 3s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: subtract; -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; pointer-events: none; opacity: 0;
 }
-
 .cert-preview-frame.active .cert-gradient-border {
-    opacity: 1;
-    animation: gradientFlow 3s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
+    opacity: 1; animation: gradientFlow 3s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
 }
-
 @keyframes borderReveal {
-    0% {
-        opacity: 0;
-        transform: scale(0.95);
-        background-size: 100% 100%;
-    }
-    60% {
-        opacity: 0.8;
-        transform: scale(1.02);
-        background-size: 150% 150%;
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-        background-size: 200% 200%;
-    }
+    0% { opacity: 0; transform: scale(0.95); background-size: 100% 100%; }
+    60% { opacity: 0.8; transform: scale(1.02); background-size: 150% 150%; }
+    100% { opacity: 1; transform: scale(1); background-size: 200% 200%; }
 }
-
 @keyframes gradientFlow {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
-
-/* ---------------------------------------------
-   Mobile & Responsive Fixes
-   --------------------------------------------- */
 @media (max-width: 768px) {
-    .cert-preview-inner {
-        width: 240px;
-        height: 170px;
-    }
-    
-    .cert-preview-frame {
-        right: 70px; /* Adjusted for mobile */
-    }
-    
-    .certificate-item.cert-with-preview {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .cert-preview-wrap {
-        align-self: flex-end;
-        margin-right: -15px;
-    }
-    
-    .cert-preview-frame {
-        right: 60px;
-        top: 100%;
-        transform: translateY(10px) scale(0.9);
-    }
-    
-    .cert-preview-frame.active {
-        transform: translateY(20px) scale(1);
-    }
-    
-    .cert-icon {
-        transform: translateX(-12px); /* Less shift on mobile */
-    }
-    
-    .cert-icon:hover {
-        transform: translateX(-12px) scale(1.05);
-    }
+    .cert-preview-inner { width: 240px; height: 170px; }
+    .cert-preview-frame { right: 70px; }
+    .certificate-item.cert-with-preview { flex-direction: column; gap: 15px; }
+    .cert-preview-wrap { align-self: flex-end; margin-right: -15px; }
+    .cert-preview-frame { right: 60px; top: 100%; transform: translateY(10px) scale(0.9); }
+    .cert-preview-frame.active { transform: translateY(20px) scale(1); }
+    .cert-icon { transform: translateX(-12px); }
+    .cert-icon:hover { transform: translateX(-12px) scale(1.05); }
 }
-
 @media (max-width: 480px) {
-    .cert-preview-inner {
-        width: 200px;
-        height: 140px;
-    }
-    
-    .cert-icon {
-        width: 40px;
-        height: 40px;
-        transform: translateX(-10px);
-    }
-    
-    .cert-icon:hover {
-        transform: translateX(-10px) scale(1.05);
-    }
+    .cert-preview-inner { width: 200px; height: 140px; }
+    .cert-icon { width: 40px; height: 40px; transform: translateX(-10px); }
+    .cert-icon:hover { transform: translateX(-10px) scale(1.05); }
 }
-
-/* Touch Device Optimizations */
 @media (hover: none) and (pointer: coarse) {
-    .cert-preview-frame {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        right: auto;
-        transform: translate(-50%, -50%) scale(0.9);
-        z-index: 1000;
-    }
-    
-    .cert-preview-frame.active {
-        transform: translate(-50%, -50%) scale(1);
-    }
-    
-    .cert-preview-inner {
-        width: 320px;
-        height: 230px;
-    }
+    .cert-preview-frame { position: fixed; left: 50%; top: 50%; right: auto; transform: translate(-50%, -50%) scale(0.9); z-index: 1000; }
+    .cert-preview-frame.active { transform: translate(-50%, -50%) scale(1); }
+    .cert-preview-inner { width: 320px; height: 230px; }
 }
-
-/* Accessibility & Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-    .cert-icon,
-    .cert-preview-frame,
-    .cert-ripple,
-    .cert-gradient-border {
-        transition: opacity 0.3s ease;
-        animation: none;
-    }
-    
-    .cert-icon:hover {
-        transform: translateX(-16px); /* Maintain position without scale */
-    }
-    
-    .cert-preview-frame::before,
-    .cert-preview-frame::after {
-        display: none;
-    }
+    .cert-icon, .cert-preview-frame, .cert-ripple, .cert-gradient-border { transition: opacity 0.3s ease; animation: none; }
+    .cert-icon:hover { transform: translateX(-16px); }
+    .cert-preview-frame::before, .cert-preview-frame::after { display: none; }
+}
+.about.expanded .cert-preview-frame { z-index: 25; }
+.clickable-cert-title {
+    cursor: pointer; transition: color 0.3s ease, text-shadow 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+}
+.clickable-cert-title:hover {
+    color: #fff; text-shadow: 0 0 10px var(--color-purple), 0 0 20px var(--color-purple);
+}
+.external-icon { font-size: 0.8em; opacity: 0.7; transition: transform 0.3s ease; }
+.clickable-cert-title:hover .external-icon { transform: translate(2px, -2px); opacity: 1; color: var(--color-purple); }
+
+/* ===========================================================
+   COSMIC CARD SYSTEM - CANVAS EDITION
+   =========================================================== */
+
+/* Page Setup */
+.certificates-page {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 50;
+    display: flex; justify-content: center; align-items: center;
+    pointer-events: none; opacity: 0; transform: scale(0.95);
+    transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: radial-gradient(circle at center, rgba(30, 0, 40, 0.4) 0%, transparent 70%);
 }
 
-/* Ensure no scrollbar overlap */
-.about.expanded .cert-preview-frame {
-    z-index: 25;
+.certificates-page.show {
+    pointer-events: auto; opacity: 1; transform: scale(1);
+}
+
+.cert-page-container {
+    width: 90%; max-width: 1200px;
+    display: flex; flex-direction: column; align-items: center;
+}
+
+/* Title Design */
+.cert-page-title {
+    font-size: 2.8rem;
+    margin-bottom: 60px;
+    text-align: center;
+    line-height: 1.2;
+    display: flex; flex-direction: column;
+}
+
+.cpt-main {
+    font-weight: 700;
+    background: var(--color-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(176, 102, 255, 0.3);
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+.cpt-sub {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+@keyframes glowPulse {
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(176, 102, 255, 0.3)); }
+    50% { filter: drop-shadow(0 0 25px rgba(0, 247, 255, 0.5)); }
+}
+
+/* Wrapper */
+.cert-cards-wrapper {
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; width: 100%;
+}
+
+/* ============================
+   THE COSMIC CARD (Core)
+   ============================ */
+.cosmic-card {
+    position: relative;
+    width: 220px; height: 300px;
+    border-radius: 20px;
+    
+    /* Structural Border */
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    
+    /* Background */
+    background: rgba(20, 20, 25, 0.6);
+    backdrop-filter: blur(12px);
+    
+    overflow: visible; /* Required for canvas to bleed out slightly if needed */
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.4s ease;
+    display: flex; justify-content: center; align-items: center;
+}
+
+/* Define colors via data attributes in HTML or JS, but helpful to have defaults */
+.cosmic-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    background: rgba(25, 25, 30, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 40px -10px rgba(0,0,0,0.6);
+}
+
+/* CANVAS LAYER */
+.cosmic-rift-canvas {
+    position: absolute;
+    top: -10px; left: -10px; /* Bleed area for the energy */
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    pointer-events: none;
+    z-index: 1; /* Below content, above background */
+    border-radius: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cosmic-card:hover .cosmic-rift-canvas {
+    opacity: 1;
+}
+
+.card-inner {
+    position: relative; z-index: 5; /* Above canvas */
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    width: 100%; height: 100%;
+    padding: 30px 20px;
+}
+
+/* -----------------------------------------------------------------
+   PLANET RING (Preserved)
+   ----------------------------------------------------------------- */
+
+/* Cosmic Orb Icon */
+.cosmic-icon-wrapper {
+    position: relative;
+    width: 80px; height: 80px;
+    margin-bottom: 25px;
+}
+
+.cosmic-orb {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), rgba(0,0,0,0.8));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.05), 0 0 20px rgba(0,0,0,0.5);
+    transition: all 0.4s ease;
+}
+
+.orb-icon { font-size: 2.5rem; filter: drop-shadow(0 0 5px rgba(255,255,255,0.3)); }
+
+/* Orbit Dot Animation */
+.orbit-dot {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    animation: orbitSpin 4s linear infinite;
+    pointer-events: none;
+}
+
+.orbit-dot::before {
+    content: ''; position: absolute; top: 0; left: 50%;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px #fff;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Typography */
+.cosmic-card h3 {
+    color: #fff; font-size: 1.3rem; margin: 0; letter-spacing: 1px;
+}
+
+.cosmic-divider {
+    width: 40px; height: 2px;
+    background: var(--color-accent);
+    margin: 15px 0;
+    transition: width 0.3s ease;
+}
+
+.cosmic-card p {
+    font-size: 0.9rem; color: rgba(255,255,255,0.6);
+}
+
+/* Specific Hover Interactions for Internal Elements */
+.cosmic-card:hover .cosmic-divider { width: 100px; box-shadow: 0 0 10px var(--color-accent-glow); }
+.cosmic-card:hover .cosmic-orb { box-shadow: 0 0 30px var(--color-accent-glow), inset 0 0 20px rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); }
+.cosmic-card:hover .orb-icon { transform: scale(1.1); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+/* Color Specific overrides for hover states */
+.card-courses:hover .cosmic-orb { border-color: #00f7ff; box-shadow: 0 0 40px rgba(0, 247, 255, 0.3); }
+.card-participation:hover .cosmic-orb { border-color: var(--color-purple); box-shadow: 0 0 40px rgba(197, 112, 255, 0.3); }
+.card-achievements:hover .cosmic-orb { border-color: #ffd700; box-shadow: 0 0 40px rgba(255, 215, 0, 0.3); }
+.card-archive:hover .cosmic-orb { 
+    border-color: #00e0b0;
+    box-shadow: 0 0 40px rgba(0, 224, 176, 0.3);
+}
+
+
+/* Back Button */
+.cert-back-btn {
+    margin-top: 50px; padding: 12px 35px;
+    background: transparent; border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px; color: #fff; font-size: 1rem;
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cert-back-btn:hover {
+    border-color: var(--color-purple);
+    background: rgba(197, 112, 255, 0.1);
+    box-shadow: 0 0 20px var(--color-accent-glow);
+    letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .cosmic-card { width: 40%; max-width: 200px; margin-bottom: 20px; }
+}
+@media (max-width: 600px) {
+    .cert-cards-wrapper { flex-direction: column; align-items: center; }
+    .cosmic-card { width: 80%; height: 260px; }
+    .cert-page-title { font-size: 2rem; }
 }

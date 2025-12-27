@@ -6,9 +6,9 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
 
     <title> Abhinav Gupta </title>
-    <!-- SVG favicon (primary). Make sure assets/favicon.svg contains the xmlns="http://www.w3.org/2000/svg" and a viewBox attribute. -->
+    <!-- SVG favicon (primary). -->
     <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
-    <!-- PNG fallback for browsers that don't render SVG favicons or when the server doesn't serve the correct MIME type -->
+    <!-- PNG fallback -->
     <link rel="icon" href="assets/logos/favicon.png" sizes="32x32" type="image/png">
     <!-- Legacy fallback -->
     <link rel="shortcut icon" href="assets/logos/favicon.ico">
@@ -23,7 +23,7 @@
     <!-- ==============================
                 Navbar Styles
                 ============================== -->
-    <link rel="stylesheet" href="css/nav.css">  
+    <link rel="stylesheet" href="css/nav.css">
 
     <!-- ==============================
                 About Section Styles
@@ -90,10 +90,7 @@
 
         <!-- ============================= -->
         <!--        ABOUT SECTION         -->
-        <!-- (Left = profile + quick info)
-            (Right = detailed sections)  -->
         <!-- ============================= -->
-
         <section class="about hidden">
             <div class="about-card">
 
@@ -130,7 +127,6 @@
                         <!-- ================================= -->
                         <!-- PREMIUM SOCIAL LINKS (Vertical UI) -->
                         <!-- ================================= -->
-                        <!-- Note: Replace GH / LI / LC with SVG icons -->
                         <div class="social-links-vertical">
 
                             <!-- GitHub -->
@@ -276,17 +272,17 @@
                             </div>
                         </div>
 
-                        <!-- Certificates -->
-                        <hr>
-                        <!-- ========================= -->
-                        <!-- CERTIFICATES SECTION (Fixed Positioning & Enhanced Effects) -->
-                        <!-- ========================= -->
+                        <!-- Certificates (Clickable Header) -->
                         <hr>
                         <div class="content-section certificates-section">
-                            <h3 class="section-title"> Certificates </h3>
-                            <div class="section-content">
+                            <!-- MODIFIED: Clickable Header triggering the Certificates Page -->
+                            <h3 class="section-title clickable-cert-title" id="openCertificatesPage">
+                                Certificates
+                                <span class="external-icon" aria-label="Open Certificates Page">[↗]</span>
+                            </h3>
 
-                                <!-- IBM Certificate with Fixed Positioning -->
+                            <div class="section-content">
+                                <!-- Existing Certificate Previews inside About (Untouched behavior) -->
                                 <div class="certificate-item cert-with-preview">
                                     <div class="cert-meta">
                                         <h4> IBM Full Stack Software Developer </h4>
@@ -294,9 +290,7 @@
                                         <p class="date"> April 13, 2025 </p>
                                     </div>
 
-                                    <!-- Fixed Preview Container -->
                                     <div class="cert-preview-wrap">
-                                        <!-- Icon moved significantly left -->
                                         <div class="cert-icon"
                                             data-preview-src="assets/certs/IBM Full Stack Software Developer.jpg"
                                             aria-label="Preview IBM Certificate">
@@ -310,13 +304,11 @@
                                             <span class="cert-ripple cert-ripple--3"></span>
                                         </div>
 
-                                        <!-- Preview Frame with Increased Spacing -->
                                         <div class="cert-preview-frame" aria-hidden="true">
                                             <div class="cert-preview-inner">
                                                 <img class="cert-preview-img"
                                                     src="assets/certs/IBM Full Stack Software Developer.jpg"
                                                     alt="IBM Full Stack Software Developer Certificate Preview">
-                                                <!-- Gradient Border matching scrollbar -->
                                                 <div class="cert-gradient-border"></div>
                                             </div>
                                         </div>
@@ -330,9 +322,7 @@
                                         <p class="date"> April 23, 2025 </p>
                                     </div>
 
-                                    <!-- Fixed Preview Container -->
                                     <div class="cert-preview-wrap">
-                                        <!-- Icon moved significantly left -->
                                         <div class="cert-icon"
                                             data-preview-src="assets/certs/Java Data Structures and Algorithms.jpg"
                                             aria-label="Preview IBM Certificate">
@@ -346,13 +336,11 @@
                                             <span class="cert-ripple cert-ripple--3"></span>
                                         </div>
 
-                                        <!-- Preview Frame with Increased Spacing -->
                                         <div class="cert-preview-frame" aria-hidden="true">
                                             <div class="cert-preview-inner">
                                                 <img class="cert-preview-img"
                                                     src="assets/certs/Java Data Structures and Algorithms.jpg"
                                                     alt="Java Data Structures and Algorithms Certificate Preview">
-                                                <!-- Gradient Border matching scrollbar -->
                                                 <div class="cert-gradient-border"></div>
                                             </div>
                                         </div>
@@ -385,37 +373,94 @@
 
         </section>
 
+        <!-- ==============================
+             NEW CERTIFICATES PAGE SECTION (Revamped Structure)
+        ============================== -->
+        <section id="certificates" class="certificates-page hidden">
+            <div class="cert-page-container">
+                <h2 class="cert-page-title">
+                    <span class="cpt-main">Certifications</span>
+                </h2>
+                
+                <div class="cert-cards-wrapper">
+                    
+                    <!-- Card 1: Courses (Planetary Style) -->
+                    <div class="cosmic-card card-courses">
+                        <div class="card-inner">
+                            <div class="cosmic-icon-wrapper">
+                                <div class="cosmic-orb">
+                                    <span class="orb-icon">📚</span>
+                                </div>
+                                <div class="orbit-dot"></div>
+                            </div>
+                            <h3>Courses</h3>
+                            <div class="cosmic-divider"></div>
+                            <p>Continuous Learning</p>
+                        </div>
+                        <div class="cosmic-glow"></div>
+                    </div>
 
+                    <!-- Card 2: Participation -->
+                    <div class="cosmic-card card-participation">
+                        <div class="card-inner">
+                            <div class="cosmic-icon-wrapper">
+                                <div class="cosmic-orb">
+                                    <span class="orb-icon">🤝</span>
+                                </div>
+                                <div class="orbit-dot"></div>
+                            </div>
+                            <h3>Participation</h3>
+                            <div class="cosmic-divider"></div>
+                            <p>Community & Events</p>
+                        </div>
+                        <div class="cosmic-glow"></div>
+                    </div>
+
+                    <!-- Card 3: Achievements -->
+                    <div class="cosmic-card card-achievements">
+                        <div class="card-inner">
+                            <div class="cosmic-icon-wrapper">
+                                <div class="cosmic-orb">
+                                    <span class="orb-icon">🏆</span>
+                                </div>
+                                <div class="orbit-dot"></div>
+                            </div>
+                            <h3>Achievements</h3>
+                            <div class="cosmic-divider"></div>
+                            <p>Honors & Awards</p>
+                        </div>
+                        <div class="cosmic-glow"></div>
+                    </div>
+
+                    <!-- Card 4: Archive -->
+                    <div class="cosmic-card card-archive">
+                        <div class="card-inner">
+                            <div class="cosmic-icon-wrapper">
+                                <div class="cosmic-orb">
+                                    <span class="orb-icon">📂</span>
+                                </div>
+                                <div class="orbit-dot"></div>
+                            </div>
+                            <h3>Archive</h3>
+                            <div class="cosmic-divider"></div>
+                            <p>Miscellaneous</p>
+                        </div>
+                        <div class="cosmic-glow"></div>
+                    </div>
+
+                </div>
+
+                <button id="backToAbout" class="cert-back-btn">
+                    <span>Back to Profile</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </section>
 
         <!-- ==============================
                     Timeline Section
             ============================== -->
         <section class="timeline-section hidden">
-            <!--<canvas id = "timelineCanvas"></canvas>
-                    <div class = "blackhole-center"></div>
-
-                    <div class = "timeline-content">
-                        <div class = "timeline-header">
-                            <div class = "folded-years-container" id = "foldedYears"></div>
-                        </div>
-
-                        <div class = "timeline-years" id = "timelineYears">
-                            Year cards will be dynamically generated here 
-                        </div>
-
-                        <div class = "months-container" id = "monthsContainer">
-                            Month cards will be inserted here 
-                        </div>
-
-                        <div class = "back-button" id = "backButton">
-                            <button id = "backToYear"> Back to Timeline </button>
-                        </div>
-                    </div>
-
-                    <button class = "close-button">×</button>
-                    <div class = "instruction">Click anywhere to send energy to the center</div>
-                    <div class = "energy-counter">Energy: 0%</div>
-                -->
             <div class="timeline-placeholder" role="region" aria-label="Timeline placeholder - under construction">
                 <div class="bhp-stage">
                     <canvas id="bhpCanvas" aria-hidden="true"></canvas>
