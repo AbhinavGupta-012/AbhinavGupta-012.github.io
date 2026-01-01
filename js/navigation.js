@@ -181,6 +181,41 @@ document.addEventListener("DOMContentLoaded", () => {
             setActive("About");
         });
     }
+    // 3. COURSES CERTIFICATIONS PAGE LOGIC
+const coursesPage = document.getElementById("coursesCertifications");
+const backToCertCategories = document.getElementById("backToCertCategories");
+
+// A. Open Courses Certifications Page (from the category card)
+const openCoursesPage = document.getElementById("openCoursesPage");
+if (openCoursesPage && coursesPage) {
+    openCoursesPage.addEventListener("click", () => {
+
+        // Hide the certificates categories page
+        certPage.classList.remove("show");
+
+        // Show the Courses Certifications page
+        coursesPage.classList.add("show");
+
+        // Remove blur — same behavior as certificates cosmic view
+        addCanvasBlur();
+
+        // Keep About highlighted
+        setActive("About");
+    });
+}
+
+// B. Back button → go back to the certificates categories
+if (backToCertCategories && coursesPage) {
+    backToCertCategories.addEventListener("click", () => {
+
+        // Hide Courses page
+        coursesPage.classList.remove("show");
+
+        // Show the certificate category cards again
+        certPage.classList.add("show");
+    });
+}
+
 });
 
 // ---------------------------------------------
