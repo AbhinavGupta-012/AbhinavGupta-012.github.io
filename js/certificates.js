@@ -3,6 +3,7 @@
    Refined to match "About Page" scroll behavior.
    Restored "Included Courses" functionality.
    FIXED: "Blurry Canvas" by destroying/recreating on every view.
+   UPDATED: Dynamic JSON fetching for 4 Categories.
    =========================================================== */
 
 /* =========================================
@@ -300,7 +301,7 @@ class CardRift {
 }
 
 /* ===========================================================
-   3. PAGE STATE MANAGEMENT
+   3. PAGE STATE MANAGEMENT & DYNAMIC FETCHING
    =========================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -309,11 +310,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const certHome = document.getElementById('certificates'); 
     const openCertBtn = document.getElementById('openCertificatesPage'); 
-    const openCoursesCard = document.getElementById('openCoursesPage'); 
     const collapseBtn = document.getElementById('collapseBtn'); 
     const coursesPage = document.getElementById('coursesCertifications'); 
     const coursesBackBtn = document.getElementById('backToCertCategories');
     const programsContainer = document.getElementById('coursesProgramsContainer');
+    const modalTitle = document.getElementById('certModalTitle');
+
+    // Button refs for the 4 categories
+    const openCoursesCard = document.getElementById('openCoursesPage');
+    const openParticipationCard = document.getElementById('openParticipationPage');
+    const openAchievementsCard = document.getElementById('openAchievementsPage');
+    const openArchiveCard = document.getElementById('openArchivePage');
 
     // --- Initial State ---
     hideCertificatesHome();
@@ -335,7 +342,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (openCertBtn) openCertBtn.addEventListener('click', () => { showCertificatesHome(); hideCoursesPage(); });
-    if (openCoursesCard) openCoursesCard.addEventListener('click', () => { hideCertificatesHome(); showCoursesPage(); });
+    
+    // --- GENERIC CATEGORY OPENERS (With JSON filenames) ---
+    
+    // 1. COURSES
+    if (openCoursesCard) {
+        openCoursesCard.addEventListener('click', () => { 
+            hideCertificatesHome(); 
+            openCategoryMode('courses', 'Courses', 'data/courses_certifications.json');
+        });
+    }
+
+    // 2. PARTICIPATION
+    if (openParticipationCard) {
+        openParticipationCard.addEventListener('click', () => { 
+            hideCertificatesHome(); 
+            openCategoryMode('participation', 'Participation', 'data/participations_certifications.json');
+        });
+    }
+
+    // 3. ACHIEVEMENTS
+    if (openAchievementsCard) {
+        openAchievementsCard.addEventListener('click', () => { 
+            hideCertificatesHome(); 
+            openCategoryMode('achievements', 'Achievements', 'data/achievements_certifications.json');
+        });
+    }
+
+    // 4. ARCHIVE
+    if (openArchiveCard) {
+        openArchiveCard.addEventListener('click', () => { 
+            hideCertificatesHome(); 
+            openCategoryMode('archive', 'Archive', 'data/archive_certifications.json');
+        });
+    }
+
     
     // BACK BUTTON: Triggers the reset + navigation
     if (coursesBackBtn) {
@@ -380,17 +421,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =======================================================
-       RENDER COURSES DATA
+       DATA FETCHING & RENDERING
        ======================================================= */
-    if (programsContainer) {
-        fetch('data/courses_certifications.json')
-            .then(res => res.json())
-            .then(data => renderPrograms(data.programs))
-            .catch(err => console.error('Failed to load courses data', err));
+
+    function loadCategoryData(jsonFile) {
+        if (!programsContainer) return;
+
+        // Visual loading state
+        programsContainer.style.opacity = '0.5';
+        programsContainer.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.5);">Loading data...</div>';
+
+        fetch(jsonFile)
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                renderPrograms(data.programs);
+                programsContainer.style.opacity = '1';
+                // Re-initialize previews after new DOM elements are added
+                if (window.certificatePreview) window.certificatePreview.refresh();
+            })
+            .catch(err => {
+                console.error('Failed to load data:', err);
+                programsContainer.innerHTML = `<div style="padding:40px;text-align:center;color:#ff4d4d;">Failed to load data.<br><small>${err.message}</small></div>`;
+                programsContainer.style.opacity = '1';
+            });
     }
 
     function renderPrograms(programs) {
         programsContainer.innerHTML = '';
+        
+        if (!programs || programs.length === 0) {
+            programsContainer.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.5);">No certificates found in this category yet.</div>';
+            return;
+        }
+
         programs.forEach(program => {
             const card = document.createElement('div');
             card.className = 'program-card';
@@ -520,8 +586,6 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(body);
             programsContainer.appendChild(card);
         });
-
-        if (window.certificatePreview) window.certificatePreview.refresh();
     }
 
     /* ------------------------
@@ -542,6 +606,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!certHome) return;
         certHome.classList.remove('show');
         certHome.style.opacity = '0';
+    }
+
+    // Helper: Configure modal for specific category color/title AND load data
+    function openCategoryMode(category, title, jsonFile) {
+        if (!coursesPage) return;
+
+        // 1. Reset all mode classes
+        coursesPage.classList.remove(
+            'category-mode-courses', 
+            'category-mode-participation', 
+            'category-mode-achievements', 
+            'category-mode-archive'
+        );
+
+        // 2. Add specific mode class
+        coursesPage.classList.add(`category-mode-${category}`);
+
+        // 3. Update Title
+        if (modalTitle) modalTitle.textContent = title;
+
+        // 4. Load Data
+        loadCategoryData(jsonFile);
+
+        // 5. Show page
+        showCoursesPage();
     }
 
     function showCoursesPage() {

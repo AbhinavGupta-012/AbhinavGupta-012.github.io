@@ -1,0 +1,28 @@
+{
+  "programs": [
+    {
+      "title": "Smart India Hackathon 2024",
+      "issuer": "Ministry of Education",
+      "platform": "On-Site",
+      "dateRange": "Nov 2024",
+      "credentialUrl": "#",
+      "description": "Participated in the grand finale of SIH 2024, working on problem statements related to smart automation and AI-driven surveillance.",
+      "skills": ["Team Leadership", "Rapid Prototyping", "Python", "OpenCV", "IoT"],
+      "programCertificate": {
+        "image": "assets/certs/participation/SIH_Participation.jpg"
+      } 
+    },
+    {
+      "title": "Google Cloud Hero - Cloud Hero Game",
+      "issuer": "Google Cloud",
+      "platform": "Virtual",
+      "dateRange": "Oct 2024",
+      "credentialUrl": "#",
+      "description": "Competed in a gamified cloud learning experience, deploying containers and managing Kubernetes clusters under time constraints.",
+      "skills": ["Google Cloud Platform", "Kubernetes", "Containerization"],
+      "programCertificate": {
+        "image": "assets/certs/participation/Cloud_Hero.jpg"
+      }
+    }
+  ]
+}

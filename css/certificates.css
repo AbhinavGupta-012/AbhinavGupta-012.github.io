@@ -1,17 +1,51 @@
 /* ===========================================================
-   CERTIFICATES.CSS — FINAL V2 (PATCHED)
-   1. Previews: Functional (Old System)
-   2. Categories: "Ghost Card" Fixed
-   3. Courses: 
-      - Tags: Unified (Purple Style)
-      - Position: Shifted down to avoid Navbar overlap
-   4. FIXED: "Included Courses" preview clipping issue
+   CERTIFICATES.CSS — FINAL V2.4 (TITLE ONLY DYNAMIC)
+   1. Previews: Original Purple/Cosmic Theme.
+   2. Card Borders/Shadows: REVERTED to Original Purple.
+   3. Card Title: DYNAMIC (Glows with Category Color on hover).
    =========================================================== */
 
 @import './root.css';
 
 /* ===========================================================
-   1. CERTIFICATE PREVIEW SYSTEM
+   0. COLOR CONFIGURATION
+   =========================================================== */
+
+:root {
+    /* Global Secondary Accent Default (Cyan) */
+    --accent-rgb: 0, 247, 255;
+    --accent-hex: #00f7ff;
+}
+
+/* --- CATEGORY OVERRIDES --- */
+
+/* COURSES: Cyan */
+.category-mode-courses {
+    --accent-rgb: 0, 247, 255;
+    --accent-hex: #00f7ff;
+}
+
+/* PARTICIPATION: Purple */
+.category-mode-participation {
+    --accent-rgb: 188, 19, 254;
+    --accent-hex: #bc13fe;
+}
+
+/* ACHIEVEMENTS: Gold */
+.category-mode-achievements {
+    --accent-rgb: 255, 215, 0;
+    --accent-hex: #ffd700;
+}
+
+/* ARCHIVE: Teal */
+.category-mode-archive {
+    --accent-rgb: 0, 224, 176;
+    --accent-hex: #00e0b0;
+}
+
+
+/* ===========================================================
+   1. CERTIFICATE PREVIEW SYSTEM (STRICTLY ORIGINAL)
    =========================================================== */
 .certificate-item.cert-with-preview {
     position: relative;
@@ -81,11 +115,13 @@
     background: rgba(255, 255, 255, 0.08);
     border-color: var(--color-sidebar-border, rgba(255, 255, 255, 0.2));
     transform: translateX(-16px) scale(1.05);
+    /* ORIGINAL PURPLE */
     box-shadow: 0 0 20px var(--color-accent-glow, rgba(176, 102, 255, 0.3));
 }
 
 .cert-icon.active {
     background: rgba(255, 255, 255, 0.1);
+    /* ORIGINAL PURPLE */
     border-color: var(--color-purple, #b066ff);
     box-shadow: 0 0 25px var(--color-accent-shadow, rgba(176, 102, 255, 0.5));
     transform: translateX(-16px);
@@ -128,6 +164,7 @@
     0% {
         transform: translate(-50%, -50%) scale(0.8);
         opacity: 1;
+        /* ORIGINAL PURPLE */
         border-color: var(--color-purple, #b066ff);
     }
 
@@ -177,6 +214,7 @@
     20% {
         opacity: 0.3;
         transform: translateY(-50%) scale(0.92);
+        /* ORIGINAL PURPLE */
         filter: drop-shadow(0 0 15px var(--color-purple, #b066ff));
     }
 
@@ -231,6 +269,7 @@
     50% {
         opacity: 0.6;
         transform: scale(1.05);
+        /* ORIGINAL PURPLE */
         box-shadow: 0 0 20px 2px var(--color-purple, #b066ff), 0 0 40px 4px rgba(64, 224, 255, 0.3), inset 0 0 20px rgba(255, 77, 160, 0.2);
     }
 
@@ -254,7 +293,7 @@
 .cert-preview-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: fill;
     border-radius: 14px;
     opacity: 0;
     transform: scale(0.94);
@@ -278,6 +317,7 @@
     bottom: -2px;
     border: 2px solid transparent;
     border-radius: 18px;
+    /* ORIGINAL GRADIENT */
     background: linear-gradient(185deg, #b066ff, #6eeaff, #ff7abb);
     background-size: 220% 220%;
     animation: gradientFlow 3.8s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
@@ -751,7 +791,7 @@
 }
 
 /* ===========================================================
-   3. COSMIC COURSES MODAL
+   3. COSMIC COURSES MODAL (DYNAMIC COLORS)
    =========================================================== */
 .courses-page {
     position: fixed;
@@ -787,7 +827,8 @@
 .courses-header {
     flex: 0 0 auto;
     padding: 25px 35px;
-    background: linear-gradient(90deg, rgba(176, 102, 255, 0.1) 0%, rgba(0, 247, 255, 0.05) 100%);
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    background: linear-gradient(90deg, rgba(176, 102, 255, 0.1) 0%, rgba(var(--accent-rgb), 0.05) 100%);
     border-bottom: 1px solid rgba(197, 112, 255, 0.3);
     display: flex;
     align-items: center;
@@ -850,12 +891,14 @@
 }
 
 #coursesProgramsContainer::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--color-purple, #b066ff), #00f7ff);
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    background: linear-gradient(180deg, var(--color-purple, #b066ff), var(--accent-hex));
     border-radius: 3px;
 }
 
 #coursesProgramsContainer::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #00f7ff, var(--color-purple, #b066ff));
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    background: linear-gradient(180deg, var(--accent-hex), var(--color-purple, #b066ff));
 }
 
 /* --- FIX: Allow popup to float outside the card --- */
@@ -884,6 +927,7 @@
     transition: opacity 0.4s ease;
 }
 
+/* REVERTED TO PURPLE (Original) */
 .program-card:hover {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(197, 112, 255, 0.4);
@@ -895,6 +939,7 @@
     opacity: 1;
 }
 
+/* REVERTED TO PURPLE (Original) */
 .program-card.expanded {
     background: linear-gradient(180deg, rgba(30, 20, 50, 0.6) 0%, rgba(20, 10, 35, 0.4) 100%);
     border-color: var(--color-purple, #b066ff);
@@ -938,9 +983,10 @@
     transition: color 0.3s ease;
 }
 
+/* DYNAMIC ACCENT: Title uses Category Color on hover (KEPT PER REQUEST) */
 .program-card:hover .program-main-title {
-    color: var(--color-purple, #b066ff);
-    text-shadow: 0 0 12px rgba(197, 112, 255, 0.6);
+    color: var(--accent-hex);
+    text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.6);
 }
 
 .program-subtitle-date {
@@ -962,11 +1008,13 @@
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, color 0.3s ease;
 }
 
+/* REVERTED ARROW TO PURPLE */
 .program-card:hover .arrow-icon {
     border-color: var(--color-purple, #b066ff);
     box-shadow: 0 0 10px rgba(197, 112, 255, 0.3);
 }
 
+/* REVERTED ARROW TO PURPLE */
 .program-card.expanded .arrow-icon {
     transform: rotate(180deg);
     background: var(--color-purple, #b066ff);
@@ -1023,7 +1071,8 @@
 }
 
 .meta-item strong {
-    color: #00f7ff;
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    color: var(--accent-hex);
     font-weight: 500;
 }
 
@@ -1035,9 +1084,10 @@
 }
 
 .meta-link:hover {
-    color: #00f7ff;
-    border-color: #00f7ff;
-    text-shadow: 0 0 8px rgba(0, 247, 255, 0.6);
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    color: var(--accent-hex);
+    border-color: var(--accent-hex);
+    text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.6);
 }
 
 .program-cert-preview {
@@ -1063,8 +1113,8 @@
     padding: 5px 14px;
     border-radius: 20px;
 
-    /* UNIFIED COLOR SCHEME: Purple/Pinkish Border & Background */
-    background: rgba(0, 247, 255, 0.04);
+    /* DYNAMIC ACCENT: Updated background to use variable for color mode support */
+    background: rgba(var(--accent-rgb), 0.04);
     border: 1px solid rgba(197, 112, 255, 0.5);
     /* Purple Border */
 
@@ -1075,7 +1125,8 @@
 
 .skill-pill.cosmic,
 .subcourse-skill.cosmic {
-    background: linear-gradient(120deg, rgba(176, 102, 255, 0.25), rgba(0, 247, 255, 0.1));
+    /* DYNAMIC ACCENT: Updated gradient to use variable */
+    background: linear-gradient(120deg, rgba(176, 102, 255, 0.25), rgba(var(--accent-rgb), 0.1));
     border-color: rgba(197, 112, 255, 0.6);
 }
 
@@ -1209,12 +1260,13 @@
 
 .verify-link {
     font-size: 0.75rem;
-    color: rgba(0, 247, 255, 0.9);
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    color: rgba(var(--accent-rgb), 0.9);
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
-    border: 1px solid rgba(0, 247, 255, 0.3);
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
     padding: 4px 12px;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -1222,9 +1274,10 @@
 
 .verify-link:hover {
     color: #fff;
-    background: rgba(0, 247, 255, 0.15);
-    border-color: #00f7ff;
-    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+    /* DYNAMIC ACCENT: Replaced specific cyan with variable */
+    background: rgba(var(--accent-rgb), 0.15);
+    border-color: var(--accent-hex);
+    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
 }
 
 /* Sub-item preview icon */

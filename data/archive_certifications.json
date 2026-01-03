@@ -1,0 +1,17 @@
+{
+  "programs": [
+    {
+      "title": "Introduction to Python Programming",
+      "issuer": "Udemy",
+      "platform": "Udemy",
+      "dateRange": "Jan 2023",
+      "credentialUrl": "#",
+      "description": "A foundational course taken at the start of my journey, covering basic syntax, loops, and functions in Python.",
+      "skills": ["Python", "Scripting"],
+      "programCertificate": {
+        "image": "assets/certs/archive/Python_Intro.jpg"
+      },
+      "courses": []
+    }
+  ]
+}
