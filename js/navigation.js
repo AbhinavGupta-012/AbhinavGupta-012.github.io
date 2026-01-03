@@ -6,6 +6,7 @@
 // - Managing active button states
 // - Delegating animations to their own files (about.js, timeline.js)
 // ==============================
+
 // Cleanly collapse About (reset scroll + hide extras)
 function resetAboutSection() {
     const about = document.querySelector(".about");
@@ -50,8 +51,19 @@ function hideAllSections() {
     document.querySelectorAll("section")
         .forEach(sec => sec.classList.remove("show", "expanded"));
 
+    // 🔴 FIX: Force hide Certificates Page (Clear inline opacity from certificates.js)
     const certPage = document.getElementById("certificates");
-    if (certPage) certPage.classList.remove("show");
+    if (certPage) {
+        certPage.classList.remove("show");
+        certPage.style.opacity = '0'; // Explicitly force it to hide
+        setTimeout(() => { certPage.style.opacity = ''; }, 500); // Clean up inline style after transition
+    }
+
+    // 🔴 FIX: Force hide Courses Modal if open
+    const coursesPage = document.getElementById("coursesCertifications");
+    if (coursesPage) {
+        coursesPage.classList.remove("show");
+    }
 
     if (window.timelineAnimation) {
         window.timelineAnimation.hide();
@@ -170,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         backToAboutBtn.addEventListener("click", () => {
             // Hide Certificates Page
             certPage.classList.remove("show");
+            certPage.style.opacity = '0'; // Ensure inline opacity is cleared
             
             // Show About again (it retains its expanded state if it had it)
             aboutSection.classList.add("show");
@@ -181,40 +194,52 @@ document.addEventListener("DOMContentLoaded", () => {
             setActive("About");
         });
     }
+
     // 3. COURSES CERTIFICATIONS PAGE LOGIC
-const coursesPage = document.getElementById("coursesCertifications");
-const backToCertCategories = document.getElementById("backToCertCategories");
+    const coursesPage = document.getElementById("coursesCertifications");
+    const backToCertCategories = document.getElementById("backToCertCategories");
 
-// A. Open Courses Certifications Page (from the category card)
-const openCoursesPage = document.getElementById("openCoursesPage");
-if (openCoursesPage && coursesPage) {
-    openCoursesPage.addEventListener("click", () => {
+    // A. Open Courses Certifications Page (from the category card)
+    // We bind to all 4 IDs to handle the blur/active states correctly
+    const categoryIds = [
+        "openCoursesPage", 
+        "openParticipationPage", 
+        "openAchievementsPage", 
+        "openArchivePage"
+    ];
 
-        // Hide the certificates categories page
-        certPage.classList.remove("show");
+    categoryIds.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn && coursesPage) {
+            btn.addEventListener("click", () => {
+                // Hide the certificates categories page
+                certPage.classList.remove("show");
+                certPage.style.opacity = '0';
 
-        // Show the Courses Certifications page
-        coursesPage.classList.add("show");
+                // Show the Courses Certifications page
+                coursesPage.classList.add("show");
 
-        // Remove blur — same behavior as certificates cosmic view
-        addCanvasBlur();
+                // Remove blur
+                addCanvasBlur();
 
-        // Keep About highlighted
-        setActive("About");
+                // Keep About highlighted
+                setActive("About");
+            });
+        }
     });
-}
 
-// B. Back button → go back to the certificates categories
-if (backToCertCategories && coursesPage) {
-    backToCertCategories.addEventListener("click", () => {
+    // B. Back button → go back to the certificates categories
+    if (backToCertCategories && coursesPage) {
+        backToCertCategories.addEventListener("click", () => {
 
-        // Hide Courses page
-        coursesPage.classList.remove("show");
+            // Hide Courses page
+            coursesPage.classList.remove("show");
 
-        // Show the certificate category cards again
-        certPage.classList.add("show");
-    });
-}
+            // Show the certificate category cards again
+            certPage.classList.add("show");
+            certPage.style.opacity = '1'; // Restore opacity for the categories page
+        });
+    }
 
 });
 

@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Nebula Nexus",
+      "shortDescription": "3D visualization of star clusters.",
+      "longDescription": "An interactive WebGL application mapping real star data. Navigate through 3D space to explore celestial bodies.",
+      "isFeatured": true,
+      "category": "Web Apps",
+      "tags": ["Three.js", "React", "WebGL"],
+      "image": "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1000&auto=format&fit=crop",
+      "links": { "github": "#", "live": "#" }
+    },
+    {
+      "id": 2,
+      "title": "CyberGuard AI",
+      "shortDescription": "Real-time network anomaly detection.",
+      "longDescription": "Machine learning model trained on KDD Cup 99 dataset to detect network intrusions in real-time.",
+      "isFeatured": true,
+      "category": "Cybersecurity",
+      "tags": ["Python", "TensorFlow", "ML"],
+      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+      "links": { "github": "#" }
+    },
+    {
+      "id": 3,
+      "title": "Cosmic Portfolio",
+      "shortDescription": "My personal interactive universe.",
+      "longDescription": "The website you are looking at right now. Built with vanilla JS and love for space.",
+      "isFeatured": false,
+      "category": "Web Apps",
+      "tags": ["HTML/CSS", "JavaScript", "Design"],
+      "image": "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1000&auto=format&fit=crop",
+      "links": { "github": "#" }
+    },
+    {
+      "id": 4,
+      "title": "TaskOrbit",
+      "shortDescription": "Minimalist productivity suite.",
+      "longDescription": "A clean task manager focusing on flow state and simplicity.",
+      "isFeatured": false,
+      "category": "Utilities",
+      "tags": ["React", "Firebase"],
+      "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1000&auto=format&fit=crop",
+      "links": { "github": "#", "live": "#" }
+    }
+  ]
+}

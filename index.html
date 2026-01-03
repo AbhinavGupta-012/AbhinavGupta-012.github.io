@@ -6,61 +6,35 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
 
     <title> Abhinav Gupta </title>
-    <!-- SVG favicon (primary). -->
     <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
-    <!-- PNG fallback -->
     <link rel="icon" href="assets/logos/favicon.png" sizes="32x32" type="image/png">
-    <!-- Legacy fallback -->
     <link rel="shortcut icon" href="assets/logos/favicon.ico">
 
-    <!-- ==============================
-                Reset and Base Styles
-                ============================== -->
     <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="css/base.css">
 
-    <!-- ==============================
-                Navbar Styles
-                ============================== -->
     <link rel="stylesheet" href="css/nav.css">
 
-    <!-- ==============================
-                About Section Styles
-                ============================== -->
     <link rel="stylesheet" href="css/about.css">
 
-    <!-- ==============================
-                Education / Skills / Certificates Styles
-                ============================== -->
     <link rel="stylesheet" href="css/sections.css">
 
-    <!-- ==============================
-                Timeline Styles
-                ============================== -->
     <link rel="stylesheet" href="css/timeline.css">
 
-    <!-- ==============================
-                Timeline Cards Styles
-                ============================== -->
+    <link rel="stylesheet" href="css/projects.css">
+
     <link rel="stylesheet" href="css/timeline-cards.css">
     <link rel="stylesheet" href="css/certificates.css">
     <link rel="stylesheet" href="css/placeholder.css">
 </head>
 
 <body>
-    <!-- ==============================
-                Main Blackhole Container
-                Handles navigation & central effects
-                ============================== -->
     <div id="blackhole">
         <div class="centerHover">
             <span> Click Here </span>
         </div>
 
-        <!-- ==============================
-                    Navigation Bar
-                    ============================== -->
         <nav id="mainNav" class="hidden">
             <button class="button" id="collapseBtn" data-text="Awesome">
                 <span class="actual-text"> &nbsp;Home&nbsp; </span>
@@ -88,32 +62,19 @@
             </button>
         </nav>
 
-        <!-- ============================= -->
-        <!--        ABOUT SECTION         -->
-        <!-- ============================= -->
         <section class="about hidden">
             <div class="about-card">
 
-                <!-- ====================== -->
-                <!-- LEFT COLUMN (Profile) -->
-                <!-- ====================== -->
                 <div class="about-left">
 
-                    <!-- Profile Image -->
                     <img src="assets/images/Abhinav Gupta.jpg" alt="Your Photo">
 
-                    <!-- This block becomes visible ONLY when .about.expanded -->
                     <div class="about-left-body" aria-hidden="true">
 
-                        <!-- Quote (gradient, premium) -->
                         <p class="about-quote"> “Turning curiosity into code.” </p>
 
-                        <!-- Subtle divider for clean separation -->
                         <div class="left-divider"></div>
 
-                        <!-- ========================= -->
-                        <!--  TOP SKILLS  -->
-                        <!-- ========================= -->
                         <div class="left-top-skills">
                             <div class="lts-list">
                                 <span class="lts-badge"> Java </span>
@@ -124,12 +85,8 @@
                             </div>
                         </div>
 
-                        <!-- ================================= -->
-                        <!-- PREMIUM SOCIAL LINKS (Vertical UI) -->
-                        <!-- ================================= -->
                         <div class="social-links-vertical">
 
-                            <!-- GitHub -->
                             <a class="social-v" href="https://github.com/AbhinavGupta-012" target="_blank"
                                 rel="noopener noreferrer">
                                 <div class="sv-icon">
@@ -140,7 +97,6 @@
                                 <span class="sv-text"> AbhinavGupta-012 </span>
                             </a>
 
-                            <!-- LinkedIn -->
                             <a class="social-v" href="https://www.linkedin.com/in/abhinav-gupta012/" target="_blank"
                                 rel="noopener noreferrer">
                                 <div class="sv-icon">
@@ -151,7 +107,6 @@
                                 <span class="sv-text"> AbhinavGupta012 </span>
                             </a>
 
-                            <!-- LeetCode -->
                             <a class="social-v" href="https://leetcode.com/u/AbhinavGupta012/" target="_blank"
                                 rel="noopener noreferrer">
                                 <div class="sv-icon">
@@ -162,9 +117,6 @@
                             </a>
                         </div>
 
-                        <!-- ================== -->
-                        <!-- QUICK STATS (Left) -->
-                        <!-- ================== -->
                         <div class="quick-stats" role="list" aria-label="Quick stats">
                             <div class="stat">
                                 <div class="stat-value"> 2+ </div>
@@ -189,15 +141,10 @@
                     </div>
                 </div>
 
-                <!-- ====================== -->
-                <!-- RIGHT COLUMN (Details) -->
-                <!-- ====================== -->
                 <div class="about-right">
 
-                    <!-- Name + tagline -->
                     <h2> Abhinav Gupta </h2>
                     <p class="tagline"> Software Engineer | Aspiring Computer Scientist | Creator | Learner </p>
-                    <!-- Basic info list -->
                     <ul class="about-info">
                         <li><strong> Age:</strong> 19 </li>
                         <li><strong> Hobbies:</strong> Coding, Movies, Gaming, Stargazing </li>
@@ -205,19 +152,14 @@
                         <li><strong> Email:</strong> abhinavgupta1702@gmail.com </li>
                     </ul>
 
-                    <!-- About paragraph -->
                     <p class="about-desc">
                         Hi! I'm Abhinav, a passionate learner who loves exploring everything
                         from computer science and networking to space and philosophy.
                         I aim to build projects that blend creativity with logic. 🚀
                     </p>
 
-                    <!-- ======================================== -->
-                    <!-- EXPANDABLE SECTIONS (Education / Skills / Certificates) -->
-                    <!-- ======================================== -->
                     <div class="extra-content-container">
 
-                        <!-- Education -->
                         <hr>
                         <div class="content-section education-section">
                             <h3 class="section-title"> Education </h3>
@@ -245,7 +187,6 @@
                             </div>
                         </div>
 
-                        <!-- Skills -->
                         <hr>
                         <div class="content-section skills-section">
                             <h3 class="section-title"> Skills </h3>
@@ -266,23 +207,16 @@
                                     <p> Git, Docker, AWS, MongoDB, MySQL, Android, Linux </p>
                                 </div>
                             </div>
-                            <!-- <div class="skill-category">
-                                <p> Fun Fact 1 - This Portfolio was made only using HTML, CSS and JavaScript </p>
-                                <p> Fun Fact 2 - Many AI's were harmed during the making of this portfolio. </p>
-                            </div> -->
                         </div>
 
-                        <!-- Certificates (Clickable Header) -->
                         <hr>
                         <div class="content-section certificates-section">
-                            <!-- MODIFIED: Clickable Header triggering the Certificates Page -->
                             <h3 class="section-title clickable-cert-title" id="openCertificatesPage">
                                 Certificates
                                 <span class="external-icon" aria-label="Open Certificates Page">[↗]</span>
                             </h3>
 
                             <div class="section-content">
-                                <!-- Existing Certificate Previews inside About (Untouched behavior) -->
                                 <div class="certificate-item cert-with-preview">
                                     <div class="cert-meta">
                                         <h4> IBM Full Stack Software Developer </h4>
@@ -354,9 +288,6 @@
             </div>
 
 
-            <!-- ========================= -->
-            <!-- Expand / Collapse Toggle -->
-            <!-- ========================= -->
             <div class="about-toggle">
                 <button class="down-button">
                     <svg class="svgIcon" viewBox="0 0 384 512">
@@ -373,18 +304,14 @@
 
         </section>
 
-        <!-- ==============================
-             NEW CERTIFICATES PAGE SECTION (Revamped Structure)
-        ============================== -->
         <section id="certificates" class="certificates-page hidden">
             <div class="cert-page-container">
                 <h2 class="cert-page-title">
                     <span class="cpt-main">Certifications</span>
                 </h2>
-                
+
                 <div class="cert-cards-wrapper">
-                    
-                    <!-- Card 1: Courses (Planetary Style) -->
+
                     <div class="cosmic-card card-courses" id="openCoursesPage">
 
                         <div class="card-inner">
@@ -401,8 +328,7 @@
                         <div class="cosmic-glow"></div>
                     </div>
 
-                    <!-- Card 2: Participation -->
-                    <div class="cosmic-card card-participation">
+                    <div class="cosmic-card card-participation" id="openParticipationPage">
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
                                 <div class="cosmic-orb">
@@ -417,8 +343,7 @@
                         <div class="cosmic-glow"></div>
                     </div>
 
-                    <!-- Card 3: Achievements -->
-                    <div class="cosmic-card card-achievements">
+                    <div class="cosmic-card card-achievements" id="openAchievementsPage">
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
                                 <div class="cosmic-orb">
@@ -433,8 +358,7 @@
                         <div class="cosmic-glow"></div>
                     </div>
 
-                    <!-- Card 4: Archive -->
-                    <div class="cosmic-card card-archive">
+                    <div class="cosmic-card card-archive" id="openArchivePage">
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
                                 <div class="cosmic-orb">
@@ -459,21 +383,65 @@
         </section>
 
         <section id="coursesCertifications" class="courses-page">
-    <div class="courses-header">
-        <h1 class="courses-title">Courses</h1>
-        <button id="backToCertCategories" class="back-button">
-            <span style="font-size:1.2em">‹</span> Back
-        </button>
-    </div>
+            <div class="courses-header">
+                <h1 class="courses-title" id="certModalTitle">Courses</h1>
+                <button id="backToCertCategories" class="back-button">
+                    <span style="font-size:1.2em">‹</span> Back
+                </button>
+            </div>
 
-    <div id="coursesProgramsContainer"></div>
+            <div id="coursesProgramsContainer"></div>
+        </section>
+
+        <section class="projects hidden">
+    <div class="projects-layout">
+        
+        <main class="projects-content">
+            
+            <div class="projects-section-header first">
+                <h2 class="projects-title-text">Featured Projects</h2>
+            </div>
+            <div id="featured-grid" class="projects-grid-featured">
+                </div>
+
+            <div class="projects-section-header">
+                <h2 class="projects-title-text">All Projects</h2>
+            </div>
+            <div id="archive-grid" class="projects-grid-archive">
+                </div>
+
+        </main>
+
+        <aside class="projects-sidebar">
+            
+            <div class="sidebar-group">
+                <span class="sidebar-label">Search</span>
+                <div class="search-container">
+                    <input type="text" id="projectSearch" class="project-search-input" placeholder="Find a project...">
+                </div>
+            </div>
+
+            <div class="sidebar-group">
+                <span class="sidebar-label">Category</span>
+                <div id="category-filters" class="filter-options">
+                    </div>
+            </div>
+
+            <div class="sidebar-group">
+                <span class="sidebar-label">Technologies</span>
+                <div id="tag-filters" class="filter-options">
+                    </div>
+            </div>
+
+            <button id="resetFilters" class="reset-btn">
+                Clear all filters
+            </button>
+
+        </aside>
+
+    </div>
 </section>
 
-
-
-        <!-- ==============================
-                    Timeline Section
-            ============================== -->
         <section class="timeline-section hidden">
             <div class="timeline-placeholder" role="region" aria-label="Timeline placeholder - under construction">
                 <div class="bhp-stage">
@@ -495,9 +463,6 @@
         </section>
     </div>
 
-    <!-- ==============================
-                Scripts
-                ============================== -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
     <script src="js/blackhole.js"></script>
     <script src="js/navigation.js"></script>
@@ -506,6 +471,7 @@
     <script src="js/timeline-cards.js"></script>
     <script src="js/placeholder.js"></script>
     <script src="js/certificates.js"></script>
+    <script src="js/projects.js"></script>
 </body>
 
 </html>
