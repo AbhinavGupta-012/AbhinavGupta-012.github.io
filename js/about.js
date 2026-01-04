@@ -4,6 +4,7 @@
 // - Expanding/collapsing extra content
 // - Resetting scroll when collapsed
 // - Resetting About section when blackhole collapses
+// - Dynamic Project Count fetching
 // ==============================
 
 // ------------------------
@@ -78,3 +79,19 @@ $("#collapseBtn").on("click", () => {
     });
   }
 })();
+
+// ------------------------
+// DYNAMIC PROJECT COUNT
+// ------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    fetch('data/projects.json')
+        .then(res => res.json())
+        .then(data => {
+            const countElement = document.getElementById('projectCountValue');
+            if (countElement && data.projects) {
+                // Updates the number based on the actual count in your JSON file
+                countElement.textContent = data.projects.length + "+";
+            }
+        })
+        .catch(err => console.warn("Could not load project count:", err));
+});

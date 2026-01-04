@@ -22,11 +22,10 @@
 
     <link rel="stylesheet" href="css/timeline.css">
 
-    <link rel="stylesheet" href="css/projects.css">
-
     <link rel="stylesheet" href="css/timeline-cards.css">
     <link rel="stylesheet" href="css/certificates.css">
     <link rel="stylesheet" href="css/placeholder.css">
+    <link rel="stylesheet" href="css/projects.css">
 </head>
 
 <body>
@@ -124,7 +123,7 @@
                             </div>
 
                             <div class="stat">
-                                <div class="stat-value"> 30+ </div>
+                                <div class="stat-value" id="projectCountValue"> 30+ </div>
                                 <div class="stat-label"> Projects </div>
                             </div>
 
@@ -394,53 +393,53 @@
         </section>
 
         <section class="projects hidden">
-    <div class="projects-layout">
-        
-        <main class="projects-content">
-            
-            <div class="projects-section-header first">
-                <h2 class="projects-title-text">Featured Projects</h2>
-            </div>
-            <div id="featured-grid" class="projects-grid-featured">
-                </div>
-
-            <div class="projects-section-header">
-                <h2 class="projects-title-text">All Projects</h2>
-            </div>
-            <div id="archive-grid" class="projects-grid-archive">
-                </div>
-
-        </main>
-
-        <aside class="projects-sidebar">
-            
-            <div class="sidebar-group">
-                <span class="sidebar-label">Search</span>
-                <div class="search-container">
-                    <input type="text" id="projectSearch" class="project-search-input" placeholder="Find a project...">
-                </div>
-            </div>
-
-            <div class="sidebar-group">
-                <span class="sidebar-label">Category</span>
-                <div id="category-filters" class="filter-options">
+            <div class="projects-layout">
+                
+                <main class="projects-main">
+                    
+                    <div class="projects-section-header first">
+                        <h2 class="projects-title-text">Featured Projects</h2>
                     </div>
-            </div>
+                    <div id="featured-grid" class="projects-grid-featured">
+                        </div>
 
-            <div class="sidebar-group">
-                <span class="sidebar-label">Technologies</span>
-                <div id="tag-filters" class="filter-options">
+                    <div class="projects-section-header">
+                        <h2 class="projects-title-text">All Projects</h2>
                     </div>
+                    <div id="archive-grid" class="projects-grid-archive">
+                        </div>
+
+                </main>
+
+                <aside class="projects-sidebar">
+                    
+                    <div class="sidebar-group">
+                        <span class="sidebar-label">Search</span>
+                        <div class="search-container">
+                            <input type="text" id="projectSearch" class="project-search-input" placeholder="Find a project...">
+                        </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <span class="sidebar-label">Category</span>
+                        <div id="category-filters" class="filter-options">
+                            </div>
+                    </div>
+
+                    <div class="sidebar-group">
+                        <span class="sidebar-label">Technologies</span>
+                        <div id="tag-filters" class="filter-options">
+                            </div>
+                    </div>
+
+                    <button id="resetFilters" class="reset-btn">
+                        Clear all filters
+                    </button>
+
+                </aside>
+
             </div>
-
-            <button id="resetFilters" class="reset-btn">
-                Clear all filters
-            </button>
-
-        </aside>
-
-    </div>
-</section>
+        </section>
 
         <section class="timeline-section hidden">
             <div class="timeline-placeholder" role="region" aria-label="Timeline placeholder - under construction">
