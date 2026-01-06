@@ -1,25 +1,4 @@
 // js/navigation.js
-// ==============================
-// This file is responsible ONLY for navigation logic:
-// - Handling nav button clicks
-// - Showing / hiding sections
-// - Managing active button states
-// - Delegating animations to their own files (about.js, timeline.js)
-// ==============================
-
-// Cleanly collapse About (reset scroll + hide extras)
-function resetAboutSection() {
-    const about = document.querySelector(".about");
-    if (!about) return;
-
-    const card = about.querySelector(".about-card");
-    if (card) card.scrollTop = 0;
-
-    const extra = document.querySelector(".extra-content-container");
-    if (extra) extra.classList.remove("show");
-
-    about.classList.remove("expanded");
-}
 
 // ---------------------------------------------
 // Utility: Remove 'active' from all nav buttons
@@ -40,93 +19,109 @@ function setActive(label) {
 }
 
 // ---------------------------------------------
+// Utility: Cleanly collapse About (reset scroll + hide extras)
+// ---------------------------------------------
+function resetAboutSection() {
+    const about = document.querySelector(".about");
+    if (!about) return;
+
+    const card = about.querySelector(".about-card");
+    if (card) card.scrollTop = 0;
+
+    const extra = document.querySelector(".extra-content-container");
+    if (extra) extra.classList.remove("show");
+
+    about.classList.remove("expanded");
+}
+
+// ---------------------------------------------
 // Utility: Hide all sections (reset state)
 // ---------------------------------------------
 function hideAllSections() {
-
-    // ⭐ FIRST — cleanly reset About if it was open
     resetAboutSection();
 
-    // THEN hide all sections normally
+    // Hide all main sections
     document.querySelectorAll("section")
         .forEach(sec => sec.classList.remove("show", "expanded"));
 
-    // 🔴 FIX: Force hide Certificates Page (Clear inline opacity from certificates.js)
+    // Force hide Certificates Page
     const certPage = document.getElementById("certificates");
     if (certPage) {
         certPage.classList.remove("show");
-        certPage.style.opacity = '0'; // Explicitly force it to hide
-        setTimeout(() => { certPage.style.opacity = ''; }, 500); // Clean up inline style after transition
+        certPage.style.opacity = '0';
+        setTimeout(() => { certPage.style.opacity = ''; }, 500);
     }
 
-    // 🔴 FIX: Force hide Courses Modal if open
+    // Force hide Courses Modal
     const coursesPage = document.getElementById("coursesCertifications");
     if (coursesPage) {
         coursesPage.classList.remove("show");
     }
 
+    // Hide Timeline
     if (window.timelineAnimation) {
         window.timelineAnimation.hide();
     }
+
+    // --- CRITICAL: Hide Mobile Filter Button by default ---
+    // It only shows if we specifically hit the 'Projects' case below
+    const filterBtn = document.getElementById('filterFloatingBtn');
+    if (filterBtn) {
+        filterBtn.classList.remove('visible');
+    }
 }
 
-
 // ---------------------------------------------
-// Helper: Add blur to all canvases
+// Helper: Blur Canvas
 // ---------------------------------------------
 function addCanvasBlur() {
-    document.querySelectorAll("canvas")
-        .forEach(c => c.classList.add("canvas-blur"));
+    document.querySelectorAll("canvas").forEach(c => c.classList.add("canvas-blur"));
 }
 
-// ---------------------------------------------
-// Helper: Remove blur from all canvases
-// ---------------------------------------------
 function removeCanvasBlur() {
-    document.querySelectorAll("canvas")
-        .forEach(c => c.classList.remove("canvas-blur"));
+    document.querySelectorAll("canvas").forEach(c => c.classList.remove("canvas-blur"));
 }
 
-// ---------------------------------------------
-// Main Navigation Setup (after DOM is loaded)
-// ---------------------------------------------
+// =============================================
+// MAIN INITIALIZATION (Wait for DOM)
+// =============================================
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Standard Navbar Navigation
+
+    // -----------------------------------------
+    // 1. DESKTOP NAVIGATION
+    // -----------------------------------------
     document.querySelectorAll("#mainNav .button").forEach(btn => {
         btn.addEventListener("click", () => {
             const label = btn.querySelector(".actual-text").textContent.trim();
-
-            // Step 1: Reset everything
             hideAllSections();
 
-            // Step 2: Handle navigation based on button label
             switch (label) {
-
                 case "Home":
                     clearActive();
-                    const nav = document.getElementById('mainNav');
+                    document.getElementById('mainNav').classList.remove('show');
+
+                    // Also hide mobile nav toggle on Home
+                    const mobileToggle = document.getElementById('mobileNavToggle');
+                    if (mobileToggle) mobileToggle.classList.remove('reveal');
+
                     removeCanvasBlur();
-                    nav.classList.remove('show');
                     break;
 
                 case "About":
-                    // Show About section (collapsed by default)
                     document.querySelector(".about")?.classList.add("show");
-                    addCanvasBlur();   // <-- BLUR ONLY HERE
+                    addCanvasBlur();
                     setActive("About");
                     break;
 
                 case "Timeline":
                     document.querySelector(".timeline-section")?.classList.add("show");
                     removeCanvasBlur();
-
                     if (window.timelineAnimation) {
                         setTimeout(() => window.timelineAnimation.show(), 50);
                     } else if (typeof initTimelineAnimation === "function") {
                         window.timelineAnimation = initTimelineAnimation();
                         window.timelineAnimation.show();
                     }
-
                     setActive("Timeline");
                     break;
 
@@ -134,6 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.querySelector(".projects")?.classList.add("show");
                     removeCanvasBlur();
                     setActive("Projects");
+
+                    // --- CRITICAL: SHOW Filter Button only here ---
+                    const filterBtn = document.getElementById('filterFloatingBtn');
+                    if (filterBtn) {
+                        // Small delay to make it pop in after page transition
+                        setTimeout(() => filterBtn.classList.add('visible'), 300);
+                    }
                     break;
 
                 case "Achievements":
@@ -154,107 +156,144 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. CERTIFICATES PAGE LOGIC
+    // -----------------------------------------
+    // 2. CERTIFICATES & COURSES LOGIC
+    // -----------------------------------------
     const openCertLink = document.getElementById("openCertificatesPage");
     const backToAboutBtn = document.getElementById("backToAbout");
     const aboutSection = document.querySelector(".about");
     const certPage = document.getElementById("certificates");
-
-    // A. Open Certificates Page
-    if (openCertLink) {
-        openCertLink.addEventListener("click", () => {
-            // Hide About WITHOUT removing 'expanded' class to preserve state
-            aboutSection.classList.remove("show");
-            
-            // Show Certificates Page
-            certPage.classList.add("show");
-            
-            // Remove blur for the clean cosmic view
-            removeCanvasBlur();
-            
-            // Keep 'About' active in navbar
-            setActive("About");
-        });
-    }
-
-    // B. Back Button (Return to About)
-    if (backToAboutBtn) {
-        backToAboutBtn.addEventListener("click", () => {
-            // Hide Certificates Page
-            certPage.classList.remove("show");
-            certPage.style.opacity = '0'; // Ensure inline opacity is cleared
-            
-            // Show About again (it retains its expanded state if it had it)
-            aboutSection.classList.add("show");
-            
-            // Re-apply blur since we are back in About
-            addCanvasBlur();
-            
-            // Ensure About is still active
-            setActive("About");
-        });
-    }
-
-    // 3. COURSES CERTIFICATIONS PAGE LOGIC
     const coursesPage = document.getElementById("coursesCertifications");
     const backToCertCategories = document.getElementById("backToCertCategories");
 
-    // A. Open Courses Certifications Page (from the category card)
-    // We bind to all 4 IDs to handle the blur/active states correctly
-    const categoryIds = [
-        "openCoursesPage", 
-        "openParticipationPage", 
-        "openAchievementsPage", 
-        "openArchivePage"
-    ];
+    if (openCertLink) {
+        openCertLink.addEventListener("click", () => {
+            aboutSection.classList.remove("show");
+            certPage.classList.add("show");
+            removeCanvasBlur();
+            setActive("About");
+        });
+    }
 
+    if (backToAboutBtn) {
+        backToAboutBtn.addEventListener("click", () => {
+            certPage.classList.remove("show");
+            certPage.style.opacity = '0';
+            aboutSection.classList.add("show");
+            addCanvasBlur();
+            setActive("About");
+        });
+    }
+
+    const categoryIds = ["openCoursesPage", "openParticipationPage", "openAchievementsPage", "openArchivePage"];
     categoryIds.forEach(id => {
         const btn = document.getElementById(id);
         if (btn && coursesPage) {
             btn.addEventListener("click", () => {
-                // Hide the certificates categories page
                 certPage.classList.remove("show");
                 certPage.style.opacity = '0';
-
-                // Show the Courses Certifications page
                 coursesPage.classList.add("show");
-
-                // Remove blur
                 addCanvasBlur();
-
-                // Keep About highlighted
                 setActive("About");
             });
         }
     });
 
-    // B. Back button → go back to the certificates categories
     if (backToCertCategories && coursesPage) {
         backToCertCategories.addEventListener("click", () => {
-
-            // Hide Courses page
             coursesPage.classList.remove("show");
-
-            // Show the certificate category cards again
             certPage.classList.add("show");
-            certPage.style.opacity = '1'; // Restore opacity for the categories page
+            certPage.style.opacity = '1';
         });
     }
 
-});
+    // -----------------------------------------
+    // 3. MOBILE NAVIGATION
+    // -----------------------------------------
+    const mobileNavToggle = document.getElementById('mobileNavToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+    function toggleMobileNav() {
+        mobileNavToggle.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        mobileNavOverlay.classList.toggle('active');
+        document.body.classList.toggle('mobile-nav-open');
+    }
+
+    function closeMobileNav() {
+        if (mobileNavToggle) mobileNavToggle.classList.remove('active');
+        if (mobileNav) mobileNav.classList.remove('active');
+        if (mobileNavOverlay) mobileNavOverlay.classList.remove('active');
+        document.body.classList.remove('mobile-nav-open');
+    }
+
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+    }
+
+    if (mobileNavOverlay) {
+        mobileNavOverlay.addEventListener('click', closeMobileNav);
+    }
+
+    mobileNavItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = this.getAttribute('data-target');
+
+            mobileNavItems.forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+
+            setTimeout(() => {
+                closeMobileNav();
+
+                // Trigger navigation
+                if (target === 'home') {
+                    document.querySelector('.button[id="collapseBtn"]').click();
+                } else {
+                    const desktopBtn = Array.from(document.querySelectorAll("#mainNav .button")).find(btn => {
+                        return btn.querySelector(".actual-text").textContent.trim().toLowerCase() === target;
+                    });
+
+                    if (desktopBtn) {
+                        desktopBtn.click();
+                    }
+                }
+            }, 300);
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileNav();
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeMobileNav();
+    });
+
+}); // End DOMContentLoaded
 
 // ---------------------------------------------
-// Event: Blackhole expanded (initial reveal)
+// EVENT: Blackhole expanded (Reveal Nav)
 // ---------------------------------------------
 document.addEventListener('blackholeExpanded', () => {
     const nav = document.getElementById('mainNav');
+    const mobileToggle = document.getElementById('mobileNavToggle');
     const aboutSection = document.querySelector(".about");
 
+    // Show Desktop Nav
     nav.classList.add('show');
-    if (aboutSection) {
-        aboutSection.classList.add('show');
-        addCanvasBlur();   // <-- About is the first screen shown → blur
+
+    // --- CRITICAL: Reveal Mobile Toggle ---
+    if (mobileToggle) {
+        mobileToggle.classList.add('reveal');
     }
 
+    // Show Default Section (About)
+    if (aboutSection) {
+        aboutSection.classList.add('show');
+        addCanvasBlur();
+    }
     setActive("About");
 });

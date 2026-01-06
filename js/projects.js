@@ -12,14 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 tags: new Set()
             };
 
+            // Grids
             this.featuredGrid = document.getElementById('featured-grid');
             this.archiveGrid = document.getElementById('archive-grid');
             this.featuredHeader = document.querySelector('.projects-section-header.first'); 
             
-            this.searchInput = document.getElementById('projectSearch');
-            this.categoryContainer = document.getElementById('category-filters');
-            this.tagsContainer = document.getElementById('tag-filters');
-            this.resetBtn = document.getElementById('resetFilters');
+            // --- INPUTS FOR BOTH DESKTOP AND MOBILE ---
+            
+            // Search Inputs
+            this.searchInputDesktop = document.getElementById('projectSearch');
+            this.searchInputMobile = document.getElementById('projectSearchMobile');
+            
+            // Category Containers
+            this.catContainerDesktop = document.getElementById('category-filters');
+            this.catContainerMobile = document.getElementById('category-filters-mobile');
+            
+            // Tag Containers
+            this.tagContainerDesktop = document.getElementById('tag-filters');
+            this.tagContainerMobile = document.getElementById('tag-filters-mobile');
+            
+            // Reset Buttons
+            this.resetBtnDesktop = document.getElementById('resetFilters');
+            this.resetBtnMobile = document.getElementById('resetFiltersMobile');
 
             this.init();
         }
@@ -46,59 +60,134 @@ document.addEventListener('DOMContentLoaded', () => {
         populateFilters() {
             if (!this.projects.length) return;
 
+            // 1. Generate Category HTML
             const categories = ['All', ...new Set(this.projects.map(p => p.category))];
-            this.categoryContainer.innerHTML = categories.map(cat => `
+            const catHTML = categories.map(cat => `
                 <button class="filter-chip ${cat === 'All' ? 'active' : ''}" 
                         data-type="category" data-value="${cat}">
                     ${cat}
                 </button>
             `).join('');
 
+            // Inject into BOTH containers
+            if(this.catContainerDesktop) this.catContainerDesktop.innerHTML = catHTML;
+            if(this.catContainerMobile) this.catContainerMobile.innerHTML = catHTML;
+
+            // 2. Generate Tags HTML
             const tags = [...new Set(this.projects.flatMap(p => p.tags || []))].sort();
-            this.tagsContainer.innerHTML = tags.map(tag => `
+            const tagHTML = tags.map(tag => `
                 <button class="filter-chip" data-type="tag" data-value="${tag}">
                     ${tag}
                 </button>
             `).join('');
+
+            // Inject into BOTH containers
+            if(this.tagContainerDesktop) this.tagContainerDesktop.innerHTML = tagHTML;
+            if(this.tagContainerMobile) this.tagContainerMobile.innerHTML = tagHTML;
         }
 
         bindEvents() {
-            this.searchInput.addEventListener('input', (e) => {
-                this.filters.search = e.target.value.toLowerCase();
-                this.applyFilters();
-            });
+            // Helper to bind listener to multiple elements safely
+            const addListener = (element, event, handler) => {
+                if(element) element.addEventListener(event, handler);
+            };
 
-            this.categoryContainer.addEventListener('click', (e) => {
+            // --- SEARCH BINDING (Syncs inputs) ---
+            const handleSearch = (e) => {
+                const val = e.target.value.toLowerCase();
+                this.filters.search = val;
+                
+                // Sync visual values so desktop match mobile if switched
+                if(this.searchInputDesktop) this.searchInputDesktop.value = val;
+                if(this.searchInputMobile) this.searchInputMobile.value = val;
+                
+                this.applyFilters();
+            };
+
+            addListener(this.searchInputDesktop, 'input', handleSearch);
+            addListener(this.searchInputMobile, 'input', handleSearch);
+
+            // --- CATEGORY CLICK DELEGATION ---
+            const handleCategoryClick = (e) => {
                 const btn = e.target.closest('.filter-chip');
                 if (!btn) return;
-                this.categoryContainer.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                
                 this.filters.category = btn.dataset.value;
+                
+                // Update UI classes on BOTH sets of buttons
+                this.updateActiveClasses(
+                    [this.catContainerDesktop, this.catContainerMobile], 
+                    btn.dataset.value
+                );
+                
                 this.applyFilters();
-            });
+            };
 
-            this.tagsContainer.addEventListener('click', (e) => {
+            addListener(this.catContainerDesktop, 'click', handleCategoryClick);
+            addListener(this.catContainerMobile, 'click', handleCategoryClick);
+
+            // --- TAG CLICK DELEGATION ---
+            const handleTagClick = (e) => {
                 const btn = e.target.closest('.filter-chip');
                 if (!btn) return;
+                
                 const tag = btn.dataset.value;
                 if (this.filters.tags.has(tag)) {
                     this.filters.tags.delete(tag);
-                    btn.classList.remove('active');
                 } else {
                     this.filters.tags.add(tag);
-                    btn.classList.add('active');
                 }
-                this.applyFilters();
-            });
 
-            this.resetBtn.addEventListener('click', () => {
+                // Re-render active state for tags across both views
+                this.updateTagVisuals();
+                this.applyFilters();
+            };
+
+            addListener(this.tagContainerDesktop, 'click', handleTagClick);
+            addListener(this.tagContainerMobile, 'click', handleTagClick);
+
+            // --- RESET BUTTONS ---
+            const handleReset = () => {
                 this.filters.search = '';
                 this.filters.category = 'All';
                 this.filters.tags.clear();
-                this.searchInput.value = '';
+                
+                // Clear inputs
+                if(this.searchInputDesktop) this.searchInputDesktop.value = '';
+                if(this.searchInputMobile) this.searchInputMobile.value = '';
+
+                // Reset UI
                 this.populateFilters(); 
                 this.applyFilters();
+            };
+
+            addListener(this.resetBtnDesktop, 'click', handleReset);
+            addListener(this.resetBtnMobile, 'click', handleReset);
+        }
+
+        updateActiveClasses(containers, activeValue) {
+            containers.forEach(container => {
+                if(!container) return;
+                container.querySelectorAll('.filter-chip').forEach(btn => {
+                    if(btn.dataset.value === activeValue) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
             });
+        }
+
+        updateTagVisuals() {
+            // Helper to sync tag active states across desktop and mobile
+            const syncTags = (container) => {
+                if(!container) return;
+                container.querySelectorAll('.filter-chip').forEach(btn => {
+                    const tag = btn.dataset.value;
+                    if(this.filters.tags.has(tag)) btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+            };
+
+            syncTags(this.tagContainerDesktop);
+            syncTags(this.tagContainerMobile);
         }
 
         applyFilters() {
@@ -202,4 +291,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     new ProjectManager();
+});
+
+// Filter Modal Toggle Logic
+const filterFloatingBtn = document.getElementById('filterFloatingBtn');
+const filterModalOverlay = document.getElementById('filterModalOverlay');
+const filterModal = document.getElementById('filterModal');
+const closeFilterModal = document.getElementById('closeFilterModal');
+
+function showFilterButton() {
+    if(filterFloatingBtn) {
+        setTimeout(() => {
+            filterFloatingBtn.classList.add('visible');
+        }, 300);
+    }
+}
+
+function toggleFilterModal() {
+    if(!filterModal) return;
+    filterModalOverlay.classList.toggle('active');
+    filterModal.classList.toggle('active');
+    document.body.style.overflow = filterModal.classList.contains('active') ? 'hidden' : 'auto';
+}
+
+function closeFilterModalFunc() {
+    if(!filterModal) return;
+    filterModalOverlay.classList.remove('active');
+    filterModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+if (filterFloatingBtn) filterFloatingBtn.addEventListener('click', toggleFilterModal);
+if (filterModalOverlay) filterModalOverlay.addEventListener('click', closeFilterModalFunc);
+if (closeFilterModal) closeFilterModal.addEventListener('click', closeFilterModalFunc);
+
+// Close modal on ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && filterModal && filterModal.classList.contains('active')) {
+        closeFilterModalFunc();
+    }
+});
+
+// Show filter button when projects page loads
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelector('.projects.show')) {
+        showFilterButton();
+    }
 });

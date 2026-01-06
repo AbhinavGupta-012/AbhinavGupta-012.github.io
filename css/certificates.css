@@ -3,6 +3,7 @@
    1. Previews: Restored "New Hover System" from Temp.
    2. Card Borders/Shadows: REVERTED to Original Purple.
    3. Card Title: DYNAMIC (Glows with Category Color on hover).
+   4. FIX: Added missing styling for Sub-Course Skills.
    =========================================================== */
 
 @import './root.css';
@@ -54,6 +55,8 @@
     align-items: flex-start;
     padding: 10px 0;
     border: none;
+    flex-wrap: wrap;
+    /* Allow wrapping on mobile */
 }
 
 .cert-preview-wrap {
@@ -76,6 +79,8 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(.2, .9, .3, 1);
     z-index: 20;
+    flex-shrink: 0;
+    /* Prevent shrinking on mobile */
 }
 
 .cert-icon:hover {
@@ -147,6 +152,8 @@
     transition: all 0.4s cubic-bezier(.2, .9, .3, 1);
     pointer-events: none;
     width: 300px;
+    max-width: 90vw;
+    /* Prevent overflow on mobile */
 }
 
 .cert-preview-frame.active {
@@ -237,6 +244,10 @@
     transform: scale(.95);
     transition: opacity .55s cubic-bezier(.2, .8, .2, 1), transform .55s cubic-bezier(.2, .8, .2, 1);
     background: radial-gradient(circle at center, rgba(40, 0, 60, .35) 0%, rgba(10, 5, 20, .1) 45%, transparent 75%);
+    overflow-y: auto;
+    /* Enable scrolling on mobile */
+    padding: 20px;
+    /* Add padding for mobile */
 }
 
 .certificates-page.show {
@@ -251,6 +262,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px 0;
+    /* Add vertical padding */
 }
 
 /* Title Design */
@@ -490,30 +503,6 @@
     transform: translateX(-3px);
 }
 
-/* Responsive */
-@media(max-width: 900px) {
-    .cosmic-card {
-        width: 42%;
-        max-width: 220px;
-    }
-}
-
-@media(max-width: 600px) {
-    .cert-page-title {
-        font-size: 2.15rem;
-    }
-
-    .cert-cards-wrapper {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .cosmic-card {
-        width: 82%;
-        height: 260px;
-    }
-}
-
 /* ===========================================================
    3. COSMIC COURSES MODAL (DYNAMIC COLORS)
    =========================================================== */
@@ -632,7 +621,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     /* REMOVED: overflow: hidden; */
-    overflow: visible; 
+    overflow: visible;
     flex-shrink: 0;
     transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -872,7 +861,7 @@
     border: 1px solid rgba(176, 102, 255, 0.15);
     border-radius: 14px;
     /* REMOVED: overflow: hidden; -> replaced with visible to allow popups */
-    overflow: visible; 
+    overflow: visible;
     position: relative;
 }
 
@@ -891,7 +880,7 @@
     gap: 12px;
     padding: 14px 18px;
     transition: all 0.3s ease;
-    
+
     /* Ensure radius consistency since we removed overflow:hidden from parent */
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
@@ -919,7 +908,7 @@
     padding: 14px 20px 16px;
     transition: all 0.2s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    
+
     /* CRITICAL FOR POPUP VISIBILITY */
     position: relative;
     z-index: 1;
@@ -928,7 +917,7 @@
 /* When hovering a row, lift it above others so the popup isn't covered by the next row */
 .sub-course-item:hover {
     background: rgba(197, 112, 255, 0.05);
-    z-index: 50; 
+    z-index: 50;
 }
 
 .sub-course-item:last-child {
@@ -970,10 +959,28 @@
     margin: 0;
 }
 
+/* --- ADDED: Sub-Course Skills Styling --- */
 .sub-course-skills {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+}
+
+.sub-skill-pill {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.sub-skill-pill:hover {
+    background: rgba(var(--accent-rgb), 0.1);
+    border-color: var(--accent-hex);
+    color: #fff;
 }
 
 .sub-course-actions {

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title> Abhinav Gupta </title>
     <link rel="icon" type="image/svg+xml" href="assets/logos/favicon.svg">
@@ -13,15 +13,10 @@
     <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <link rel="stylesheet" href="css/base.css">
-
     <link rel="stylesheet" href="css/nav.css">
-
     <link rel="stylesheet" href="css/about.css">
-
     <link rel="stylesheet" href="css/sections.css">
-
     <link rel="stylesheet" href="css/timeline.css">
-
     <link rel="stylesheet" href="css/timeline-cards.css">
     <link rel="stylesheet" href="css/certificates.css">
     <link rel="stylesheet" href="css/placeholder.css">
@@ -30,6 +25,10 @@
 
 <body>
     <div id="blackhole">
+        <button id="pauseAnimationBtn" class="pause-btn hidden" aria-label="Pause Animation">
+            ||
+        </button>
+
         <div class="centerHover">
             <span> Click Here </span>
         </div>
@@ -61,19 +60,66 @@
             </button>
         </nav>
 
+        <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+        <div class="mobile-nav-toggle" id="mobileNavToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="mobile-nav" id="mobileNav">
+            <ul>
+                <li>
+                    <a href="#" class="mobile-nav-item" data-target="home">
+                        <div class="mobile-nav-icon">H</div>
+                        <span class="mobile-nav-text">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mobile-nav-item" data-target="about">
+                        <div class="mobile-nav-icon">A</div>
+                        <span class="mobile-nav-text">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mobile-nav-item" data-target="timeline">
+                        <div class="mobile-nav-icon">T</div>
+                        <span class="mobile-nav-text">Timeline</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mobile-nav-item" data-target="projects">
+                        <div class="mobile-nav-icon">P</div>
+                        <span class="mobile-nav-text">Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mobile-nav-item" data-target="achievements">
+                        <div class="mobile-nav-icon">A</div>
+                        <span class="mobile-nav-text">Achievements</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mobile-nav-item" data-target="resume">
+                        <div class="mobile-nav-icon">R</div>
+                        <span class="mobile-nav-text">Resume</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mobile-nav-footer">
+                <p>© 2024 Abhinav Gupta</p>
+            </div>
+        </nav>
+
         <section class="about hidden">
             <div class="about-card">
-
                 <div class="about-left">
-
                     <img src="assets/images/Abhinav Gupta.jpg" alt="Your Photo">
-
                     <div class="about-left-body" aria-hidden="true">
-
                         <p class="about-quote"> “Turning curiosity into code.” </p>
-
                         <div class="left-divider"></div>
-
                         <div class="left-top-skills">
                             <div class="lts-list">
                                 <span class="lts-badge"> Java </span>
@@ -83,55 +129,42 @@
                                 <span class="lts-badge"> Git </span>
                             </div>
                         </div>
-
                         <div class="social-links-vertical">
-
                             <a class="social-v" href="https://github.com/AbhinavGupta-012" target="_blank"
                                 rel="noopener noreferrer">
                                 <div class="sv-icon">
                                     <lord-icon src="assets/logos/github.json" trigger="hover"
-                                        style="width:28px;height:28px">
-                                    </lord-icon>
+                                        style="width:28px;height:28px"></lord-icon>
                                 </div>
                                 <span class="sv-text"> AbhinavGupta-012 </span>
                             </a>
-
                             <a class="social-v" href="https://www.linkedin.com/in/abhinav-gupta012/" target="_blank"
                                 rel="noopener noreferrer">
                                 <div class="sv-icon">
                                     <lord-icon src="assets/logos/linkedin.json" trigger="hover"
-                                        style="width:28px;height:28px">
-                                    </lord-icon>
+                                        style="width:28px;height:28px"></lord-icon>
                                 </div>
                                 <span class="sv-text"> AbhinavGupta012 </span>
                             </a>
-
                             <a class="social-v" href="https://leetcode.com/u/AbhinavGupta012/" target="_blank"
                                 rel="noopener noreferrer">
-                                <div class="sv-icon">
-                                    <img src="assets/logos/leetcode.svg" alt="LeetCode Logo">
-                                </div>
-
+                                <div class="sv-icon"><img src="assets/logos/leetcode.svg" alt="LeetCode Logo"></div>
                                 <span class="sv-text"> AbhinavGupta012 </span>
                             </a>
                         </div>
-
                         <div class="quick-stats" role="list" aria-label="Quick stats">
                             <div class="stat">
                                 <div class="stat-value"> 2+ </div>
                                 <div class="stat-label"> Years </div>
                             </div>
-
                             <div class="stat">
                                 <div class="stat-value" id="projectCountValue"> 30+ </div>
                                 <div class="stat-label"> Projects </div>
                             </div>
-
                             <div class="stat">
                                 <div class="stat-value"> 3 </div>
                                 <div class="stat-label"> Certs </div>
                             </div>
-
                             <div class="stat">
                                 <div class="stat-value"> 🛰️ </div>
                                 <div class="stat-label"> Interests </div>
@@ -139,9 +172,7 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="about-right">
-
                     <h2> Abhinav Gupta </h2>
                     <p class="tagline"> Software Engineer | Aspiring Computer Scientist | Creator | Learner </p>
                     <ul class="about-info">
@@ -150,15 +181,12 @@
                         <li><strong> From:</strong> Mohali, Punjab, India </li>
                         <li><strong> Email:</strong> abhinavgupta1702@gmail.com </li>
                     </ul>
-
                     <p class="about-desc">
                         Hi! I'm Abhinav, a passionate learner who loves exploring everything
                         from computer science and networking to space and philosophy.
                         I aim to build projects that blend creativity with logic. 🚀
                     </p>
-
                     <div class="extra-content-container">
-
                         <hr>
                         <div class="content-section education-section">
                             <h3 class="section-title"> Education </h3>
@@ -166,55 +194,39 @@
                                 <h4> B.E. in Computer Science & Engineering </h4>
                                 <p class="institution"> Chitkara University </p>
                                 <p class="duration"> 2023 - Present | CGPA 9.51</p>
-                                <p class="description">
-                                    Relevant coursework:
-                                </p>
-                                <p class="description">
-                                    1st Sem - Problem Solving Using Python Programming, Front End Engineering - I.
-                                </p>
-                                <p class="description">
-                                    2nd Sem - Fundamentals of C Programming, Operating System, Source Code Management.
-                                </p>
-                                <p class="description">
-                                    3rd Sem - Object Oriented Programming, Database Management System, Computer
-                                    Networks, Front End Engineering - II.
-                                </p>
-                                <p class="description">
-                                    4th Sem - Linux Administration, Object Oriented Software Engineering, Data
-                                    Structures, Programming in Java, Backend Engineering - I.
-                                </p>
+                                <p class="description">Relevant coursework:</p>
+                                <p class="description">1st Sem - Problem Solving Using Python Programming, Front End
+                                    Engineering - I.</p>
+                                <p class="description">2nd Sem - Fundamentals of C Programming, Operating System, Source
+                                    Code Management.</p>
+                                <p class="description">3rd Sem - Object Oriented Programming, Database Management
+                                    System, Computer Networks, Front End Engineering - II.</p>
+                                <p class="description">4th Sem - Linux Administration, Object Oriented Software
+                                    Engineering, Data Structures, Programming in Java, Backend Engineering - I.</p>
                             </div>
                         </div>
-
                         <hr>
                         <div class="content-section skills-section">
                             <h3 class="section-title"> Skills </h3>
                             <div class="section-content">
-
                                 <div class="skill-category">
                                     <h4> Programming Languages </h4>
                                     <p> Java, Kotlin, JavaScript, Python, C, C++ </p>
                                 </div>
-
                                 <div class="skill-category">
                                     <h4> Frameworks & Technologies </h4>
                                     <p> React, Node.js, Express, Firebase, Spring Boot, Android, Bootstrap, Tkinter </p>
                                 </div>
-
                                 <div class="skill-category">
                                     <h4> Tools & Platforms </h4>
                                     <p> Git, Docker, AWS, MongoDB, MySQL, Android, Linux </p>
                                 </div>
                             </div>
                         </div>
-
                         <hr>
                         <div class="content-section certificates-section">
-                            <h3 class="section-title clickable-cert-title" id="openCertificatesPage">
-                                Certificates
-                                <span class="external-icon" aria-label="Open Certificates Page">[↗]</span>
-                            </h3>
-
+                            <h3 class="section-title clickable-cert-title" id="openCertificatesPage">Certificates <span
+                                    class="external-icon" aria-label="Open Certificates Page">[↗]</span></h3>
                             <div class="section-content">
                                 <div class="certificate-item cert-with-preview">
                                     <div class="cert-meta">
@@ -222,24 +234,20 @@
                                         <p class="issuer"> IBM </p>
                                         <p class="date"> April 13, 2025 </p>
                                     </div>
-
                                     <div class="cert-preview-wrap">
                                         <div class="cert-icon"
                                             data-preview-src="assets/certs/IBM Full Stack Software Developer.jpg"
                                             aria-label="Preview IBM Certificate">
                                             <div class="cert-icon-visual">
-                                                <div class="sv-icon">
-                                                    <img src="assets/logos/certificate.svg" alt="Certificate Icon">
-                                                </div>
+                                                <div class="sv-icon"><img src="assets/logos/certificate.svg"
+                                                        alt="Certificate Icon"></div>
                                             </div>
-                                            <span class="cert-ripple"></span>
-                                            <span class="cert-ripple cert-ripple--2"></span>
-                                            <span class="cert-ripple cert-ripple--3"></span>
+                                            <span class="cert-ripple"></span><span
+                                                class="cert-ripple cert-ripple--2"></span><span
+                                                class="cert-ripple cert-ripple--3"></span>
                                         </div>
-
                                         <div class="cert-preview-frame" aria-hidden="true">
-                                            <div class="cert-preview-inner">
-                                                <img class="cert-preview-img"
+                                            <div class="cert-preview-inner"><img class="cert-preview-img"
                                                     src="assets/certs/IBM Full Stack Software Developer.jpg"
                                                     alt="IBM Full Stack Software Developer Certificate Preview">
                                                 <div class="cert-gradient-border"></div>
@@ -247,31 +255,26 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="certificate-item cert-with-preview">
                                     <div class="cert-meta">
                                         <h4> Java: Data Structures and Algorithms </h4>
                                         <p class="issuer"> Codio </p>
                                         <p class="date"> April 23, 2025 </p>
                                     </div>
-
                                     <div class="cert-preview-wrap">
                                         <div class="cert-icon"
                                             data-preview-src="assets/certs/Java Data Structures and Algorithms.jpg"
                                             aria-label="Preview IBM Certificate">
                                             <div class="cert-icon-visual">
-                                                <div class="sv-icon">
-                                                    <img src="assets/logos/certificate.svg" alt="Certificate Icon">
-                                                </div>
+                                                <div class="sv-icon"><img src="assets/logos/certificate.svg"
+                                                        alt="Certificate Icon"></div>
                                             </div>
-                                            <span class="cert-ripple"></span>
-                                            <span class="cert-ripple cert-ripple--2"></span>
-                                            <span class="cert-ripple cert-ripple--3"></span>
+                                            <span class="cert-ripple"></span><span
+                                                class="cert-ripple cert-ripple--2"></span><span
+                                                class="cert-ripple cert-ripple--3"></span>
                                         </div>
-
                                         <div class="cert-preview-frame" aria-hidden="true">
-                                            <div class="cert-preview-inner">
-                                                <img class="cert-preview-img"
+                                            <div class="cert-preview-inner"><img class="cert-preview-img"
                                                     src="assets/certs/Java Data Structures and Algorithms.jpg"
                                                     alt="Java Data Structures and Algorithms Certificate Preview">
                                                 <div class="cert-gradient-border"></div>
@@ -281,43 +284,29 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
-
             <div class="about-toggle">
                 <button class="down-button">
                     <svg class="svgIcon" viewBox="0 0 384 512">
-                        <path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 
-                                    160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 
-                                    0L160 141.2V448c0 17.7 14.3 32 32 
-                                    32s32-14.3 32-32V141.2L329.4 
-                                    246.6c12.5 12.5 32.8 12.5 45.3 
-                                    0s12.5-32.8 0-45.3l-160-160z">
+                        <path
+                            d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z">
                         </path>
                     </svg>
                 </button>
             </div>
-
         </section>
 
         <section id="certificates" class="certificates-page hidden">
             <div class="cert-page-container">
-                <h2 class="cert-page-title">
-                    <span class="cpt-main">Certifications</span>
-                </h2>
-
+                <h2 class="cert-page-title"><span class="cpt-main">Certifications</span></h2>
                 <div class="cert-cards-wrapper">
-
                     <div class="cosmic-card card-courses" id="openCoursesPage">
-
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
-                                <div class="cosmic-orb">
-                                    <span class="orb-icon"><img src="assets/logos/astro-helmet.png" alt=""></span>
-                                </div>
+                                <div class="cosmic-orb"><span class="orb-icon"><img src="assets/logos/astro-helmet.png"
+                                            alt=""></span></div>
                                 <div class="orbit-dot"></div>
                             </div>
                             <h3>Courses</h3>
@@ -326,13 +315,11 @@
                         </div>
                         <div class="cosmic-glow"></div>
                     </div>
-
                     <div class="cosmic-card card-participation" id="openParticipationPage">
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
-                                <div class="cosmic-orb">
-                                    <span class="orb-icon"><img src="assets/logos/ufo.png" alt=""></span>
-                                </div>
+                                <div class="cosmic-orb"><span class="orb-icon"><img src="assets/logos/ufo.png"
+                                            alt=""></span></div>
                                 <div class="orbit-dot"></div>
                             </div>
                             <h3>Participation</h3>
@@ -341,13 +328,11 @@
                         </div>
                         <div class="cosmic-glow"></div>
                     </div>
-
                     <div class="cosmic-card card-achievements" id="openAchievementsPage">
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
-                                <div class="cosmic-orb">
-                                    <span class="orb-icon"><img src="assets/logos/flag.png" alt=""></span>
-                                </div>
+                                <div class="cosmic-orb"><span class="orb-icon"><img src="assets/logos/flag.png"
+                                            alt=""></span></div>
                                 <div class="orbit-dot"></div>
                             </div>
                             <h3>Achievements</h3>
@@ -356,13 +341,11 @@
                         </div>
                         <div class="cosmic-glow"></div>
                     </div>
-
                     <div class="cosmic-card card-archive" id="openArchivePage">
                         <div class="card-inner">
                             <div class="cosmic-icon-wrapper">
-                                <div class="cosmic-orb">
-                                    <span class="orb-icon"><img src="assets/logos/space.png" alt=""></span>
-                                </div>
+                                <div class="cosmic-orb"><span class="orb-icon"><img src="assets/logos/space.png"
+                                            alt=""></span></div>
                                 <div class="orbit-dot"></div>
                             </div>
                             <h3>Archive</h3>
@@ -371,11 +354,8 @@
                         </div>
                         <div class="cosmic-glow"></div>
                     </div>
-
                 </div>
-
-                <button id="backToAbout" class="cert-back-btn">
-                    <span>Back to Profile</span>
+                <button id="backToAbout" class="cert-back-btn"><span>Back to Profile</span>
                     <div class="btn-glow"></div>
                 </button>
             </div>
@@ -383,79 +363,82 @@
 
         <section id="coursesCertifications" class="courses-page">
             <div class="courses-header">
-                <h1 class="courses-title" id="certModalTitle">Courses</h1>
-                <button id="backToCertCategories" class="back-button">
-                    <span style="font-size:1.2em">‹</span> Back
-                </button>
+                <h1 class="courses-title" id="certModalTitle">Courses</h1><button id="backToCertCategories"
+                    class="back-button"><span style="font-size:1.2em">‹</span> Back</button>
             </div>
-
             <div id="coursesProgramsContainer"></div>
         </section>
 
         <section class="projects hidden">
             <div class="projects-layout">
-                
                 <main class="projects-main">
-                    
                     <div class="projects-section-header first">
                         <h2 class="projects-title-text">Featured Projects</h2>
                     </div>
-                    <div id="featured-grid" class="projects-grid-featured">
-                        </div>
-
+                    <div id="featured-grid" class="projects-grid-featured"></div>
                     <div class="projects-section-header">
                         <h2 class="projects-title-text">All Projects</h2>
                     </div>
-                    <div id="archive-grid" class="projects-grid-archive">
-                        </div>
-
+                    <div id="archive-grid" class="projects-grid-archive"></div>
                 </main>
-
                 <aside class="projects-sidebar">
-                    
-                    <div class="sidebar-group">
-                        <span class="sidebar-label">Search</span>
-                        <div class="search-container">
-                            <input type="text" id="projectSearch" class="project-search-input" placeholder="Find a project...">
-                        </div>
+                    <div class="sidebar-group"><span class="sidebar-label">Search</span>
+                        <div class="search-container"><input type="text" id="projectSearch" class="project-search-input"
+                                placeholder="Find a project..."></div>
                     </div>
-
-                    <div class="sidebar-group">
-                        <span class="sidebar-label">Category</span>
-                        <div id="category-filters" class="filter-options">
-                            </div>
+                    <div class="sidebar-group"><span class="sidebar-label">Category</span>
+                        <div id="category-filters" class="filter-options"></div>
                     </div>
-
-                    <div class="sidebar-group">
-                        <span class="sidebar-label">Technologies</span>
-                        <div id="tag-filters" class="filter-options">
-                            </div>
+                    <div class="sidebar-group"><span class="sidebar-label">Technologies</span>
+                        <div id="tag-filters" class="filter-options"></div>
                     </div>
-
-                    <button id="resetFilters" class="reset-btn">
-                        Clear all filters
-                    </button>
-
+                    <button id="resetFilters" class="reset-btn">Clear all filters</button>
                 </aside>
-
             </div>
         </section>
+        
+        <div class="filter-floating-btn" id="filterFloatingBtn">
+            <svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+            </svg>
+        </div>
+
+        <div class="filter-modal-overlay" id="filterModalOverlay"></div>
+
+        <div class="filter-modal" id="filterModal">
+            <div class="filter-modal-header">
+                <h2 class="filter-modal-title">Filter Projects</h2>
+                <button class="close-filter-modal" id="closeFilterModal">×</button>
+            </div>
+            <div class="filter-modal-content">
+                <div class="search-container">
+                    <input type="text" class="project-search-input" placeholder="Search projects..." id="projectSearchMobile">
+                </div>
+                
+                <div class="sidebar-group">
+                    <label class="sidebar-label">Filter by Category</label>
+                    <div class="filter-options" id="category-filters-mobile"></div>
+                </div>
+                
+                <div class="sidebar-group">
+                    <label class="sidebar-label">Filter by Technologies</label>
+                    <div class="filter-options" id="tag-filters-mobile"></div>
+                </div>
+                
+                <button class="reset-btn" id="resetFiltersMobile">Reset All Filters</button>
+            </div>
+        </div>
 
         <section class="timeline-section hidden">
             <div class="timeline-placeholder" role="region" aria-label="Timeline placeholder - under construction">
                 <div class="bhp-stage">
                     <canvas id="bhpCanvas" aria-hidden="true"></canvas>
-
                     <div class="bhp-content">
                         <div class="bhp-title"> Timeline - Under Progress </div>
                         <div class="bhp-subtitle"> A fully animated timeline experience is being built here </div>
-                        <div class="bhp-actions">
-                            <button class="bhp-btn bhp-btn-primary" id="bhpProjectsBtn" title="View Projects">
-                                <span> View Projects </span>
-                            </button>
-                        </div>
+                        <div class="bhp-actions"><button class="bhp-btn bhp-btn-primary" id="bhpProjectsBtn"
+                                title="View Projects"><span> View Projects </span></button></div>
                     </div>
-
                     <div class="bhp-glow"></div>
                 </div>
             </div>

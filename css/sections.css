@@ -18,6 +18,7 @@
 	transition: max-height 0.8s ease, opacity 0.8s ease;
 	opacity: 0;
 	margin-top: 20px;
+	width: 100%;
 }
 
 .extra-content-container.show {
@@ -44,6 +45,8 @@
 	margin-bottom: 20px;
 	border-bottom: var(--section-title-border);
 	padding-bottom: var(--section-title-padding-bottom);
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 .extra-content-container hr {
@@ -61,6 +64,7 @@
 	font-size: var(--education-title-size);
 	margin: 0 0 8px 0;
 	font-weight: 600;
+	line-height: 1.3;
 }
 
 .education-section .institution {
@@ -68,6 +72,7 @@
 	font-size: var(--education-inst-size);
 	margin: 0 0 5px 0;
 	font-weight: 500;
+	line-height: 1.4;
 }
 
 .education-section .duration {
@@ -75,6 +80,7 @@
 	font-size: var(--education-duration-size);
 	margin: 0 0 15px 0;
 	font-style: italic;
+	line-height: 1.4;
 }
 
 .education-section .description {
@@ -93,6 +99,7 @@
 	font-size: var(--skill-title-size);
 	margin: 0 0 8px 0;
 	font-weight: 600;
+	line-height: 1.3;
 }
 
 .skill-category p {
@@ -120,6 +127,7 @@
 	font-size: var(--certificate-title-size);
 	margin: 0 0 5px 0;
 	font-weight: 600;
+	line-height: 1.3;
 }
 
 .certificate-item .issuer {
@@ -127,6 +135,7 @@
 	font-size: var(--certificate-issuer-size);
 	margin: 0 0 3px 0;
 	font-weight: 500;
+	line-height: 1.4;
 }
 
 .certificate-item .date {
@@ -134,6 +143,7 @@
 	font-size: var(--certificate-date-size);
 	margin: 0;
 	font-style: italic;
+	line-height: 1.4;
 }
 
 /* ------------------------
@@ -156,4 +166,505 @@
 
 .about-card::-webkit-scrollbar-thumb:hover {
 	background: var(--color-accent-shadow);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN ENHANCEMENTS
+   ============================================ */
+
+/* Large Tablets & Small Laptops (1024px - 768px) */
+@media (max-width: 1024px) {
+	.content-section {
+		margin: 25px 0;
+		min-height: 110px;
+	}
+	
+	.section-title {
+		font-size: calc(var(--section-title-size) * 0.95);
+		margin-bottom: 18px;
+	}
+	
+	.extra-content-container hr {
+		margin: 22px 0;
+	}
+	
+	.education-section .section-content h4 {
+		font-size: calc(var(--education-title-size) * 0.95);
+	}
+	
+	.skill-category h4 {
+		font-size: calc(var(--skill-title-size) * 0.95);
+	}
+	
+	.certificate-item h4 {
+		font-size: calc(var(--certificate-title-size) * 0.95);
+	}
+}
+
+/* Tablets (768px - 600px) */
+@media (max-width: 768px) {
+	.extra-content-container {
+		margin-top: 15px;
+	}
+	
+	.content-section {
+		margin: 20px 0;
+		min-height: 100px;
+	}
+	
+	.section-content {
+		padding: 8px 0;
+	}
+	
+	.section-title {
+		font-size: calc(var(--section-title-size) * 0.9);
+		margin-bottom: 16px;
+		padding-bottom: calc(var(--section-title-padding-bottom) * 0.9);
+		text-align: center;
+	}
+	
+	.extra-content-container hr {
+		margin: 20px 0;
+		height: 1.5px;
+	}
+	
+	/* Education section adjustments */
+	.education-section .section-content h4 {
+		font-size: calc(var(--education-title-size) * 0.9);
+		margin-bottom: 6px;
+	}
+	
+	.education-section .institution {
+		font-size: calc(var(--education-inst-size) * 0.9);
+		margin-bottom: 4px;
+	}
+	
+	.education-section .duration {
+		font-size: calc(var(--education-duration-size) * 0.9);
+		margin-bottom: 12px;
+	}
+	
+	.education-section .description {
+		font-size: calc(var(--skill-desc-size) * 0.95);
+		line-height: 1.5;
+	}
+	
+	/* Skills section adjustments */
+	.skill-category {
+		margin-bottom: 18px;
+	}
+	
+	.skill-category h4 {
+		font-size: calc(var(--skill-title-size) * 0.9);
+		margin-bottom: 6px;
+	}
+	
+	.skill-category p {
+		font-size: calc(var(--skill-desc-size) * 0.95);
+		line-height: 1.5;
+	}
+	
+	/* Certificates section adjustments */
+	.certificate-item {
+		margin-bottom: 18px;
+		padding-bottom: 12px;
+	}
+	
+	.certificate-item h4 {
+		font-size: calc(var(--certificate-title-size) * 0.9);
+		margin-bottom: 4px;
+	}
+	
+	.certificate-item .issuer {
+		font-size: calc(var(--certificate-issuer-size) * 0.9);
+		margin-bottom: 2px;
+	}
+	
+	.certificate-item .date {
+		font-size: calc(var(--certificate-date-size) * 0.9);
+	}
+	
+	/* Scrollbar adjustments for tablets */
+	.about-card::-webkit-scrollbar {
+		width: 8px;
+	}
+}
+
+/* Large Phones (600px - 480px) */
+@media (max-width: 600px) {
+	.extra-content-container {
+		margin-top: 12px;
+	}
+	
+	.content-section {
+		margin: 18px 0;
+		min-height: 90px;
+	}
+	
+	.section-content {
+		padding: 6px 0;
+	}
+	
+	.section-title {
+		font-size: calc(var(--section-title-size) * 0.85);
+		margin-bottom: 14px;
+		padding-bottom: calc(var(--section-title-padding-bottom) * 0.85);
+		border-bottom-width: 2px;
+	}
+	
+	.extra-content-container hr {
+		margin: 18px 0;
+		height: 1px;
+	}
+	
+	/* Education section adjustments */
+	.education-section .section-content {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	
+	.education-section .section-content h4 {
+		font-size: calc(var(--education-title-size) * 0.85);
+		margin-bottom: 5px;
+	}
+	
+	.education-section .institution {
+		font-size: calc(var(--education-inst-size) * 0.85);
+		margin-bottom: 3px;
+	}
+	
+	.education-section .duration {
+		font-size: calc(var(--education-duration-size) * 0.85);
+		margin-bottom: 10px;
+	}
+	
+	.education-section .description {
+		font-size: calc(var(--skill-desc-size) * 0.9);
+		line-height: 1.4;
+	}
+	
+	/* Skills section adjustments */
+	.skill-category {
+		margin-bottom: 16px;
+		padding: 0 10px;
+	}
+	
+	.skill-category h4 {
+		font-size: calc(var(--skill-title-size) * 0.85);
+		margin-bottom: 5px;
+	}
+	
+	.skill-category p {
+		font-size: calc(var(--skill-desc-size) * 0.9);
+		line-height: 1.4;
+	}
+	
+	/* Certificates section adjustments */
+	.certificate-item {
+		margin-bottom: 16px;
+		padding-bottom: 10px;
+		padding: 0 10px 10px 10px;
+	}
+	
+	.certificate-item h4 {
+		font-size: calc(var(--certificate-title-size) * 0.85);
+		margin-bottom: 3px;
+	}
+	
+	.certificate-item .issuer {
+		font-size: calc(var(--certificate-issuer-size) * 0.85);
+		margin-bottom: 2px;
+	}
+	
+	.certificate-item .date {
+		font-size: calc(var(--certificate-date-size) * 0.85);
+	}
+}
+
+/* Small Phones (480px - 320px) */
+@media (max-width: 480px) {
+	.extra-content-container {
+		margin-top: 10px;
+	}
+	
+	.content-section {
+		margin: 15px 0;
+		min-height: 80px;
+	}
+	
+	.section-title {
+		font-size: calc(var(--section-title-size) * 0.75);
+		margin-bottom: 12px;
+		padding-bottom: calc(var(--section-title-padding-bottom) * 0.75);
+	}
+	
+	.extra-content-container hr {
+		margin: 15px 0;
+	}
+	
+	/* Education section adjustments */
+	.education-section .section-content {
+		padding-left: 8px;
+		padding-right: 8px;
+	}
+	
+	.education-section .section-content h4 {
+		font-size: calc(var(--education-title-size) * 0.75);
+		margin-bottom: 4px;
+	}
+	
+	.education-section .institution {
+		font-size: calc(var(--education-inst-size) * 0.75);
+		margin-bottom: 2px;
+	}
+	
+	.education-section .duration {
+		font-size: calc(var(--education-duration-size) * 0.75);
+		margin-bottom: 8px;
+	}
+	
+	.education-section .description {
+		font-size: calc(var(--skill-desc-size) * 0.85);
+		line-height: 1.4;
+	}
+	
+	/* Skills section adjustments */
+	.skill-category {
+		margin-bottom: 14px;
+		padding: 0 8px;
+	}
+	
+	.skill-category h4 {
+		font-size: calc(var(--skill-title-size) * 0.75);
+		margin-bottom: 4px;
+	}
+	
+	.skill-category p {
+		font-size: calc(var(--skill-desc-size) * 0.85);
+		line-height: 1.4;
+	}
+	
+	/* Certificates section adjustments */
+	.certificate-item {
+		margin-bottom: 14px;
+		padding: 0 8px 8px 8px;
+	}
+	
+	.certificate-item h4 {
+		font-size: calc(var(--certificate-title-size) * 0.75);
+		margin-bottom: 2px;
+	}
+	
+	.certificate-item .issuer {
+		font-size: calc(var(--certificate-issuer-size) * 0.75);
+		margin-bottom: 1px;
+	}
+	
+	.certificate-item .date {
+		font-size: calc(var(--certificate-date-size) * 0.75);
+	}
+	
+	/* Scrollbar adjustments for mobile */
+	.about-card::-webkit-scrollbar {
+		width: 6px;
+	}
+}
+
+/* Extra Small Phones (< 320px) */
+@media (max-width: 320px) {
+	.content-section {
+		margin: 12px 0;
+		min-height: 70px;
+	}
+	
+	.section-title {
+		font-size: calc(var(--section-title-size) * 0.7);
+		margin-bottom: 10px;
+	}
+	
+	.extra-content-container hr {
+		margin: 12px 0;
+	}
+	
+	/* Education section adjustments */
+	.education-section .section-content h4 {
+		font-size: calc(var(--education-title-size) * 0.7);
+	}
+	
+	.education-section .institution {
+		font-size: calc(var(--education-inst-size) * 0.7);
+	}
+	
+	.education-section .duration {
+		font-size: calc(var(--education-duration-size) * 0.7);
+	}
+	
+	.education-section .description {
+		font-size: calc(var(--skill-desc-size) * 0.8);
+	}
+	
+	/* Skills section adjustments */
+	.skill-category h4 {
+		font-size: calc(var(--skill-title-size) * 0.7);
+	}
+	
+	.skill-category p {
+		font-size: calc(var(--skill-desc-size) * 0.8);
+	}
+	
+	/* Certificates section adjustments */
+	.certificate-item h4 {
+		font-size: calc(var(--certificate-title-size) * 0.7);
+	}
+	
+	.certificate-item .issuer {
+		font-size: calc(var(--certificate-issuer-size) * 0.7);
+	}
+	
+	.certificate-item .date {
+		font-size: calc(var(--certificate-date-size) * 0.7);
+	}
+}
+
+/* Landscape Mode for Mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+	.content-section {
+		margin: 15px 0;
+		min-height: 90px;
+	}
+	
+	.section-title {
+		margin-bottom: 15px;
+	}
+	
+	.extra-content-container hr {
+		margin: 15px 0;
+	}
+	
+	/* Reduce spacing in landscape */
+	.education-section .duration {
+		margin-bottom: 8px;
+	}
+	
+	.skill-category {
+		margin-bottom: 15px;
+	}
+	
+	.certificate-item {
+		margin-bottom: 15px;
+		padding-bottom: 10px;
+	}
+}
+
+/* High DPI Screens (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.extra-content-container hr {
+		height: 1.5px; /* Thinner line for retina */
+	}
+	
+	.section-title {
+		border-bottom-width: 1.5px; /* Thinner border for retina */
+	}
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+	.extra-content-container {
+		transition: max-height 0.1s ease, opacity 0.1s ease !important;
+	}
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+	/* Improve touch targets for mobile */
+	.skill-category {
+		padding: 12px;
+		background: rgba(255, 255, 255, 0.02);
+		border-radius: 8px;
+		margin-bottom: 15px;
+	}
+	
+	.certificate-item {
+		padding: 12px;
+		background: rgba(255, 255, 255, 0.02);
+		border-radius: 8px;
+		margin-bottom: 15px;
+		border-bottom: none;
+	}
+	
+	.certificate-item:last-child {
+		margin-bottom: 0;
+	}
+}
+
+/* Very Tall Screens (Mobile in portrait) */
+@media (min-height: 1000px) {
+	.content-section {
+		margin: 25px 0;
+	}
+	
+	.section-title {
+		font-size: calc(var(--section-title-size) * 1.1);
+		margin-bottom: 25px;
+	}
+}
+
+/* Print Styles */
+@media print {
+	.extra-content-container {
+		max-height: none !important;
+		opacity: 1 !important;
+		overflow: visible !important;
+	}
+	
+	.extra-content-container hr {
+		border-top: 1px solid #ccc;
+		background: none;
+	}
+	
+	.section-title {
+		color: #000 !important;
+		border-bottom: 2px solid #000 !important;
+	}
+	
+	.education-section .section-content h4,
+	.skill-category h4,
+	.certificate-item h4 {
+		color: #000 !important;
+	}
+	
+	.education-section .institution,
+	.education-section .duration,
+	.education-section .description,
+	.skill-category p,
+	.certificate-item .issuer,
+	.certificate-item .date {
+		color: #333 !important;
+	}
+}
+
+/* Ensure text doesn't overflow on small screens */
+.section-title,
+.education-section .section-content h4,
+.education-section .institution,
+.skill-category h4,
+.skill-category p,
+.certificate-item h4,
+.certificate-item .issuer,
+.certificate-item .date {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	hyphens: auto;
+}
+
+/* Add smooth scrolling for anchor links within sections */
+.content-section {
+	scroll-margin-top: 20px;
+}
+
+/* Improve spacing between sections on mobile */
+@media (max-width: 768px) {
+	.content-section + .content-section {
+		margin-top: 25px;
+	}
 }

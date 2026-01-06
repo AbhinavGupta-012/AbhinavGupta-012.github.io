@@ -1,8 +1,8 @@
 /* ===========================================================
    CERTIFICATES SYSTEM (FULL)
-   - CertificatePreview: Handles hover previews.
+   - CertificatePreview: Handles hover previews (Desktop) & Click + Auto-close (Mobile).
    - CosmicRiftEngine: Handles particle effects on cards.
-   - Logic: Fetches JSON data and renders the new Holographic UI.
+   - Logic: Fetches JSON data and renders the UI.
    =========================================================== */
 
 /* =========================================
@@ -12,6 +12,7 @@ class CertificatePreview {
     constructor() {
         this.previewElements = [];
         this.isMobile = this.detectMobile();
+        this.autoCloseTimer = null; // Store timer reference
         this.init();
     }
 
@@ -22,7 +23,8 @@ class CertificatePreview {
     }
 
     detectMobile() {
-        return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        // Check for touch capability or coarse pointer (standard for mobile/tablet)
+        return window.matchMedia('(hover: none) and (pointer: coarse)').matches || ('ontouchstart' in window);
     }
 
     cacheElements() {
@@ -33,8 +35,22 @@ class CertificatePreview {
     createMobileOverlay() {
         const overlay = document.createElement('div');
         overlay.className = 'cert-mobile-overlay';
-        overlay.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:999;opacity:0;visibility:hidden;transition:all .3s ease;display:flex;align-items:center;justify-content:center;`;
-        overlay.addEventListener('click', e => { if (e.target === overlay) this.hideAllPreviews(); });
+        
+        // Transparent overlay for mobile logic
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: transparent;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all .3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        `; 
         document.body.appendChild(overlay);
         this.mobileOverlay = overlay;
     }
@@ -45,8 +61,15 @@ class CertificatePreview {
             const frame = element.querySelector('.cert-preview-frame');
 
             if (this.isMobile) {
-                if (icon) icon.addEventListener('click', e => { e.stopPropagation(); this.togglePreview(element); });
+                // --- MOBILE / TOUCH LOGIC ---
+                if (icon) {
+                    icon.addEventListener('click', e => { 
+                        e.stopPropagation(); 
+                        this.togglePreview(element); 
+                    });
+                }
             } else {
+                // --- DESKTOP LOGIC ---
                 if (icon) {
                     icon.addEventListener('mouseenter', () => this.showPreview(element));
                     icon.addEventListener('mouseleave', () => this.hidePreview(element));
@@ -57,49 +80,92 @@ class CertificatePreview {
                 }
             }
 
+            // Accessibility (Keyboard)
             if (icon) {
                 icon.addEventListener('keydown', e => {
-                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.togglePreview(element); }
+                    if (e.key === 'Enter' || e.key === ' ') { 
+                        e.preventDefault(); 
+                        this.togglePreview(element); 
+                    }
                 });
             }
         });
 
+        // Global Close
         document.addEventListener('keydown', e => { if (e.key === 'Escape') this.hideAllPreviews(); });
-        if (this.isMobile) window.addEventListener('scroll', () => this.hideAllPreviews());
+        
+        if (this.isMobile) {
+            window.addEventListener('scroll', () => this.hideAllPreviews());
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.cert-with-preview')) {
+                    this.hideAllPreviews();
+                }
+            });
+        }
     }
 
     showPreview(element) {
         this.hideAllPreviews();
+        
         const icon = element.querySelector('.cert-icon');
         const frame = element.querySelector('.cert-preview-frame');
+        
         if (icon) icon.classList.add('active');
         if (frame) frame.classList.add('active');
+
+        // --- MOBILE: AUTO-CLOSE ---
+        if (this.isMobile) {
+            if (this.mobileOverlay) { 
+                this.mobileOverlay.style.opacity = '1'; 
+                this.mobileOverlay.style.visibility = 'visible'; 
+            }
+
+            clearTimeout(this.autoCloseTimer);
+            this.autoCloseTimer = setTimeout(() => {
+                this.hidePreview(element);
+                if (this.mobileOverlay) { 
+                    this.mobileOverlay.style.opacity = '0'; 
+                    this.mobileOverlay.style.visibility = 'hidden'; 
+                }
+            }, 3500); 
+        }
     }
 
     hidePreview(element) {
         const icon = element.querySelector('.cert-icon');
         const frame = element.querySelector('.cert-preview-frame');
+        
         if (icon) icon.classList.remove('active');
         if (frame) frame.classList.remove('active');
     }
 
     togglePreview(element) {
         const frame = element.querySelector('.cert-preview-frame');
-        if (frame && frame.classList.contains('active')) {
+        const isActive = frame && frame.classList.contains('active');
+
+        if (isActive) {
             this.hidePreview(element);
-            if (this.isMobile && this.mobileOverlay) { this.mobileOverlay.style.opacity = '0'; this.mobileOverlay.style.visibility = 'hidden'; }
+            clearTimeout(this.autoCloseTimer);
+            if (this.isMobile && this.mobileOverlay) { 
+                this.mobileOverlay.style.opacity = '0'; 
+                this.mobileOverlay.style.visibility = 'hidden'; 
+            }
         } else {
             this.showPreview(element);
-            if (this.isMobile && this.mobileOverlay) { this.mobileOverlay.style.opacity = '1'; this.mobileOverlay.style.visibility = 'visible'; }
         }
     }
 
     hideAllPreviews() {
+        clearTimeout(this.autoCloseTimer);
         this.previewElements.forEach(el => this.hidePreview(el));
-        if (this.isMobile && this.mobileOverlay) { this.mobileOverlay.style.opacity = '0'; this.mobileOverlay.style.visibility = 'hidden'; }
+        if (this.isMobile && this.mobileOverlay) { 
+            this.mobileOverlay.style.opacity = '0'; 
+            this.mobileOverlay.style.visibility = 'hidden'; 
+        }
     }
 
     keepPreviewVisible(element) {
+        if (this.isMobile) return;
         const icon = element.querySelector('.cert-icon');
         const frame = element.querySelector('.cert-preview-frame');
         if (icon) icon.classList.add('active');
@@ -142,7 +208,6 @@ class CosmicRiftEngine {
             let theme = { color: '#ffffff', shadow: 'rgba(255,255,255,0.5)' };
             for (const [cls, cfg] of Object.entries(config)) if (card.classList.contains(cls)) theme = cfg;
             
-            // Create or get canvas
             let canvas = card.querySelector('.cosmic-rift-canvas');
             if (!canvas) {
                 canvas = document.createElement('canvas');
@@ -150,7 +215,6 @@ class CosmicRiftEngine {
                 card.appendChild(canvas);
             }
             
-            // Store instance
             const rift = new CardRift(card, canvas, theme);
             this.instances.push(rift);
         });
@@ -186,19 +250,15 @@ class CardRift {
     bindEvents() {
         this.resizeObserver = new ResizeObserver(() => this.resize());
         this.resizeObserver.observe(this.card);
-        
         this.card.addEventListener('mouseenter', this.boundMouseEnter);
         this.card.addEventListener('mouseleave', this.boundMouseLeave);
     }
 
     destroy() {
         if (this.animationId) cancelAnimationFrame(this.animationId);
-        
         this.card.removeEventListener('mouseenter', this.boundMouseEnter);
         this.card.removeEventListener('mouseleave', this.boundMouseLeave);
-        
         if (this.resizeObserver) this.resizeObserver.disconnect();
-        
         if (this.canvas && this.canvas.parentNode) {
             this.canvas.parentNode.removeChild(this.canvas);
         }
@@ -206,21 +266,15 @@ class CardRift {
 
     resize() {
         const dpr = window.devicePixelRatio || 1;
-        
         const displayWidth = this.card.offsetWidth + 20;
         const displayHeight = this.card.offsetHeight + 20;
-
         if (displayWidth === 0 || displayHeight === 0) return;
-
         this.canvas.width = Math.floor(displayWidth * dpr);
         this.canvas.height = Math.floor(displayHeight * dpr);
-
         this.canvas.style.width = `${displayWidth}px`;
         this.canvas.style.height = `${displayHeight}px`;
-
         this.ctx.setTransform(1, 0, 0, 1, 0, 0); 
         this.ctx.scale(dpr, dpr); 
-
         this.width = displayWidth;
         this.height = displayHeight;
     }
@@ -230,10 +284,8 @@ class CardRift {
     loop() {
         this.time += 0.05;
         this.ctx.clearRect(0, 0, this.width, this.height);
-        
         if (this.isHovering) this.spawnEnergy();
         this.updateParticles();
-        
         if (this.particles.length === 0 && !this.isHovering) { 
             this.animationId = null; 
             this.ctx.clearRect(0, 0, this.width, this.height);
@@ -244,23 +296,18 @@ class CardRift {
 
     spawnEnergy() {
         if (Math.random() > 0.3) return;
-        
         const corners = [
             { x: 10, y: 10, vx: 1, vy: 1 }, 
             { x: this.width - 10, y: 10, vx: -1, vy: 1 },
             { x: 10, y: this.height - 10, vx: 1, vy: -1 }, 
             { x: this.width - 10, y: this.height - 10, vx: -1, vy: -1 }
         ];
-        
         const corner = corners[Math.floor(Math.random() * corners.length)];
         const isHorizontal = Math.random() > 0.5;
-        
         this.particles.push({
             x: corner.x, y: corner.y, 
-            life: 1.0, 
-            decay: 0.02 + Math.random() * 0.03,
-            path: [], 
-            direction: isHorizontal ? 'h' : 'v',
+            life: 1.0, decay: 0.02 + Math.random() * 0.03,
+            path: [], direction: isHorizontal ? 'h' : 'v',
             signX: corner.vx, signY: corner.vy, 
             wobbleOffset: Math.random() * 100
         });
@@ -270,29 +317,22 @@ class CardRift {
         this.ctx.lineCap = 'round'; 
         this.ctx.shadowBlur = 15; 
         this.ctx.shadowColor = this.theme.shadow;
-        
         for (let i = this.particles.length - 1; i >= 0; i--) {
             const p = this.particles[i]; 
             const speed = 4;
-            
             if (p.direction === 'h') p.x += speed * p.signX; else p.y += speed * p.signY;
-            
             const jitter = Math.sin(this.time * 2 + p.wobbleOffset) * 2 + (Math.random() - 0.5) * 3;
-            
             if (p.direction === 'h') p.path.push({ x: p.x, y: p.y + jitter }); 
             else p.path.push({ x: p.x + jitter, y: p.y });
-            
             this.ctx.beginPath(); 
             this.ctx.strokeStyle = this.theme.color; 
             this.ctx.lineWidth = 2 * p.life; 
             this.ctx.globalAlpha = p.life;
-            
             if (p.path.length > 1) {
                 this.ctx.moveTo(p.path[0].x, p.path[0].y);
                 for (let j = 1; j < p.path.length; j++) this.ctx.lineTo(p.path[j].x, p.path[j].y);
                 this.ctx.stroke();
             }
-            
             p.life -= p.decay;
             if (p.life <= 0) this.particles.splice(i, 1);
         }
@@ -323,14 +363,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const openAchievementsCard = document.getElementById('openAchievementsPage');
     const openArchiveCard = document.getElementById('openArchivePage');
 
-    // --- Initial State ---
+    // Initial State
     hideCertificatesHome();
     hideCoursesPage();
 
-    // --- Listeners ---
+    // Listeners
     if (collapseBtn) collapseBtn.addEventListener('click', () => { hideCoursesPage(); hideCertificatesHome(); });
 
-    // Sync with About Section
     const aboutSection = document.querySelector('.about');
     if (aboutSection) {
         const observer = new MutationObserver(() => {
@@ -344,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (openCertBtn) openCertBtn.addEventListener('click', () => { showCertificatesHome(); hideCoursesPage(); });
     
-    // --- CATEGORY OPENERS ---
+    // Category Openers
     if (openCoursesCard) {
         openCoursesCard.addEventListener('click', () => { 
             hideCertificatesHome(); 
@@ -377,31 +416,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- EXPANSION LOGIC ---
+    // Expansion Logic
     if (programsContainer) {
         programsContainer.addEventListener('click', e => {
-            // 1. Program Card Expansion
             const header = e.target.closest('.program-header');
             if (header) {
                 const card = header.closest('.program-card');
+                const arrow = card.querySelector('.arrow-icon');
                 const expanded = card.classList.toggle('expanded');
-                
+
                 if (expanded) {
+                    if (arrow) arrow.classList.add('open');
                     setTimeout(() => {
                         card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }, 300);
+                } else {
+                    if (arrow) arrow.classList.remove('open');
                 }
                 return;
             }
 
-            // 2. Included Courses Toggle
             const toggleBtn = e.target.closest('.courses-toggle-btn');
             if (toggleBtn) {
                 const list = toggleBtn.nextElementSibling;
                 if (list && list.classList.contains('sub-course-list')) {
                     const isVisible = list.style.display === 'block';
                     list.style.display = isVisible ? 'none' : 'block';
-                    // Update text
                     const span = toggleBtn.querySelector('span');
                     if (span) {
                         const countText = span.textContent.match(/\(\d+\)/)?.[0] || '';
@@ -412,21 +452,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* =======================================================
-       DATA FETCHING & RENDERING (UPDATED)
-       ======================================================= */
-
+    // Data Fetching
     function loadCategoryData(jsonFile) {
         if (!programsContainer) return;
-
         programsContainer.style.opacity = '0.5';
         programsContainer.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.5);">Loading data...</div>';
 
         fetch(jsonFile)
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 renderPrograms(data.programs);
                 programsContainer.style.opacity = '1';
@@ -434,17 +467,16 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(err => {
                 console.error('Failed to load data:', err);
-                programsContainer.innerHTML = `<div style="padding:40px;text-align:center;color:#ff4d4d;">Failed to load data.<br><small>${err.message}</small></div>`;
+                programsContainer.innerHTML = `<div style="padding:40px;text-align:center;color:#ff4d4d;">Failed to load data.</div>`;
                 programsContainer.style.opacity = '1';
             });
     }
 
-    // --- REVISED RENDER FUNCTION ---
+    // --- RENDER LOGIC WITH DESCRIPTION & SKILLS ---
     function renderPrograms(programs) {
         programsContainer.innerHTML = '';
-        
         if (!programs || programs.length === 0) {
-            programsContainer.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.5);">No certificates found in this category yet.</div>';
+            programsContainer.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.5);">No certificates found.</div>';
             return;
         }
 
@@ -452,7 +484,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'program-card';
 
-            // 1. Header
             const header = document.createElement('button');
             header.className = 'program-header';
             header.type = 'button';
@@ -464,11 +495,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="arrow-icon">▼</div>
             `;
 
-            // 2. Body
             const body = document.createElement('div');
             body.className = 'program-body';
 
-            // -- Sub-courses Logic --
             let coursesHtml = '';
             if (program.courses && program.courses.length > 0) {
                 coursesHtml = `
@@ -476,16 +505,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="courses-toggle-btn" type="button">
                         <span>▶ Included Modules (${program.courses.length})</span>
                     </button>
-
                     <ul class="sub-course-list">
                         ${program.courses.map((c, i) => {
-                            // Check if sub-skills exist and valid
+                            // Sub-skills Logic
                             let subSkillsHtml = '';
-                            if (c.skills && c.skills.length > 0) {
-                                // Handle if skills is array or comma string
-                                const skillsArray = Array.isArray(c.skills) ? c.skills : c.skills.split(',');
-                                if (skillsArray[0] !== "") {
-                                    subSkillsHtml = `<div class="sub-course-skills">${skillsArray.map(s => `<span class="subcourse-skill">${s.trim()}</span>`).join('')}</div>`;
+                            if (c.skills) {
+                                const skillsArr = Array.isArray(c.skills) ? c.skills : c.skills.split(',');
+                                if(skillsArr.length > 0 && skillsArr[0] !== '') {
+                                    subSkillsHtml = `
+                                    <div class="sub-course-skills">
+                                        ${skillsArr.map(s => `<span class="sub-skill-pill">${s.trim()}</span>`).join('')}
+                                    </div>`;
                                 }
                             }
 
@@ -499,10 +529,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         ${subSkillsHtml}
                                     </div>
                                 </div>
-
                                 <div class="sub-course-actions">
                                     <a href="${c.verifyUrl}" target="_blank" class="verify-link">Verify</a>
-                                    
                                     ${c.certificateImage ? `
                                     <div class="certificate-item cert-with-preview" style="border:none;padding:0;min-height:auto;">
                                         <div class="cert-preview-wrap" style="margin:0;">
@@ -530,42 +558,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
             }
 
-            // -- Construct Body Content --
-            // Prepare main program skills
-            const programSkills = Array.isArray(program.skills) ? program.skills : (program.skills ? program.skills.split(',') : []);
-
-            // -- LOGIC CHANGE: Check for ID to determine if Credential row is shown --
-            const credentialHtml = program.id ? 
-                `<div class="meta-item"><strong>Credential:</strong> <a href="${program.credentialUrl}" target="_blank" class="meta-link">ID: ${program.id}</a></div>` : 
-                '';
-
             body.innerHTML = `
                 <div class="program-content-grid">
                     <div class="program-details">
                         <div class="meta-row">
                             <div class="meta-item"><strong>Issuer:</strong> ${program.issuer}</div>
-                            ${credentialHtml}
+                            ${program.id ? `<div class="meta-item"><strong>Credential:</strong> <a href="${program.credentialUrl}" target="_blank" class="meta-link">ID: ${program.id}</a></div>` : ''}
                         </div>
-                        
                         <div class="skills-container">
-                            ${programSkills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                            ${(Array.isArray(program.skills) ? program.skills : (program.skills ? program.skills.split(',') : [])).map(s => `<span class="skill-pill">${s}</span>`).join('')}
                         </div>
-
                         <p class="program-desc">${program.description}</p>
-                        
                         ${coursesHtml}
                     </div>
-
                     ${program.programCertificate && program.programCertificate.image ? `
                     <div class="program-cert-preview">
                         <div class="certificate-item cert-with-preview" style="border:none;padding:0;min-height:auto;">
                             <div class="cert-preview-wrap" style="margin:0;">
                                 <div class="cert-icon" style="width:60px;height:60px;" data-preview-src="${program.programCertificate.image}">
                                     <div class="cert-icon-visual">
-                                        <div class="sv-icon" style="width:30px;height:30px;"><img src="assets/logos/certificate.svg" alt="Cert"></div>
+                                        <div class="sv-icon" style="width:30px;height:30px;"><img src="assets/logos/certificate.svg"></div>
                                     </div>
                                     <span class="cert-ripple"></span>
-                                    <span class="cert-ripple cert-ripple--2"></span>
                                 </div>
                                 <div class="cert-preview-frame" aria-hidden="true">
                                     <div class="cert-preview-inner">
@@ -584,7 +598,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- State Helpers ---
     function showCertificatesHome() {
         if (!certHome) return;
         certHome.classList.add('show');

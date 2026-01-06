@@ -1,80 +1,63 @@
 /* base.css */
-/* ==============================
-   Global styles and base layout
-   - Body & canvas
-   - Blackhole container
-   - Center hover interaction
-   - Content layering
-   ============================== */
 
+/* ... (Keep existing @import and other styles) ... */
 @import './root.css';
 
-/* ------------------------
-   Base document
-   ------------------------ */
 html,
 body {
 	height: 100%;
+	width: 100%;
+	overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 body {
 	background-color: var(--color-bg);
-	overflow: hidden; /* prevent scroll during blackhole animation */
+	overflow: hidden;
+	position: relative;
 }
 
-/* ------------------------
-   Blackhole container
-   ------------------------ */
 #blackhole {
 	width: 100%;
 	height: 100%;
 	position: relative;
 	display: flex;
+	min-height: 100vh;
 }
 
-/* ------------------------
-   Center hover circle
-   ------------------------ */
+/* ... (Keep centerHover and canvas styles same as original) ... */
+
 .centerHover {
 	width: var(--center-hover-size);
 	height: var(--center-hover-size);
 	line-height: var(--center-hover-size);
-
 	background-color: transparent;
 	border-radius: var(--center-hover-radius);
-
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	margin-left: calc(var(--center-hover-size) / -2);
 	margin-top: calc(var(--center-hover-size) / -2);
-
 	z-index: 2;
 	cursor: pointer;
 	text-align: center;
-
-	/* Smooth fade/scale */
 	transition: all 500ms;
+	-webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
 .centerHover.open {
 	opacity: 0;
-	pointer-events: none; /* disable when expanded */
+	pointer-events: none;
 }
 
-/* ------------------------
-   Center hover text span
-   ------------------------ */
 .centerHover span {
 	color: var(--color-span);
 	font-family: serif;
 	font-size: var(--span-font-size);
 	position: relative;
-
 	transition: all 500ms;
+	user-select: none; /* Prevent text selection */
 }
 
-/* Hover effects */
 .centerHover:hover span {
 	color: var(--color-hover);
 	opacity: 0;
@@ -89,48 +72,358 @@ body {
 	height: var(--span-before-after-height);
 	margin-bottom: var(--span-before-after-margin-bottom);
 	background-color: var(--color-span);
-
 	transition: all 500ms;
 }
 
-/* Left/right spacing */
 .centerHover span:before {
 	margin-right: var(--span-before-after-margin-x);
 }
+
 .centerHover span:after {
 	margin-left: var(--span-before-after-margin-x);
 }
 
-/* Hover effects for ::before / ::after */
 .centerHover:hover span:before,
 .centerHover:hover span:after {
 	background-color: var(--color-hover);
 }
 
-/* ------------------------
-   Blackhole canvas
-   ------------------------ */
 canvas {
 	position: fixed;
 	width: 100%;
 	height: 100%;
 	margin: auto;
-
 	z-index: 0;
-	pointer-events: none; /* allow clicks through canvas */
+	pointer-events: none;
 }
 
-/* ------------------------
-   Foreground content
-   ------------------------ */
 .content {
 	position: relative;
-	z-index: 1; /* above canvas */
+	z-index: 1;
 	color: var(--color-content);
 }
 
-/* Blur effect ONLY when About is active */
 .canvas-blur {
-    filter: blur(1.25px);   /* <- adjust blur strength here */
-    transition: filter 0.4s ease;
+	filter: blur(1.25px);
+	transition: filter 0.4s ease;
+}
+
+/* ------------------------
+   Animation Controls
+   ------------------------ */
+.pause-btn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 1000;
+    
+    /* Cosmic Glass Look */
+    background: rgba(20, 0, 30, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 2px solid rgba(197, 112, 255, 0.4);
+    color: #ffffff;
+    
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    
+    /* --- FIX: Perfect Centering --- */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;      /* Removed the manual padding offset */
+    line-height: 1;  /* Prevents vertical font shifting */
+    /* ------------------------------ */
+
+    font-size: 1.6rem;
+    cursor: pointer;
+    
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(197, 112, 255, 0.1);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* HIDDEN STATE */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100px) rotate(90deg);
+    
+    /* Touch-friendly */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* HOVER EFFECT */
+.pause-btn:hover {
+    background: rgba(197, 112, 255, 0.25);
+    border-color: rgba(197, 112, 255, 1);
+    box-shadow: 0 0 35px rgba(197, 112, 255, 0.6);
+    transform: scale(1.15);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* CLICK EFFECT */
+.pause-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(197, 112, 255, 0.8);
+}
+
+/* VISIBLE STATE */
+.pause-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) rotate(0deg);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN ENHANCEMENTS
+   ============================================ */
+
+/* Large Tablets & Small Laptops (1024px - 768px) */
+@media (max-width: 1024px) {
+	.centerHover {
+		transform: scale(0.95);
+	}
+	
+	.pause-btn {
+		bottom: 35px;
+		right: 35px;
+		width: 55px;
+		height: 55px;
+		font-size: 1.5rem;
+	}
+}
+
+/* Tablets (768px - 600px) */
+@media (max-width: 768px) {
+	body {
+		overflow: hidden;
+	}
+	
+	.centerHover {
+		width: calc(var(--center-hover-size) * 0.9);
+		height: calc(var(--center-hover-size) * 0.9);
+		line-height: calc(var(--center-hover-size) * 0.9);
+		margin-left: calc(var(--center-hover-size) * -0.45);
+		margin-top: calc(var(--center-hover-size) * -0.45);
+	}
+	
+	.centerHover span {
+		font-size: calc(var(--span-font-size) * 0.9);
+	}
+	
+	.pause-btn {
+		bottom: 30px;
+		right: 30px;
+		width: 50px;
+		height: 50px;
+		font-size: 1.4rem;
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+	}
+	
+	/* Adjust canvas blur for performance on mobile */
+	.canvas-blur {
+		filter: blur(1px);
+	}
+}
+
+/* Large Phones (600px - 480px) */
+@media (max-width: 600px) {
+	.centerHover {
+		width: calc(var(--center-hover-size) * 0.8);
+		height: calc(var(--center-hover-size) * 0.8);
+		line-height: calc(var(--center-hover-size) * 0.8);
+		margin-left: calc(var(--center-hover-size) * -0.4);
+		margin-top: calc(var(--center-hover-size) * -0.4);
+	}
+	
+	.centerHover span {
+		font-size: calc(var(--span-font-size) * 0.85);
+	}
+	
+	/* Adjust pseudo-element sizes */
+	.centerHover span:before,
+	.centerHover span:after {
+		width: calc(var(--span-before-after-width) * 0.85);
+		height: calc(var(--span-before-after-height) * 0.85);
+	}
+	
+	.pause-btn {
+		bottom: 25px;
+		right: 25px;
+		width: 48px;
+		height: 48px;
+		font-size: 1.3rem;
+		border-width: 1.5px;
+	}
+	
+	/* Touch-friendly hover alternative for mobile */
+	.pause-btn:active {
+		background: rgba(197, 112, 255, 0.25);
+		border-color: rgba(197, 112, 255, 1);
+		box-shadow: 0 0 25px rgba(197, 112, 255, 0.6);
+		transform: scale(0.95);
+	}
+}
+
+/* Small Phones (480px - 320px) */
+@media (max-width: 480px) {
+	.centerHover {
+		width: calc(var(--center-hover-size) * 0.7);
+		height: calc(var(--center-hover-size) * 0.7);
+		line-height: calc(var(--center-hover-size) * 0.7);
+		margin-left: calc(var(--center-hover-size) * -0.35);
+		margin-top: calc(var(--center-hover-size) * -0.35);
+	}
+	
+	.centerHover span {
+		font-size: calc(var(--span-font-size) * 0.75);
+	}
+	
+	.centerHover span:before,
+	.centerHover span:after {
+		width: calc(var(--span-before-after-width) * 0.75);
+		height: calc(var(--span-before-after-height) * 0.75);
+	}
+	
+	.pause-btn {
+		bottom: 20px;
+		right: 20px;
+		width: 44px;
+		height: 44px;
+		font-size: 1.2rem;
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+	}
+}
+
+/* Extra Small Phones (< 320px) */
+@media (max-width: 320px) {
+	.centerHover {
+		width: calc(var(--center-hover-size) * 0.65);
+		height: calc(var(--center-hover-size) * 0.65);
+		line-height: calc(var(--center-hover-size) * 0.65);
+		margin-left: calc(var(--center-hover-size) * -0.325);
+		margin-top: calc(var(--center-hover-size) * -0.325);
+	}
+	
+	.centerHover span {
+		font-size: calc(var(--span-font-size) * 0.7);
+	}
+	
+	.pause-btn {
+		bottom: 15px;
+		right: 15px;
+		width: 40px;
+		height: 40px;
+		font-size: 1.1rem;
+	}
+}
+
+/* Landscape Mode for Mobile */
+@media (max-height: 600px) and (orientation: landscape) {
+	.centerHover {
+		transform: scale(0.85);
+	}
+	
+	.pause-btn {
+		bottom: 15px;
+		right: 15px;
+		width: 45px;
+		height: 45px;
+		font-size: 1.2rem;
+	}
+}
+
+/* High DPI Screens (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.canvas-blur {
+		filter: blur(1.5px); /* Slightly stronger blur for retina */
+	}
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+	.centerHover,
+	.centerHover span,
+	.centerHover span:before,
+	.centerHover span:after,
+	.pause-btn,
+	.canvas-blur {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+	
+	.pause-btn {
+		transition: opacity 0.4s ease !important;
+	}
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+	/* Replace hover effects with active states for touch devices */
+	.centerHover:active span {
+		color: var(--color-hover);
+		opacity: 0;
+		transform: scale(0.9);
+	}
+	
+	.centerHover:active span:before,
+	.centerHover:active span:after {
+		background-color: var(--color-hover);
+	}
+	
+	.pause-btn:hover {
+		transform: none; /* Remove hover transform on touch devices */
+	}
+	
+	/* Add active state for pause button */
+	.pause-btn:active {
+		background: rgba(197, 112, 255, 0.25);
+		border-color: rgba(197, 112, 255, 1);
+		box-shadow: 0 0 25px rgba(197, 112, 255, 0.6);
+		transform: scale(0.9);
+	}
+}
+
+/* Very Tall Screens (Mobile in portrait) */
+@media (min-height: 1000px) {
+	.centerHover {
+		transform: scale(1.1); /* Slightly larger on tall screens */
+	}
+	
+	.pause-btn {
+		bottom: 50px;
+		right: 50px;
+	}
+}
+
+/* Performance optimizations for low-end devices */
+@media (max-width: 768px) and (prefers-reduced-data: reduce) {
+	.canvas-blur {
+		filter: blur(0.5px); /* Reduced blur for data savings */
+	}
+	
+	.pause-btn {
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+	}
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+/* Ensure canvas fills screen on all devices */
+canvas {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
 }
