@@ -1,6 +1,6 @@
 /* ===========================================================
    CERTIFICATES.CSS — FINAL V2.4 (TITLE ONLY DYNAMIC)
-   1. Previews: Original Purple/Cosmic Theme.
+   1. Previews: Restored "New Hover System" from Temp.
    2. Card Borders/Shadows: REVERTED to Original Purple.
    3. Card Title: DYNAMIC (Glows with Category Color on hover).
    =========================================================== */
@@ -45,55 +45,24 @@
 
 
 /* ===========================================================
-   1. CERTIFICATE PREVIEW SYSTEM (STRICTLY ORIGINAL)
+   1. CERTIFICATE PREVIEW SYSTEM (RESTORED FROM TEMP)
    =========================================================== */
 .certificate-item.cert-with-preview {
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    min-height: 80px;
-}
-
-.certificate-item.cert-with-preview:last-child {
-    border-bottom: none;
-}
-
-.cert-meta {
-    flex: 1;
-    padding-right: 40px;
-}
-
-.cert-meta h4 {
-    font-size: var(--certificate-title-size, 1.1rem);
-    color: #fff;
-    margin: 0 0 6px 0;
-    font-weight: 600;
-}
-
-.cert-meta .issuer {
-    font-size: var(--certificate-issuer-size, 0.9rem);
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 4px 0;
-    font-weight: 500;
-}
-
-.cert-meta .date {
-    font-size: var(--certificate-date-size, 0.85rem);
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-    opacity: 0.9;
+    padding: 10px 0;
+    border: none;
 }
 
 .cert-preview-wrap {
     position: relative;
     display: flex;
     align-items: center;
-    margin-right: -20px;
 }
 
+/* The Trigger Icon */
 .cert-icon {
     position: relative;
     width: 44px;
@@ -106,25 +75,14 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(.2, .9, .3, 1);
-    z-index: 15;
-    margin-right: 12px;
-    transform: translateX(-16px);
+    z-index: 20;
 }
 
 .cert-icon:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--color-sidebar-border, rgba(255, 255, 255, 0.2));
-    transform: translateX(-16px) scale(1.05);
-    /* ORIGINAL PURPLE */
-    box-shadow: 0 0 20px var(--color-accent-glow, rgba(176, 102, 255, 0.3));
-}
-
-.cert-icon.active {
     background: rgba(255, 255, 255, 0.1);
-    /* ORIGINAL PURPLE */
-    border-color: var(--color-purple, #b066ff);
-    box-shadow: 0 0 25px var(--color-accent-shadow, rgba(176, 102, 255, 0.5));
-    transform: translateX(-16px);
+    border-color: var(--accent-hex);
+    box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4);
+    transform: scale(1.05);
 }
 
 .cert-icon-visual {
@@ -132,9 +90,16 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
+    pointer-events: none;
 }
 
-/* Ripple rings */
+.cert-icon img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* Ripple Animation */
 .cert-ripple {
     position: absolute;
     top: 50%;
@@ -149,51 +114,39 @@
 }
 
 .cert-icon:hover .cert-ripple {
-    animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) infinite;
+    animation: certRipple 1.5s infinite;
 }
 
 .cert-icon:hover .cert-ripple--2 {
-    animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) 0.5s infinite;
-}
-
-.cert-icon:hover .cert-ripple--3 {
-    animation: certRipple 1.5s cubic-bezier(.2, .9, .3, 1) 1s infinite;
+    animation: certRipple 1.5s 0.5s infinite;
 }
 
 @keyframes certRipple {
     0% {
         transform: translate(-50%, -50%) scale(0.8);
         opacity: 1;
-        /* ORIGINAL PURPLE */
-        border-color: var(--color-purple, #b066ff);
-    }
-
-    33% {
-        border-color: #6eeaff;
-    }
-
-    66% {
-        border-color: #ff7abb;
+        border-color: var(--accent-hex);
     }
 
     100% {
-        transform: translate(-50%, -50%) scale(1.4);
+        transform: translate(-50%, -50%) scale(1.5);
         opacity: 0;
         border-color: transparent;
     }
 }
 
-/* Floating preview */
+/* Floating Preview Popup */
 .cert-preview-frame {
     position: absolute;
-    right: 85px;
+    right: 60px;
     top: 50%;
-    transform: translateY(-50%) scale(0.9);
+    transform: translateY(-50%) scale(0.8);
     opacity: 0;
     visibility: hidden;
-    z-index: 10;
+    z-index: 100;
     transition: all 0.4s cubic-bezier(.2, .9, .3, 1);
     pointer-events: none;
+    width: 300px;
 }
 
 .cert-preview-frame.active {
@@ -201,269 +154,40 @@
     visibility: visible;
     transform: translateY(-50%) scale(1);
     pointer-events: auto;
-    animation: energyFormation 0.5s cubic-bezier(.2, .9, .3, 1) forwards;
-}
-
-@keyframes energyFormation {
-    0% {
-        opacity: 0;
-        transform: translateY(-50%) scale(0.9);
-        filter: drop-shadow(0 0 5px transparent);
-    }
-
-    20% {
-        opacity: 0.3;
-        transform: translateY(-50%) scale(0.92);
-        /* ORIGINAL PURPLE */
-        filter: drop-shadow(0 0 15px var(--color-purple, #b066ff));
-    }
-
-    50% {
-        opacity: 0.8;
-        transform: translateY(-50%) scale(0.98);
-        filter: drop-shadow(0 0 25px var(--color-accent-shadow, rgba(176, 102, 255, 0.5)));
-    }
-
-    70% {
-        opacity: 0.9;
-        transform: translateY(-50%) scale(1.02);
-        filter: drop-shadow(0 0 30px var(--color-accent-shadow, rgba(176, 102, 255, 0.5)));
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1);
-        filter: drop-shadow(0 0 18px var(--color-accent-glow, rgba(176, 102, 255, 0.3)));
-    }
-}
-
-.cert-preview-frame::before,
-.cert-preview-frame::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 18px;
-    opacity: 0;
-    pointer-events: none;
-    z-index: -1;
-}
-
-.cert-preview-frame.active::before {
-    animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.1s forwards;
-}
-
-.cert-preview-frame.active::after {
-    animation: cosmicTendrils 0.3s cubic-bezier(.2, .9, .3, 1) 0.2s forwards;
-}
-
-@keyframes cosmicTendrils {
-    0% {
-        opacity: 0;
-        transform: scale(0.95);
-        box-shadow: 0 0 0 0 transparent;
-    }
-
-    50% {
-        opacity: 0.6;
-        transform: scale(1.05);
-        /* ORIGINAL PURPLE */
-        box-shadow: 0 0 20px 2px var(--color-purple, #b066ff), 0 0 40px 4px rgba(64, 224, 255, 0.3), inset 0 0 20px rgba(255, 77, 160, 0.2);
-    }
-
-    100% {
-        opacity: 0;
-        transform: scale(1.1);
-        box-shadow: 0 0 30px 1px transparent, inset 0 0 15px transparent;
-    }
 }
 
 .cert-preview-inner {
     position: relative;
-    width: 280px;
-    height: 200px;
+    width: 100%;
     border-radius: 16px;
     overflow: hidden;
-    background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(8px);
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
 .cert-preview-img {
     width: 100%;
-    height: 100%;
-    object-fit: fill;
-    border-radius: 14px;
-    opacity: 0;
-    transform: scale(0.94);
-    transition: all 0.32s cubic-bezier(.2, .9, .3, 1) 0.2s;
-    background: linear-gradient(45deg, #1a1a2e, #16213e);
-    box-shadow: inset 0 0 30px rgba(176, 102, 255, 0.1), inset 0 0 60px rgba(64, 224, 255, 0.05);
+    height: auto;
+    display: block;
 }
 
-.cert-preview-frame.active .cert-preview-img {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: inset 0 0 40px rgba(176, 102, 255, 0.15), inset 0 0 80px rgba(64, 224, 255, 0.08), 0 0 30px rgba(255, 77, 160, 0.2);
-}
-
-/* Softer cosmic gradient border */
+/* Gradient Border */
 .cert-gradient-border {
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border: 2px solid transparent;
-    border-radius: 18px;
-    /* ORIGINAL GRADIENT */
-    background: linear-gradient(185deg, #b066ff, #6eeaff, #ff7abb);
-    background-size: 220% 220%;
-    animation: gradientFlow 3.8s ease infinite, borderReveal 0.4s cubic-bezier(.2, .9, .3, 1) forwards;
+    inset: 0;
+    border-radius: 16px;
+    padding: 2px;
+    background: linear-gradient(45deg, var(--accent-hex), #bc13fe);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: subtract;
     -webkit-mask-composite: xor;
+    mask-composite: exclude;
     pointer-events: none;
-    opacity: 0;
+    opacity: 0.8;
 }
 
-.cert-preview-frame.active .cert-gradient-border {
-    opacity: 1;
-}
-
-@keyframes borderReveal {
-    0% {
-        opacity: 0;
-        transform: scale(0.95);
-        background-size: 100% 100%;
-    }
-
-    60% {
-        opacity: 0.8;
-        transform: scale(1.02);
-        background-size: 160% 160%;
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1);
-        background-size: 220% 220%;
-    }
-}
-
-@keyframes gradientFlow {
-
-    0%,
-    100% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .cert-preview-inner {
-        width: 240px;
-        height: 170px;
-    }
-
-    .cert-preview-frame {
-        right: 70px;
-    }
-
-    .certificate-item.cert-with-preview {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .cert-preview-wrap {
-        align-self: flex-end;
-        margin-right: -15px;
-    }
-
-    .cert-preview-frame {
-        right: 60px;
-        top: 100%;
-        transform: translateY(10px) scale(0.9);
-    }
-
-    .cert-preview-frame.active {
-        transform: translateY(20px) scale(1);
-    }
-
-    .cert-icon {
-        transform: translateX(-12px);
-    }
-
-    .cert-icon:hover {
-        transform: translateX(-12px) scale(1.05);
-    }
-}
-
-@media (max-width: 480px) {
-    .cert-preview-inner {
-        width: 200px;
-        height: 140px;
-    }
-
-    .cert-icon {
-        width: 40px;
-        height: 40px;
-        transform: translateX(-10px);
-    }
-
-    .cert-icon:hover {
-        transform: translateX(-10px) scale(1.05);
-    }
-}
-
-/* Touch devices */
-@media (hover: none) and (pointer: coarse) {
-    .cert-preview-frame {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        right: auto;
-        transform: translate(-50%, -50%) scale(0.9);
-        z-index: 1000;
-    }
-
-    .cert-preview-frame.active {
-        transform: translate(-50%, -50%) scale(1);
-    }
-
-    .cert-preview-inner {
-        width: 320px;
-        height: 230px;
-    }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-
-    .cert-icon,
-    .cert-preview-frame,
-    .cert-ripple,
-    .cert-gradient-border {
-        transition: opacity 0.3s ease;
-        animation: none;
-    }
-
-    .cert-icon:hover {
-        transform: translateX(-16px);
-    }
-
-    .cert-preview-frame::before,
-    .cert-preview-frame::after {
-        display: none;
-    }
-}
-
+/* Retained Utilities from V2.4 */
 .about.expanded .cert-preview-frame {
     z-index: 25;
 }

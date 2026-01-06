@@ -1,13 +1,12 @@
 /* ===========================================================
-   CERTIFICATES SYSTEM
-   Refined to match "About Page" scroll behavior.
-   Restored "Included Courses" functionality.
-   FIXED: "Blurry Canvas" by destroying/recreating on every view.
-   UPDATED: Dynamic JSON fetching for 4 Categories.
+   CERTIFICATES SYSTEM (FULL)
+   - CertificatePreview: Handles hover previews.
+   - CosmicRiftEngine: Handles particle effects on cards.
+   - Logic: Fetches JSON data and renders the new Holographic UI.
    =========================================================== */
 
 /* =========================================
-   1. EXISTING PREVIEW SYSTEM (UNCHANGED)
+   1. CERTIFICATE PREVIEW SYSTEM
    ========================================= */
 class CertificatePreview {
     constructor() {
@@ -46,17 +45,23 @@ class CertificatePreview {
             const frame = element.querySelector('.cert-preview-frame');
 
             if (this.isMobile) {
-                icon.addEventListener('click', e => { e.stopPropagation(); this.togglePreview(element); });
+                if (icon) icon.addEventListener('click', e => { e.stopPropagation(); this.togglePreview(element); });
             } else {
-                icon.addEventListener('mouseenter', () => this.showPreview(element));
-                icon.addEventListener('mouseleave', () => this.hidePreview(element));
-                frame.addEventListener('mouseenter', () => this.keepPreviewVisible(element));
-                frame.addEventListener('mouseleave', () => this.hidePreview(element));
+                if (icon) {
+                    icon.addEventListener('mouseenter', () => this.showPreview(element));
+                    icon.addEventListener('mouseleave', () => this.hidePreview(element));
+                }
+                if (frame) {
+                    frame.addEventListener('mouseenter', () => this.keepPreviewVisible(element));
+                    frame.addEventListener('mouseleave', () => this.hidePreview(element));
+                }
             }
 
-            icon.addEventListener('keydown', e => {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.togglePreview(element); }
-            });
+            if (icon) {
+                icon.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.togglePreview(element); }
+                });
+            }
         });
 
         document.addEventListener('keydown', e => { if (e.key === 'Escape') this.hideAllPreviews(); });
@@ -67,20 +72,20 @@ class CertificatePreview {
         this.hideAllPreviews();
         const icon = element.querySelector('.cert-icon');
         const frame = element.querySelector('.cert-preview-frame');
-        icon.classList.add('active');
-        frame.classList.add('active');
+        if (icon) icon.classList.add('active');
+        if (frame) frame.classList.add('active');
     }
 
     hidePreview(element) {
         const icon = element.querySelector('.cert-icon');
         const frame = element.querySelector('.cert-preview-frame');
-        icon.classList.remove('active');
-        frame.classList.remove('active');
+        if (icon) icon.classList.remove('active');
+        if (frame) frame.classList.remove('active');
     }
 
     togglePreview(element) {
         const frame = element.querySelector('.cert-preview-frame');
-        if (frame.classList.contains('active')) {
+        if (frame && frame.classList.contains('active')) {
             this.hidePreview(element);
             if (this.isMobile && this.mobileOverlay) { this.mobileOverlay.style.opacity = '0'; this.mobileOverlay.style.visibility = 'hidden'; }
         } else {
@@ -97,8 +102,8 @@ class CertificatePreview {
     keepPreviewVisible(element) {
         const icon = element.querySelector('.cert-icon');
         const frame = element.querySelector('.cert-preview-frame');
-        icon.classList.add('active');
-        frame.classList.add('active');
+        if (icon) icon.classList.add('active');
+        if (frame) frame.classList.add('active');
     }
 
     preloadImages() {
@@ -116,7 +121,7 @@ class CertificatePreview {
 }
 
 /* =========================================
-   2. COSMIC RIFT ENGINE (FRESH RESET LOGIC)
+   2. COSMIC RIFT ENGINE
    ========================================= */
 class CosmicRiftEngine {
     constructor() {
@@ -151,7 +156,6 @@ class CosmicRiftEngine {
         });
     }
 
-    // THE NUCLEAR OPTION: Destroy all instances and re-initialize
     reset() {
         this.instances.forEach(rift => rift.destroy());
         this.instances = [];
@@ -172,11 +176,9 @@ class CardRift {
         this.isHovering = false; 
         this.time = 0;
 
-        // Named handlers for clean removal
         this.boundMouseEnter = () => { this.isHovering = true; this.startAnimation(); };
         this.boundMouseLeave = () => { this.isHovering = false; };
         
-        // Initial setup
         this.resize();
         this.bindEvents();
     }
@@ -189,7 +191,6 @@ class CardRift {
         this.card.addEventListener('mouseleave', this.boundMouseLeave);
     }
 
-    // Full cleanup to prevent ghosts or memory leaks
     destroy() {
         if (this.animationId) cancelAnimationFrame(this.animationId);
         
@@ -301,7 +302,7 @@ class CardRift {
 }
 
 /* ===========================================================
-   3. PAGE STATE MANAGEMENT & DYNAMIC FETCHING
+   3. PAGE STATE MANAGEMENT & LOGIC
    =========================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -316,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const programsContainer = document.getElementById('coursesProgramsContainer');
     const modalTitle = document.getElementById('certModalTitle');
 
-    // Button refs for the 4 categories
+    // Button refs
     const openCoursesCard = document.getElementById('openCoursesPage');
     const openParticipationCard = document.getElementById('openParticipationPage');
     const openAchievementsCard = document.getElementById('openAchievementsPage');
@@ -326,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hideCertificatesHome();
     hideCoursesPage();
 
-    // --- Event Listeners ---
+    // --- Listeners ---
     if (collapseBtn) collapseBtn.addEventListener('click', () => { hideCoursesPage(); hideCertificatesHome(); });
 
     // Sync with About Section
@@ -343,33 +344,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (openCertBtn) openCertBtn.addEventListener('click', () => { showCertificatesHome(); hideCoursesPage(); });
     
-    // --- GENERIC CATEGORY OPENERS (With JSON filenames) ---
-    
-    // 1. COURSES
+    // --- CATEGORY OPENERS ---
     if (openCoursesCard) {
         openCoursesCard.addEventListener('click', () => { 
             hideCertificatesHome(); 
             openCategoryMode('courses', 'Courses', 'data/courses_certifications.json');
         });
     }
-
-    // 2. PARTICIPATION
     if (openParticipationCard) {
         openParticipationCard.addEventListener('click', () => { 
             hideCertificatesHome(); 
             openCategoryMode('participation', 'Participation', 'data/participations_certifications.json');
         });
     }
-
-    // 3. ACHIEVEMENTS
     if (openAchievementsCard) {
         openAchievementsCard.addEventListener('click', () => { 
             hideCertificatesHome(); 
             openCategoryMode('achievements', 'Achievements', 'data/achievements_certifications.json');
         });
     }
-
-    // 4. ARCHIVE
     if (openArchiveCard) {
         openArchiveCard.addEventListener('click', () => { 
             hideCertificatesHome(); 
@@ -377,8 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
-    // BACK BUTTON: Triggers the reset + navigation
     if (coursesBackBtn) {
         coursesBackBtn.addEventListener('click', () => { 
             hideCoursesPage(); 
@@ -393,16 +384,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const header = e.target.closest('.program-header');
             if (header) {
                 const card = header.closest('.program-card');
-                const arrow = card.querySelector('.arrow-icon');
                 const expanded = card.classList.toggle('expanded');
-
+                
                 if (expanded) {
-                    if (arrow) arrow.classList.add('open');
                     setTimeout(() => {
                         card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }, 300);
-                } else {
-                    if (arrow) arrow.classList.remove('open');
                 }
                 return;
             }
@@ -414,20 +401,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (list && list.classList.contains('sub-course-list')) {
                     const isVisible = list.style.display === 'block';
                     list.style.display = isVisible ? 'none' : 'block';
-                    toggleBtn.querySelector('span').textContent = isVisible ? '▶ Show Included Courses' : '▼ Hide Included Courses';
+                    // Update text
+                    const span = toggleBtn.querySelector('span');
+                    if (span) {
+                        const countText = span.textContent.match(/\(\d+\)/)?.[0] || '';
+                        span.textContent = isVisible ? `▶ Included Modules ${countText}` : `▼ Hide Modules ${countText}`;
+                    }
                 }
             }
         });
     }
 
     /* =======================================================
-       DATA FETCHING & RENDERING
+       DATA FETCHING & RENDERING (UPDATED)
        ======================================================= */
 
     function loadCategoryData(jsonFile) {
         if (!programsContainer) return;
 
-        // Visual loading state
         programsContainer.style.opacity = '0.5';
         programsContainer.innerHTML = '<div style="padding:40px;text-align:center;color:rgba(255,255,255,0.5);">Loading data...</div>';
 
@@ -439,7 +430,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 renderPrograms(data.programs);
                 programsContainer.style.opacity = '1';
-                // Re-initialize previews after new DOM elements are added
                 if (window.certificatePreview) window.certificatePreview.refresh();
             })
             .catch(err => {
@@ -449,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // --- REVISED RENDER FUNCTION ---
     function renderPrograms(programs) {
         programsContainer.innerHTML = '';
         
@@ -461,125 +452,130 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'program-card';
 
+            // 1. Header
             const header = document.createElement('button');
             header.className = 'program-header';
             header.type = 'button';
             header.innerHTML = `
                 <div class="program-title-wrap">
                     <span class="program-main-title">${program.title}</span>
-                    <span class="program-subtitle-date">${program.platform} • ${program.dateRange}</span>
+                    <span class="program-subtitle-date">${program.platform} // ${program.dateRange}</span>
                 </div>
                 <div class="arrow-icon">▼</div>
             `;
 
-            // Content Body
+            // 2. Body
             const body = document.createElement('div');
             body.className = 'program-body';
 
-            // -- Sub-courses logic --
+            // -- Sub-courses Logic --
             let coursesHtml = '';
             if (program.courses && program.courses.length > 0) {
                 coursesHtml = `
                 <div class="courses-list-section">
                     <button class="courses-toggle-btn" type="button">
-                        <span>▶ Show Included Courses (${program.courses.length})</span>
+                        <span>▶ Included Modules (${program.courses.length})</span>
                     </button>
 
                     <ul class="sub-course-list">
+                        ${program.courses.map((c, i) => {
+                            // Check if sub-skills exist and valid
+                            let subSkillsHtml = '';
+                            if (c.skills && c.skills.length > 0) {
+                                // Handle if skills is array or comma string
+                                const skillsArray = Array.isArray(c.skills) ? c.skills : c.skills.split(',');
+                                if (skillsArray[0] !== "") {
+                                    subSkillsHtml = `<div class="sub-course-skills">${skillsArray.map(s => `<span class="subcourse-skill">${s.trim()}</span>`).join('')}</div>`;
+                                }
+                            }
 
-                        ${program.courses.map((c, i) => `
-                        <li class="sub-course-item">
-
-                            <div class="sub-course-main">
-                                <span class="sub-course-index">${(i+1).toString().padStart(2,'0')}</span>
-
-                                <div class="sub-course-text">
-                                    <span class="sub-course-title">${c.title}</span>
-
-                                    ${c.description ? `
-                                        <p class="sub-course-desc">${c.description}</p>
-                                    ` : ''}
-
-                                    ${c.skills && c.skills.length ? `
-                                        <div class="sub-course-skills">
-                                            ${c.skills.map(s => `<span class="subcourse-skill cosmic">${s}</span>`).join('')}
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-
-                            <div class="sub-course-actions">
-
-                                <a href="${c.verifyUrl}" target="_blank" class="verify-link">
-                                    Verify
-                                </a>
-
-                                ${c.certificateImage ? `
-                                <div class="certificate-item cert-with-preview" style="border:none;padding:0;min-height:auto;">
-                                    <div class="cert-preview-wrap" style="margin:0;">
-                                        
-                                        <div class="cert-icon" data-preview-src="${c.certificateImage}">
-                                            <div class="cert-icon-visual">
-                                                <div class="sv-icon">
-                                                    <img src="assets/logos/certificate.svg" alt="Certificate Icon">
-                                                </div>
-                                            </div>
-
-                                            <span class="cert-ripple"></span>
-                                            <span class="cert-ripple cert-ripple--2"></span>
-                                            <span class="cert-ripple cert-ripple--3"></span>
-                                        </div>
-
-                                        <div class="cert-preview-frame" aria-hidden="true">
-                                            <div class="cert-preview-inner">
-                                                <img class="cert-preview-img" src="${c.certificateImage}">
-                                                <div class="cert-gradient-border"></div>
-                                            </div>
-                                        </div>
+                            return `
+                            <li class="sub-course-item">
+                                <div class="sub-course-main">
+                                    <span class="sub-course-index">${(i+1).toString().padStart(2,'0')}</span>
+                                    <div class="sub-course-text">
+                                        <span class="sub-course-title">${c.title}</span>
+                                        ${c.description ? `<p class="sub-course-desc">${c.description}</p>` : ''}
+                                        ${subSkillsHtml}
                                     </div>
                                 </div>
-                                ` : ''}
 
-                            </div>
-
-                        </li>
-                        `).join('')}
-
+                                <div class="sub-course-actions">
+                                    <a href="${c.verifyUrl}" target="_blank" class="verify-link">Verify</a>
+                                    
+                                    ${c.certificateImage ? `
+                                    <div class="certificate-item cert-with-preview" style="border:none;padding:0;min-height:auto;">
+                                        <div class="cert-preview-wrap" style="margin:0;">
+                                            <div class="cert-icon" data-preview-src="${c.certificateImage}">
+                                                <div class="cert-icon-visual">
+                                                    <div class="sv-icon" style="width:20px;height:20px;">
+                                                        <img src="assets/logos/certificate.svg" style="width:14px;filter:invert(1);">
+                                                    </div>
+                                                </div>
+                                                <span class="cert-ripple"></span>
+                                            </div>
+                                            <div class="cert-preview-frame" aria-hidden="true">
+                                                <div class="cert-preview-inner">
+                                                    <img class="cert-preview-img" src="${c.certificateImage}">
+                                                    <div class="cert-gradient-border"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>` : ''}
+                                </div>
+                            </li>
+                            `;
+                        }).join('')}
                     </ul>
                 </div>`;
             }
+
+            // -- Construct Body Content --
+            // Prepare main program skills
+            const programSkills = Array.isArray(program.skills) ? program.skills : (program.skills ? program.skills.split(',') : []);
+
+            // -- LOGIC CHANGE: Check for ID to determine if Credential row is shown --
+            const credentialHtml = program.id ? 
+                `<div class="meta-item"><strong>Credential:</strong> <a href="${program.credentialUrl}" target="_blank" class="meta-link">ID: ${program.id}</a></div>` : 
+                '';
 
             body.innerHTML = `
                 <div class="program-content-grid">
                     <div class="program-details">
                         <div class="meta-row">
                             <div class="meta-item"><strong>Issuer:</strong> ${program.issuer}</div>
-                            <div class="meta-item"><strong>Credential:</strong> <a href="${program.credentialUrl}" target="_blank" class="meta-link">Verify ID</a></div>
+                            ${credentialHtml}
                         </div>
+                        
+                        <div class="skills-container">
+                            ${programSkills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                        </div>
+
                         <p class="program-desc">${program.description}</p>
-                        <div class="skills-container">${program.skills.map(s => `<span class="skill-pill cosmic">${s}</span>`).join('')}</div>
+                        
                         ${coursesHtml}
                     </div>
+
+                    ${program.programCertificate && program.programCertificate.image ? `
                     <div class="program-cert-preview">
                         <div class="certificate-item cert-with-preview" style="border:none;padding:0;min-height:auto;">
                             <div class="cert-preview-wrap" style="margin:0;">
-                                <div class="cert-icon" data-preview-src="${program.programCertificate.image}">
+                                <div class="cert-icon" style="width:60px;height:60px;" data-preview-src="${program.programCertificate.image}">
                                     <div class="cert-icon-visual">
-                                        <div class="sv-icon"><img src="assets/logos/certificate.svg" alt="Certificate Icon"></div>
+                                        <div class="sv-icon" style="width:30px;height:30px;"><img src="assets/logos/certificate.svg" alt="Cert"></div>
                                     </div>
                                     <span class="cert-ripple"></span>
                                     <span class="cert-ripple cert-ripple--2"></span>
-                                    <span class="cert-ripple cert-ripple--3"></span>
                                 </div>
                                 <div class="cert-preview-frame" aria-hidden="true">
                                     <div class="cert-preview-inner">
-                                        <img class="cert-preview-img" src="${program.programCertificate.image}" alt="Certificate Preview">
+                                        <img class="cert-preview-img" src="${program.programCertificate.image}">
                                         <div class="cert-gradient-border"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>` : ''}
                 </div>`;
 
             card.appendChild(header);
@@ -588,17 +584,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ------------------------
-       Helper state functions
-       ------------------------ */
-
+    // --- State Helpers ---
     function showCertificatesHome() {
         if (!certHome) return;
         certHome.classList.add('show');
         certHome.style.opacity = '1';
-        
-        // --- THIS IS THE CRITICAL FIX ---
-        // Every time we show the home, we completely RESET the cosmic cards.
         if (window.cosmicRiftEngine) window.cosmicRiftEngine.reset();
     }
 
@@ -608,28 +598,12 @@ document.addEventListener('DOMContentLoaded', () => {
         certHome.style.opacity = '0';
     }
 
-    // Helper: Configure modal for specific category color/title AND load data
     function openCategoryMode(category, title, jsonFile) {
         if (!coursesPage) return;
-
-        // 1. Reset all mode classes
-        coursesPage.classList.remove(
-            'category-mode-courses', 
-            'category-mode-participation', 
-            'category-mode-achievements', 
-            'category-mode-archive'
-        );
-
-        // 2. Add specific mode class
+        coursesPage.classList.remove('category-mode-courses', 'category-mode-participation', 'category-mode-achievements', 'category-mode-archive');
         coursesPage.classList.add(`category-mode-${category}`);
-
-        // 3. Update Title
         if (modalTitle) modalTitle.textContent = title;
-
-        // 4. Load Data
         loadCategoryData(jsonFile);
-
-        // 5. Show page
         showCoursesPage();
     }
 
@@ -641,7 +615,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideCoursesPage() {
         if (!coursesPage) return;
         coursesPage.classList.remove('show');
-        // Reset scroll position like About page does
         if (programsContainer) programsContainer.scrollTop = 0;
     }
 });

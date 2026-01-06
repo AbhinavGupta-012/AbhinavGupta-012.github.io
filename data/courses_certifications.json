@@ -6,6 +6,7 @@
       "platform": "Coursera",
       "dateRange": "Mar 2025 - Apr 2025",
       "credentialUrl": "https://www.coursera.org/account/accomplishments/professional-cert/FWXOFI6M63PS",
+      "id": "FWXOFI6M63PS",
       "description": "A hands-on full-stack cloud development program covering modern front-end, back-end, DevOps, and cloud-native technologies with real-world projects.",
       "skills": ["HTML", "CSS", "JavaScript", "React", "Node.js", "Express", "Python", "Git", "GitHub", "Flask", "Django", "SQL", "Docker", "Kubernetes"],
       "programCertificate": {
@@ -16,7 +17,7 @@
           "title": "Introduction to Software Engineering",
           "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/AIRVWARA6EDJ",
           "description": "An industry-focused foundations program in software engineering covering SDLC, Python, and modern architecture and design practices.",
-          "skills": "",
+          "skills": [],
           "certificateImage": "../assets/certs/IBM/Introduction to Software Engineering.jpg"
         }
       ] 
