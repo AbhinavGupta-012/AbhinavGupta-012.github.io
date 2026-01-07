@@ -732,3 +732,446 @@
         height: 18px;
     }
 }
+/* =========================================
+   LEETCODE STATS POPUP & BUTTON
+   ========================================= */
+
+/* --- The Stats Trigger Button --- */
+.lc-stats-btn {
+    /* OLD: margin-left: auto; (This pushed it too far right) */
+    margin-left: 12px;      /* NEW: Sits comfortably next to the name */
+    
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: rgba(255, 161, 22, 0.1);
+    color: #ffa116;
+    border: 1px solid rgba(255, 161, 22, 0.2);
+    
+    cursor: help;
+    transition: all 0.2s ease;
+    z-index: 5;
+    flex-shrink: 0; /* Prevents button from squishing if text is long */
+}
+
+.lc-stats-btn:hover {
+    background: rgba(255, 161, 22, 0.2);
+    box-shadow: 0 0 10px rgba(255, 161, 22, 0.3);
+    transform: scale(1.1);
+}
+
+/* --- The Fixed Popup (JS handles positioning) --- */
+.lc-stats-popup {
+    position: fixed; /* Escapes overflow clipping */
+    z-index: 9999;
+    width: 270px;
+    padding: 14px;
+    
+    background: rgba(15, 15, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(255, 161, 22, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    /* Animation State */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-15px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.lc-stats-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Header (Circle + Stats) */
+.lc-popup-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.lc-circle-wrap {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    /* Conic Gradient: Easy(Green) -> Med(Yell) -> Hard(Red) */
+    background: conic-gradient(
+        #00b8a3 0% 58%,
+        #ffc01e 58% 98%,
+        #ff375f 98% 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(255, 192, 30, 0.15);
+}
+
+.lc-circle {
+    width: 62px;
+    height: 62px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.lc-inner-text {
+    text-align: center;
+    line-height: 1;
+}
+
+.lc-total {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+}
+
+.lc-status {
+    font-size: 0.55rem;
+    color: #ccc;
+    margin-top: 3px;
+    font-weight: 500;
+}
+
+.lc-breakdown {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Slightly more gap for cleaner look */
+}
+
+.lc-stat-item {
+    position: relative; /* Context for the progress bar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 4px 8px; /* Little more breathing room */
+    border-radius: 4px;
+    background: rgba(255,255,255,0.03); /* Base darker background */
+    overflow: hidden; /* Clips the progress bar */
+}
+
+/* THE PROGRESS BAR FILL */
+.lc-stat-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--pct, 0%); /* Dynamic Width from HTML */
+    opacity: 0.15;          /* Subtle transparent fill */
+    z-index: 0;             /* Behind the text */
+    transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Ensure Text is clickable/visible on top of the bar */
+.lc-label, .lc-val {
+    position: relative;
+    z-index: 1; 
+}
+
+/* COLORS: Border + Fill */
+.lc-stat-item.easy { border-left: 2px solid #00b8a3; }
+.lc-stat-item.easy::before { background: #00b8a3; } /* Green Fill */
+
+.lc-stat-item.medium { border-left: 2px solid #ffc01e; }
+.lc-stat-item.medium::before { background: #ffc01e; } /* Yellow Fill */
+
+.lc-stat-item.hard { border-left: 2px solid #ff375f; }
+.lc-stat-item.hard::before { background: #ff375f; } /* Red Fill */
+
+.lc-label { color: #aaa; font-size: 0.7rem; }
+.lc-val { font-weight: 600; color: #fff; }
+.lc-total-sm { color: #555; font-size: 0.65rem; margin-left: 2px; }
+
+.lc-label { color: #aaa; font-size: 0.7rem; }
+.lc-val { font-weight: 600; color: #fff; }
+.lc-total-sm { color: #555; font-size: 0.65rem; margin-left: 2px; }
+
+.lc-stat-item.easy { border-left: 2px solid #00b8a3; }
+.lc-stat-item.medium { border-left: 2px solid #ffc01e; }
+.lc-stat-item.hard { border-left: 2px solid #ff375f; }
+
+/* Badges */
+.lc-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 8px 0 10px;
+}
+
+.lc-badge-grid {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+/* UPDATED: Strict size & Overflow hidden */
+.lc-badge-icon {
+    width: 28px;   /* Slightly larger for visibility */
+    height: 28px;
+    min-width: 28px;
+    
+    border-radius: 50%; /* Makes it a circle */
+    overflow: hidden;   /* CRITICAL: Cuts off the giant image */
+    
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* NEW RULE: Scale the image to fit the circle */
+.lc-badge-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures it fills the circle nicely */
+    display: block;
+}
+
+/* Footer */
+.lc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align text nicely */
+    font-size: 0.65rem;
+    color: #777;
+    margin-top: 8px;
+}
+
+.lc-attempting { 
+    color: #00b8a3; 
+    white-space: nowrap; /* Keep this intact */
+} 
+
+.lc-last-solved { 
+    font-style: italic; 
+    color: #888;
+    
+    /* Truncate long problem names */
+    max-width: 140px;      /* Restrict width */
+    white-space: nowrap;   /* No wrapping */
+    overflow: hidden;      /* Hide overflow */
+    text-overflow: ellipsis; /* Add "..." */
+    text-align: right;
+}
+
+/* =========================================
+   GITHUB STATS POPUP
+   ========================================= */
+
+/* --- Trigger Button --- */
+.gh-stats-btn {
+    margin-left: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    
+    background: rgba(138, 58, 252, 0.1); /* Purple tint */
+    color: #a371f7;
+    border: 1px solid rgba(138, 58, 252, 0.2);
+    
+    cursor: help;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+.gh-stats-btn:hover {
+    background: rgba(138, 58, 252, 0.25);
+    box-shadow: 0 0 12px rgba(138, 58, 252, 0.4);
+    transform: scale(1.1);
+}
+
+/* --- The Popup Container --- */
+.gh-stats-popup {
+    position: fixed;
+    z-index: 9999;
+    width: 300px;
+    min-height: 180px;
+    padding: 16px;
+    
+    /* Cosmic Purple/Dark Theme */
+    background: rgba(12, 12, 18, 0.98); 
+    border: 1px solid rgba(138, 58, 252, 0.2);
+    border-radius: 12px;
+    
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.9),
+                0 0 25px rgba(138, 58, 252, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    /* Animation State */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-15px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.gh-stats-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+}
+
+/* --- Content Layout --- */
+.gh-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 12px;
+}
+
+.gh-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #a371f7;
+}
+
+.gh-user-info h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.gh-user-info span {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* Stats Grid */
+.gh-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.gh-stat-box {
+    background: rgba(255,255,255,0.03);
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.gh-stat-val {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.gh-stat-label {
+    font-size: 0.65rem;
+    color: #bbb;
+}
+
+/* Languages */
+.gh-langs-title {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.gh-lang-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.gh-lang-pill {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    background: rgba(138, 58, 252, 0.15);
+    color: #d4b3ff;
+    border-radius: 10px;
+    border: 1px solid rgba(138, 58, 252, 0.3);
+}
+
+/* Featured Repos */
+.gh-featured {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gh-repo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.02);
+    padding: 6px 10px;
+    border-radius: 4px;
+    border-left: 2px solid #a371f7;
+}
+
+.gh-repo-name {
+    font-size: 0.75rem;
+    color: #eee;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+}
+
+.gh-repo-meta {
+    font-size: 0.7rem;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Loading Spinner */
+.gh-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.gh-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: #a371f7;
+    border-radius: 50%;
+    animation: ghSpin 1s linear infinite;
+    margin-bottom: 8px;
+}
+
+@keyframes ghSpin { to { transform: rotate(360deg); } }

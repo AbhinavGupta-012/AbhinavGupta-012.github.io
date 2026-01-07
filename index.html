@@ -26,7 +26,11 @@
 <body>
     <div id="blackhole">
         <button id="pauseAnimationBtn" class="pause-btn hidden" aria-label="Pause Animation">
-            ||
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                stroke="currentColor" className="size-6" width="25" height="25">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+            </svg>
+
         </button>
 
         <div class="centerHover">
@@ -130,13 +134,29 @@
                             </div>
                         </div>
                         <div class="social-links-vertical">
-                            <a class="social-v" href="https://github.com/AbhinavGupta-012" target="_blank"
-                                rel="noopener noreferrer">
+                            <a class="social-v" id="githubLink" href="https://github.com/AbhinavGupta-012"
+                                target="_blank" rel="noopener noreferrer">
                                 <div class="sv-icon">
                                     <lord-icon src="assets/logos/github.json" trigger="hover"
                                         style="width:28px;height:28px"></lord-icon>
                                 </div>
                                 <span class="sv-text"> AbhinavGupta-012 </span>
+
+                                <div class="gh-stats-btn" id="ghTriggerBtn" aria-label="View GitHub Stats">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+
+                                <div class="gh-stats-popup" id="githubPopup">
+                                    <div class="gh-loading">
+                                        <div class="gh-spinner"></div>
+                                        <span>Fetching Repos...</span>
+                                    </div>
+                                </div>
                             </a>
                             <a class="social-v" href="https://www.linkedin.com/in/abhinav-gupta012/" target="_blank"
                                 rel="noopener noreferrer">
@@ -146,10 +166,77 @@
                                 </div>
                                 <span class="sv-text"> AbhinavGupta012 </span>
                             </a>
-                            <a class="social-v" href="https://leetcode.com/u/AbhinavGupta012/" target="_blank"
-                                rel="noopener noreferrer">
-                                <div class="sv-icon"><img src="assets/logos/leetcode.svg" alt="LeetCode Logo"></div>
+                            <a class="social-v" id="leetcodeLink" href="https://leetcode.com/u/AbhinavGupta012/"
+                                target="_blank" rel="noopener noreferrer">
+                                <div class="sv-icon">
+                                    <img src="assets/logos/leetcode.svg" alt="LeetCode Logo">
+                                </div>
+
                                 <span class="sv-text"> AbhinavGupta012 </span>
+
+                                <div class="lc-stats-btn" id="lcTriggerBtn" aria-label="View Stats">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        width="16" height="16">
+                                        <path
+                                            d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c-1.035 0-1.875.84-1.875 1.875v8.25c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875v-8.25c0-1.035-.84-1.875-1.875-1.875h-.75zM3 13.125c-1.035 0-1.875.84-1.875 1.875v3.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875v-3.75c0-1.036-.84-1.875-1.875-1.875h-.75z" />
+                                    </svg>
+                                </div>
+
+                                <div class="lc-stats-popup" id="leetcodePopup">
+                                    <div class="lc-popup-header">
+                                        <div class="lc-circle-wrap">
+                                            <div class="lc-circle">
+                                                <div class="lc-inner-text">
+                                                    <span class="lc-total">1036</span>
+                                                    <div class="lc-status">✔ Solved</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="lc-breakdown">
+                                            <div class="lc-stat-item easy" style="--pct: 65%">
+                                                <span class="lc-label">Easy</span>
+                                                <span class="lc-val">600<span class="lc-total-sm">/921</span></span>
+                                            </div>
+                                            <div class="lc-stat-item medium" style="--pct: 21%">
+                                                <span class="lc-label">Medium</span>
+                                                <span class="lc-val">419<span class="lc-total-sm">/1982</span></span>
+                                            </div>
+                                            <div class="lc-stat-item hard" style="--pct: 2%">
+                                                <span class="lc-label">Hard</span>
+                                                <span class="lc-val">17<span class="lc-total-sm">/899</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="lc-divider"></div>
+
+                                    <div class="lc-badges">
+                                        <div class="lc-badge-grid">
+                                            <div class="lc-badge-icon">
+                                                <img src="https://assets.leetcode.com/static_assets/others/2550.gif"
+                                                    alt="Badge">
+                                            </div>
+                                            <div class="lc-badge-icon">
+                                                <img src="https://assets.leetcode.com/static_assets/others/25100.gif"
+                                                    alt="Badge">
+                                            </div>
+                                            <div class="lc-badge-icon">
+                                                <img src="https://assets.leetcode.com/static_assets/others/200.gif"
+                                                    alt="Badge">
+                                            </div>
+                                            <div class="lc-badge-icon">
+                                                <img src="https://assets.leetcode.com/static_assets/others/2025.gif"
+                                                    alt="Badge">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="lc-footer">
+                                        <span class="lc-attempting">Global Rank...</span>
+                                        <span class="lc-last-solved">Last: Daily Challenge</span>
+                                    </div>
+                                </div>
                             </a>
                         </div>
                         <div class="quick-stats" role="list" aria-label="Quick stats">
@@ -396,10 +483,10 @@
                 </aside>
             </div>
         </section>
-        
+
         <div class="filter-floating-btn" id="filterFloatingBtn">
             <svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
             </svg>
         </div>
 
@@ -412,19 +499,20 @@
             </div>
             <div class="filter-modal-content">
                 <div class="search-container">
-                    <input type="text" class="project-search-input" placeholder="Search projects..." id="projectSearchMobile">
+                    <input type="text" class="project-search-input" placeholder="Search projects..."
+                        id="projectSearchMobile">
                 </div>
-                
+
                 <div class="sidebar-group">
                     <label class="sidebar-label">Filter by Category</label>
                     <div class="filter-options" id="category-filters-mobile"></div>
                 </div>
-                
+
                 <div class="sidebar-group">
                     <label class="sidebar-label">Filter by Technologies</label>
                     <div class="filter-options" id="tag-filters-mobile"></div>
                 </div>
-                
+
                 <button class="reset-btn" id="resetFiltersMobile">Reset All Filters</button>
             </div>
         </div>

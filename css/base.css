@@ -125,8 +125,8 @@ canvas {
     border: 2px solid rgba(197, 112, 255, 0.4);
     color: #ffffff;
     
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     
     /* --- FIX: Perfect Centering --- */

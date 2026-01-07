@@ -8,20 +8,20 @@
 
 function blackhole(elementSelector) {
     const $container = $(elementSelector);
-    
+
     // 1. Dynamic Dimensions
     let cw = $container.width();
     let ch = $container.height();
     let centerX = cw / 2;
     let centerY = ch / 2;
-    
+
     // 2. Responsive Star Count
     // Mobile: ~300 stars, Desktop: ~900 stars. (Original was 2500!)
     const isMobile = cw < 768;
     const starCount = isMobile ? 1000 : 2500;
-    
+
     // Cap max orbit size
-    let maxOrbit = 255; 
+    let maxOrbit = 255;
 
     let startTime = Date.now();
     let currentTime = 0;
@@ -30,7 +30,7 @@ function blackhole(elementSelector) {
     let collapse = false;   // hover state
     let expanse = false;    // click (expanded) state
     let reverse = false;    // collapsing back
-    
+
     let isPaused = false;
     let pauseStartTime = 0;
     let animationFrameId;
@@ -38,7 +38,7 @@ function blackhole(elementSelector) {
     // Create canvas
     const $canvas = $('<canvas/>').attr({ width: cw, height: ch }).appendTo($container);
     const ctx = $canvas[0].getContext('2d');
-    
+
     // Performance: This blend mode is heavy. 
     // Uncomment only if you really need the specific visual overlap effect.
     // ctx.globalCompositeOperation = "multiply";
@@ -49,7 +49,7 @@ function blackhole(elementSelector) {
     function setDPI() {
         // Cap pixel ratio at 2. Phones with 3x/4x screens don't need that much overhead.
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        
+
         $canvas[0].style.width = cw + 'px';
         $canvas[0].style.height = ch + 'px';
 
@@ -84,7 +84,7 @@ function blackhole(elementSelector) {
 
         this.x = centerX;
         this.y = centerY + this.orbital;
-        this.yOrigin = this.y; 
+        this.yOrigin = this.y;
 
         this.speed = (Math.random() + 1.5) * Math.PI / 180;
         this.startRotation = Math.random() * 2 * Math.PI;
@@ -93,7 +93,7 @@ function blackhole(elementSelector) {
         this.id = stars.length;
         this.collapseBonus = Math.max(this.orbital - maxOrbit * 0.7, 0);
         this.color = 'rgba(197, 112, 255, 1)';
-        
+
         this.hoverPos = centerY + maxOrbit / 2 + this.collapseBonus;
         this.expansePos = centerY + (this.id % 100) * -10 + (Math.floor(Math.random() * 20) + 1);
 
@@ -107,16 +107,16 @@ function blackhole(elementSelector) {
     Star.prototype.draw = function () {
         if (!expanse) {
             this.rotation = this.startRotation + currentTime * this.speed;
-            if (!collapse) { 
+            if (!collapse) {
                 this.y += (this.y < this.yOrigin - 4) ? (this.yOrigin - this.y) / 10 : -2.5;
-            } else { 
+            } else {
                 if (this.y > this.hoverPos) this.y -= (this.hoverPos - this.y) / -5;
                 if (this.y < this.hoverPos - 4) this.y += 2.5;
             }
-        } else if (reverse) { 
+        } else if (reverse) {
             this.rotation = this.startRotation + currentTime * this.speed;
             if (this.y < this.yOrigin) this.y += (this.yOrigin - this.y) / 50;
-        } else { 
+        } else {
             this.rotation = this.startRotation + currentTime * (this.speed / 2);
             if (this.y > this.expansePos) this.y -= Math.floor(this.expansePos - this.y) / -140;
         }
@@ -184,7 +184,7 @@ function blackhole(elementSelector) {
         collapse = false;
         $('.centerHover').addClass('open');
         $('.fullpage').addClass('open');
-        
+
         setTimeout(() => {
             $('#pauseAnimationBtn').removeClass('hidden').addClass('visible');
         }, 3000);
@@ -199,14 +199,14 @@ function blackhole(elementSelector) {
         mouseover: () => { if (!expanse) collapse = true; },
         mouseout: () => { if (!expanse) collapse = false; },
         click: triggerExpansion,
-        touchstart: triggerExpansion 
+        touchstart: triggerExpansion
     });
 
     $('#collapseBtn').on('click', () => {
         expanse = false;
         reverse = true;
         $('#pauseAnimationBtn').removeClass('visible').addClass('hidden');
-        if(isPaused) togglePause(); 
+        if (isPaused) togglePause();
         $('.centerHover').removeClass('open');
         $('.fullpage').removeClass('open');
     });
@@ -218,14 +218,19 @@ function blackhole(elementSelector) {
         const btn = document.getElementById('pauseAnimationBtn');
         if (isPaused) {
             isPaused = false;
-            btn.innerHTML = '⏸';
+            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                stroke="currentColor"  width="25" height="25">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />
+            </svg>`;
             const timePaused = Date.now() - pauseStartTime;
             startTime += timePaused;
-            loop(); 
+            loop();
         } else {
             isPaused = true;
             pauseStartTime = Date.now();
-            btn.innerHTML = '▶';
+            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6" width="25" height="25">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+</svg>`;
             cancelAnimationFrame(animationFrameId);
         }
     }
@@ -235,7 +240,7 @@ function blackhole(elementSelector) {
     const requestFrame = window.requestAnimationFrame || (cb => setTimeout(cb, 1000 / 60));
 
     function loop() {
-        if(isPaused) return;
+        if (isPaused) return;
 
         currentTime = (Date.now() - startTime) / 50;
 
@@ -250,7 +255,7 @@ function blackhole(elementSelector) {
     function init() {
         ctx.fillStyle = 'rgba(35, 1, 42, 0.2)';
         ctx.fillRect(0, 0, cw, ch);
-        
+
         // Use the reduced star count calculated at the top
         for (let i = 0; i < starCount; i++) new Star();
         loop();
