@@ -4,6 +4,7 @@
    2. Card Borders/Shadows: REVERTED to Original Purple.
    3. Card Title: DYNAMIC (Glows with Category Color on hover).
    4. FIX: Added missing styling for Sub-Course Skills.
+   5. UPDATE: Sub-course list limited to 3 items + Scrollable.
    =========================================================== */
 
 @import './root.css';
@@ -891,12 +892,34 @@
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
 }
 
+/* --- UPDATED: Sub-course list limited to 3 items + Scrollable --- */
 .sub-course-list {
     list-style: none;
     padding: 5px 0;
     margin: 0;
     display: none;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    /* Fixed Height for ~3 Items */
+    max-height: 320px; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+}
+
+/* Scrollbar Styling for Sub-Course List */
+.sub-course-list::-webkit-scrollbar {
+    width: 4px;
+}
+.sub-course-list::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.1);
+}
+.sub-course-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+.sub-course-list::-webkit-scrollbar-thumb:hover {
+    background: var(--color-purple, #b066ff);
 }
 
 /* --- FIX: Stacking Context for Popups --- */

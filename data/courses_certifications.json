@@ -10,17 +10,151 @@
       "description": "A hands-on full-stack cloud development program covering modern front-end, back-end, DevOps, and cloud-native technologies with real-world projects.",
       "skills": ["HTML", "CSS", "JavaScript", "React", "Node.js", "Express", "Python", "Git", "GitHub", "Flask", "Django", "SQL", "Docker", "Kubernetes"],
       "programCertificate": {
-        "image": "../assets/certs/IBM/IBM Full Stack Software Developer.jpg"
+        "image": "../assets/certs/IBM/IBM Full Stack Software Developer/Main.jpg"
       },
       "courses": [
         {
           "title": "Introduction to Software Engineering",
           "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/AIRVWARA6EDJ",
           "description": "An industry-focused foundations program in software engineering covering SDLC, Python, and modern architecture and design practices.",
-          "skills": ["Hi Puku"],
-          "certificateImage": "../assets/certs/IBM/Introduction to Software Engineering.jpg"
+          "skills": ["SDLC", "Software Engineering", "Software Design", "Software Architecture"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Introduction to Software Engineering.jpg"
+        },
+        {
+          "title": "Introduction to Cloud Computing",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/WW5D6LUP7KHG",
+          "description": "Foundational course covering cloud computing concepts, service models, deployment types, and major cloud platforms.",
+          "skills": ["Cloud Computing", "Cloud Architecture", "IaaS", "PaaS", "SaaS"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Introduction to Cloud Computing.jpg"
+        },
+        {
+          "title": "Introduction to HTML, CSSS & JavaScript",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/EQ1MXWNB8093",
+          "description": "Introduction to web development using HTML, CSS, and JavaScript with hands-on client-side scripting.",
+          "skills": ["HTML", "CSS", "JavaScript", "Web Development", "Responsive Design", "DOM Manipulation"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Introduction to HTML, CSS & JavaScript.jpg"
+        },
+        {
+          "title": "Getting Started with Git and GitHub",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/MQ10IXCVVBG1",
+          "description": "Foundations of Git, GitHub, and modern collaborative development workflows.",
+          "skills": ["Git", "GitHub", "Version Control", "Branching", "Merging", "Open Source"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Getting Started with Git and GitHub.jpg  "
+        },
+        {
+          "title": "Developing Front-End Apps with React",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/IDSLIBBOLVZU",
+          "description": "IPractical front-end development course using React, reusable components, and modern JavaScript features.",
+          "skills": ["React.js", "JavaScript", "Front-End Development", "UI Components", "React Hooks"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Developing Front-End Apps with React.jpg"
+        },
+        {
+          "title": "Developing Back-End Apps with Node.js and Express",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/2CDZMQOIEAPT",
+          "description": "Hands-on course focused on building server-side applications using Node.js, Express, and asynchronous programming concepts.",
+          "skills": ["Node.js", "Express.js", "Backend Development", "REST APIs", "Asynchronous Programming"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Developing Back-End Apps With Node.js and Express.jpg"
+        },
+        {
+          "title": "Python for Data Science, AI & Development",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/H0AVRG7K84MA",
+          "description": "Comprehensive foundational course in Python covering programming fundamentals, data handling, APIs, and basic data science workflows.",
+          "skills": ["Python", "Pandas", "NumPy", "Data Manipulation", "Jupyter"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Python for Data Science, AI & Development.jpg"
+        },
+        {
+          "title": "Developing AI Applications with Python and Flask",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/3UM20QW3TI9V",
+          "description": "Practical course focused on building and deploying AI-enabled web applications using Python, Flask, and REST APIs.",
+          "skills": ["Python", "Flask", "AI Application Development", "Backend Development", "Application Deployment"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Developing AI Applications with Python and Flask.jpg"
+        },
+        {
+          "title": "Django Application Development with SQL and Databases",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/4WXCAUKBUNY2",
+          "description": "Hands-on course focused on building database-driven web applications using Django, SQL, and ORM concepts.",
+          "skills": ["Djano", "SQL", "Relational Databases", "ORM", "Data Modeling"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Django Apllication Development with SQL and Databases.jpg"
+        },
+        {
+          "title": "Introduction to Containers w/ Docker, Kubernetes & OpenShift",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/QD9HDZF78GOE",
+          "description": "Introduction to containerized and cloud-native application development using Docker, Kubernetes, and OpenShift.",
+          "skills": ["Docker", "Kubernetes", "Containerization", "Cloud-Native Computing", "DevOps"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Introduction to Containers with Docker, Kubernetes & OpenShift.jpg"
+        },
+        {
+          "title": "Application Development using Microservices and Serverless",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/KMRI3U1K1QF1",
+          "description": "Hands-on course focused on building and deploying microservices and serverless applications using modern cloud-native architectures.",
+          "skills": ["Microservices", "Serverless Computing", "REST APIs", "Application Deployment", "Scalability"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Application Development using Microservices and Serverless.jpg"
+        },
+        {
+          "title": "Full Stack Application Development Capstone Project",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/XPNF068WUP65",
+          "description": "End-to-end capstone project integrating front-end, back-end, and cloud deployment in a real-world web application.",
+          "skills": ["Full-Stack Development", "Cloud Deployment"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer//Full Stack Application Development Capstone Project.jpg"
+        },
+        {
+          "title": "Full Stack Software Developer Assessment",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/IUREJHZ52B2A",
+          "description": "Final assessment demonstrating end-to-end full-stack, cloud-native, and deployment expertise.",
+          "skills": ["Full-Stack Development", "Cloud Computing", "Version Control", "Serverless Computing"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Full Stack Software Developer Assessment.jpg"
+        },
+        {
+          "title": "Generative AI: Elevate your Software Development Career",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/MGIH5ETWWYOK",
+          "description": "Industry-focused course on using generative AI for code generation, optimization, and modern software workflows.",
+          "skills": ["Generative AI", "Prompt Engineering", "AI-Assisted Development", "Software Testing"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Generative AI Elevate your Software Development Career.jpg"
+        },
+        {
+          "title": "Software Developer Career Guide and Interview Preparation",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/DO5EQSB9V0K4",
+          "description": "Career-focused course covering software developer roles, job preparation strategies, and technical and behavioral interview readiness.",
+          "skills": ["Interview Preparation", "Professional Development", "Communication Skills", "Software Engineering"],
+          "certificateImage": "../assets/certs/IBM/IBM Full Stack Software Developer/Software Developer Career Guide and Interview Preparation.jpg"
         }
       ] 
+    },
+    {
+      "title": "Java: Data Structures and Algorithms",
+      "issuer": "Codio",
+      "platform": "Coursera",
+      "dateRange": "Mar 2025 - Apr 2025",
+      "credentialUrl": "https://www.coursera.org/account/accomplishments/specialization/I3746W6FX8AC",
+      "id": "I3746W6FX8AC",
+      "description": "In-depth specialization focused on implementing and analyzing data structures and algorithms using Java.",
+      "skills": ["Data Structures", "Algorithms", "Computational Thinking", "Linear Data Structures", "Non-Linear Data Structures", "Programming Principles", "Algorithm Analysis"],
+      "programCertificate": {
+        "image": "../assets/certs/Codio/Main.jpg"
+      },
+      "courses":[
+        {
+          "title": "Java: Algorithms",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/W3TQXFON4STW",
+          "description": "Algorithm-focused course covering time and space complexity, core design techniques, and searching and sorting algorithms in Java.",
+          "skills": ["Algorithms", "Recursion", "Greedy Algorithms", "Dynamic Programming", "Algorithm Analysis", "Computational Thinking"],
+          "certificateImage": "../assets/certs/Codio/Java Algorithms.jpg"
+        },
+        {
+          "title": "Java: Linear Data Structures and Trees",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/D18WOUTJ2FED",
+          "description": "Practical study of linked lists, stacks, queues, and tree data structures implemented in Java.",
+          "skills": ["Data Structures", "Linear Data Structures", "Trees", "Linked Lists", "Stacks", "Queues"],
+          "certificateImage": "../assets/certs/Codio/Java Linear Data Structures and Trees.jpg"
+        },
+        {
+          "title": "Java: Non-Linear Data Structures",
+          "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/N5ZTT7812FQ0",
+          "description": "Advanced course focused on implementing and optimizing non-linear data structures such as graphs, heaps, and hash-based structures in Java.",
+          "skills": ["Non-Linear Data Structures", "Graphs", "Heaps", "Hash Tables", "Graph Theory"],
+          "certificateImage": "../assets/certs/Codio/Java Non-Linear Data Structures.jpg"
+        }
+      ]
     }
   ]
 }

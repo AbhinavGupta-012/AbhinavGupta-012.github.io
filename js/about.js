@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // We fetch 3 endpoints: Solved Stats, Last Submission, and Main Profile (for Rank)
             const [statsResult, lastSubResult, profileResult] = await Promise.allSettled([
-                fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/solved`),
+                fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/profile`),
                 fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}/acSubmission?limit=1`),
                 fetch(`https://alfa-leetcode-api.onrender.com/${USERNAME}`) // <--- CHANGED: Main profile endpoint
             ]);
@@ -119,13 +119,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (statsResult.status === "fulfilled") {
                 const s = await statsResult.value.json();
                 data.solved = s.solvedProblem;
-                data.total = s.totalSubmissionNum.find(x => x.difficulty === "All")?.count || 1;
+                data.total = s.totalQuestions;
                 data.easy = s.easySolved;
-                data.easyTotal = s.totalSubmissionNum.find(x => x.difficulty === "Easy")?.count || 1;
+                data.easyTotal = s.totalEasy;
                 data.medium = s.mediumSolved;
-                data.mediumTotal = s.totalSubmissionNum.find(x => x.difficulty === "Medium")?.count || 1;
+                data.mediumTotal = s.totalMedium;
                 data.hard = s.hardSolved;
-                data.hardTotal = s.totalSubmissionNum.find(x => x.difficulty === "Hard")?.count || 1;
+                data.hardTotal = s.totalHard;
             }
 
             // 2. Process Last Submission
