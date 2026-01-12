@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     setActive("About");
                     break;
 
-                case "Timeline":
+                case "Coming Soon...":
                     document.querySelector(".timeline-section")?.classList.add("show");
                     removeCanvasBlur();
                     if (window.timelineAnimation) {
@@ -138,17 +138,17 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                     break;
 
-                case "Achievements":
-                    document.querySelector(".achievements")?.classList.add("show");
-                    removeCanvasBlur();
-                    setActive("Achievements");
-                    break;
+                // case "Achievements":
+                //     document.querySelector(".achievements")?.classList.add("show");
+                //     removeCanvasBlur();
+                //     setActive("Achievements");
+                //     break;
 
-                case "Resume":
-                    document.querySelector(".resume")?.classList.add("show");
-                    removeCanvasBlur();
-                    setActive("Resume");
-                    break;
+                // case "Resume":
+                //     document.querySelector(".resume")?.classList.add("show");
+                //     removeCanvasBlur();
+                //     setActive("Resume");
+                //     break;
 
                 default:
                     clearActive();

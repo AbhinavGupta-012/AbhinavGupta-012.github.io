@@ -511,3 +511,49 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* =========================================
+   6. STATUS BADGE (New)
+   ========================================= */
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10; /* Ensures it sits above images */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(10, 10, 15, 0.85); /* Dark background for readability */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    pointer-events: none; /* Allows clicks to pass through to the card */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Glowing Dot */
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* Green Theme: Finished */
+.status-badge.finished {
+    color: #2effa6; /* Neon Green */
+    border-color: rgba(46, 255, 166, 0.25);
+}
+
+/* Red Theme: In Progress */
+.status-badge.in-progress {
+    color: #ff5555; /* Neon Red */
+    border-color: rgba(255, 85, 85, 0.25);
+}

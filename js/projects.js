@@ -250,6 +250,22 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = `project-card ${highlightClass}`;
             card.style.animationDelay = `${index * 0.05}s`;
 
+            // --- NEW: Status Logic ---
+            let statusHtml = '';
+            if (project.status) {
+                // Determine class based on status text (case-insensitive check)
+                const statusLower = project.status.toLowerCase();
+                const statusClass = statusLower === 'in progress' ? 'in-progress' : 'finished';
+                
+                statusHtml = `
+                    <div class="status-badge ${statusClass}">
+                        <div class="status-dot"></div>
+                        <span>${project.status}</span>
+                    </div>
+                `;
+            }
+            // -------------------------
+
             let imageHtml = '';
             if (project.image && project.image.trim() !== "") {
                 imageHtml = `
@@ -277,7 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // Inject statusHtml at the top
             card.innerHTML = `
+                ${statusHtml}
                 ${imageHtml}
                 <h3 class="card-title">${project.title}</h3>
                 <p class="card-desc">${project.shortDescription}</p>

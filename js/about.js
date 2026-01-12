@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. Process Solved Stats
             if (statsResult.status === "fulfilled") {
                 const s = await statsResult.value.json();
-                data.solved = s.solvedProblem;
+                data.solved = s.totalSolved;
                 data.total = s.totalQuestions;
                 data.easy = s.easySolved;
                 data.easyTotal = s.totalEasy;

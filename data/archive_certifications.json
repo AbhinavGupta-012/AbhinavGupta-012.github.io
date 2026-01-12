@@ -9,7 +9,7 @@
       "description": "A foundational course taken at the start of my journey, covering basic syntax, loops, and functions in Python.",
       "skills": ["Python", "Scripting"],
       "programCertificate": {
-        "image": "assets/certs/archive/Python_Intro.jpg"
+        "image": "https://assets.leetcode.com/static_assets/others/2025.gif"
       },
       "courses": []
     }

@@ -2,36 +2,39 @@
   "projects": [
     {
       "id": 1,
-      "title": "Nebula Nexus",
-      "shortDescription": "3D visualization of star clusters.",
-      "longDescription": "An interactive WebGL application mapping real star data. Navigate through 3D space to explore celestial bodies.",
+      "title": "Eventify Tricity",
+      "shortDescription": "Eventify Tricity connects universities and their campus events in one place.",
+      "longDescription": "Eventify Tricity is a platform connecting Various Universities in the Tricity area hosting events for students in their campus.",
       "isFeatured": true,
-      "category": "Web Apps",
-      "tags": ["Three.js", "React", "WebGL"],
-      "image": "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1000&auto=format&fit=crop",
-      "links": { "github": "#", "live": "#" }
+      "status": "In Progress",
+      "category": "Web",
+      "tags": ["HTML", "CSS", "JavaScript", "MongoDB", "Express.js", "Node.js", "Firebase Realtime DB"],
+      "image": "assets/images/projects/eventify.png",
+      "links": { "github": "https://github.com/AbhinavGupta-012/Eventify-Tricity", "live": "https://eventify-tricity.netlify.app/" }
     },
     {
       "id": 2,
-      "title": "CyberGuard AI",
-      "shortDescription": "Real-time network anomaly detection.",
-      "longDescription": "Machine learning model trained on KDD Cup 99 dataset to detect network intrusions in real-time.",
+      "title": "Bowl of Sins",
+      "shortDescription": "The Bowl of Sins is a hangman-inspired game built using Python.",
+      "longDescription": "A hangman influenced game, namely \"The Bowl Of Sins\" made using Python",
       "isFeatured": true,
-      "category": "Cybersecurity",
-      "tags": ["Python", "TensorFlow", "ML"],
-      "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
-      "links": { "github": "#" }
+      "status": "Finished",
+      "category": "Games",
+      "tags": ["Python", "TKinter"],
+      "image": "/assets/images/projects/bowl-of-sins.png",
+      "links": { "github": "https://github.com/AbhinavGupta-012/Bowl-Of-Sins" }
     },
     {
       "id": 3,
-      "title": "Cosmic Portfolio",
-      "shortDescription": "My personal interactive universe.",
-      "longDescription": "The website you are looking at right now. Built with vanilla JS and love for space.",
-      "isFeatured": false,
-      "category": "Web Apps",
-      "tags": ["HTML/CSS", "JavaScript", "Design"],
-      "image": "https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1000&auto=format&fit=crop",
-      "links": { "github": "#" }
+      "title": "MindEase",
+      "shortDescription": "A mental wellness platform for mood tracking, guided exercises, and emotional well-being.",
+      "longDescription": "A mental wellness platform that provides mood tracking, guided exercises, and resources to support emotional health. Focused on SDG 3: Good Health & Well-Being.",
+      "isFeatured": true,
+      "status": "Finished",
+      "category": "Web with AI",
+      "tags": ["HTML", "CSS", "JavaScript", "Gemini API", "FireBase", "Express.js", "Node.js"],
+      "image": "/assets/images/projects/mindease.png",
+      "links": { "github": "https://github.com/AbhinavGupta-012/MindEase", "live": "https://mindease-chatbot.netlify.app/" }
     },
     {
       "id": 4,
