@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (err) {
             console.error(err);
-            popup.innerHTML = `<div class="gh-loading"><p>Stats unavailable</p></div>`;
+            popup.innerHTML = `<div class="gh-loading"><p>Stats currently unavailable. Kindly check back later</p></div>`;
         }
     };
 
