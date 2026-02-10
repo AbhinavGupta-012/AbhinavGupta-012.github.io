@@ -1,30 +1,26 @@
 {
   "programs": [
     {
-      "title": "LeetCode Knight Badge",
-      "issuer": "LeetCode",
-      "platform": "LeetCode",
-      "dateRange": "Dec 2024",
-      "credentialUrl": "https://leetcode.com/u/AbhinavGupta012/",
-      "description": "Achieved a contest rating of 1800+, placing in the top 5% of global participants in weekly coding contests.",
-      "skills": ["Data Structures", "Algorithms", "Dynamic Programming", "Graph Theory"],
+      "title": "Winner - Youth Skill Mela",
+      "issuer": "Center of Excellence for Sustainability",
+      "platform": "On-Site",
+      "dateRange": "15 July 2025",
+      "credentialUrl": "#",
+      "description": "Secured first place at the Youth Skill Mela by showcasing a technical project, demonstrating strong problem-solving skills, practical implementation, and real-world applicability.",
       "programCertificate": {
-        "image": "assets/certs/achievements/LeetCode_Knight.jpg"
-      },
-      "courses": []
+        "image": "/assets/Achievements/Youth Skill Mela.jpg"
+      }
     },
     {
-      "title": "Global Rank 500 - CodeChef Starters",
-      "issuer": "CodeChef",
-      "platform": "CodeChef",
-      "dateRange": "Aug 2024",
+      "title": "Second Runner Up - Critical Thinking Coding Cup",
+      "issuer": "Open Source Chandigarh",
+      "platform": "On-Site",
+      "dateRange": "23 July 2025",
       "credentialUrl": "#",
-      "description": "Secured a global rank of 500 in CodeChef Starters Division 2 among 10,000+ participants.",
-      "skills": ["Competitive Programming", "C++", "Problem Solving"],
+      "description": "Secured Second Runner Up position by efficiently solving DSA problems under time constraints during an on-site coding contest.",
       "programCertificate": {
-        "image": "assets/certs/achievements/CodeChef_Rank.jpg"
-      },
-      "courses": []
+        "image": "/assets/Achievements/Critical Thinking Coding Cup.jpg"
+      }
     }
   ]
 }

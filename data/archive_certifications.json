@@ -1,17 +1,7 @@
 {
   "programs": [
     {
-      "title": "Introduction to Python Programming",
-      "issuer": "Udemy",
-      "platform": "Udemy",
-      "dateRange": "Jan 2023",
-      "credentialUrl": "#",
-      "description": "A foundational course taken at the start of my journey, covering basic syntax, loops, and functions in Python.",
-      "skills": ["Python", "Scripting"],
-      "programCertificate": {
-        "image": "https://assets.leetcode.com/static_assets/others/2025.gif"
-      },
-      "courses": []
+      "title": "Nothing here yet"
     }
   ]
 }

@@ -1,28 +1,15 @@
 {
   "programs": [
     {
-      "title": "Smart India Hackathon 2024",
-      "issuer": "Ministry of Education",
+      "title": "JPMC Code for Good'25 Hackathon",
+      "issuer": "JPMorganChase",
       "platform": "On-Site",
-      "dateRange": "Nov 2024",
+      "dateRange": "June 2025",
       "credentialUrl": "#",
-      "description": "Participated in the grand finale of SIH 2024, working on problem statements related to smart automation and AI-driven surveillance.",
-      "skills": ["Team Leadership", "Rapid Prototyping", "Python", "OpenCV", "IoT"],
+      "description": "Participated in the on-site JPMC Code for Good hackathon, contributing to the development of a functional prototype aimed at solving a real-world problem through technology and collaboration.",
       "programCertificate": {
-        "image": "assets/certs/participation/SIH_Participation.jpg"
+        "image": "/assets/certs/Participation/JPMC Code for Good.jpg"
       } 
-    },
-    {
-      "title": "Google Cloud Hero - Cloud Hero Game",
-      "issuer": "Google Cloud",
-      "platform": "Virtual",
-      "dateRange": "Oct 2024",
-      "credentialUrl": "#",
-      "description": "Competed in a gamified cloud learning experience, deploying containers and managing Kubernetes clusters under time constraints.",
-      "skills": ["Google Cloud Platform", "Kubernetes", "Containerization"],
-      "programCertificate": {
-        "image": "assets/certs/participation/Cloud_Hero.jpg"
-      }
     }
   ]
 }
