@@ -130,7 +130,7 @@
       "description": "In-depth specialization focused on implementing and analyzing data structures and algorithms using Java.",
       "skills": ["Data Structures", "Algorithms", "Computational Thinking", "Linear Data Structures", "Non-Linear Data Structures", "Programming Principles", "Algorithm Analysis"],
       "programCertificate": {
-        "image": "../assets/certs/Codio/Main.jpg"
+        "image": "../assets/certs/Codio/Java Data Structures and Algorithms/Main.jpg"
       },
       "courses":[
         {
@@ -138,21 +138,21 @@
           "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/W3TQXFON4STW",
           "description": "Algorithm-focused course covering time and space complexity, core design techniques, and searching and sorting algorithms in Java.",
           "skills": ["Algorithms", "Recursion", "Greedy Algorithms", "Dynamic Programming", "Algorithm Analysis", "Computational Thinking"],
-          "certificateImage": "../assets/certs/Codio/Java Algorithms.jpg"
+          "certificateImage": "../assets/certs/Codio/Java Data Structures and Algorithms/Java Algorithms.jpg"
         },
         {
           "title": "Java: Linear Data Structures and Trees",
           "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/D18WOUTJ2FED",
           "description": "Practical study of linked lists, stacks, queues, and tree data structures implemented in Java.",
           "skills": ["Data Structures", "Linear Data Structures", "Trees", "Linked Lists", "Stacks", "Queues"],
-          "certificateImage": "../assets/certs/Codio/Java Linear Data Structures and Trees.jpg"
+          "certificateImage": "../assets/certs/Codio/Java Data Structures and Algorithms/Java Linear Data Structures and Trees.jpg"
         },
         {
           "title": "Java: Non-Linear Data Structures",
           "verifyUrl": "https://www.coursera.org/account/accomplishments/verify/N5ZTT7812FQ0",
           "description": "Advanced course focused on implementing and optimizing non-linear data structures such as graphs, heaps, and hash-based structures in Java.",
           "skills": ["Non-Linear Data Structures", "Graphs", "Heaps", "Hash Tables", "Graph Theory"],
-          "certificateImage": "../assets/certs/Codio/Java Non-Linear Data Structures.jpg"
+          "certificateImage": "../assets/certs/Codio/Java Data Structures and Algorithms/Java Non-Linear Data Structures.jpg"
         }
       ]
     }
